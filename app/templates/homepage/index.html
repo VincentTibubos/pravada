@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Pravada | Homepage {% endblock %}
+
+{% block customCSS %}
+    <link href="{% static 'css/homepage.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+      <div class="homepage">
+        <!-- Navigation -->
+        <b-navbar toggleable="md" type="light" variant="light">
+          <b-navbar-brand href="#">
+            <img src="/static/img/logo.png" style="height: 40px; width 40px;" class="navbar-logo" alt="PVD">
+            | Pravada
+          </b-navbar-brand>
+          <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+          <b-collapse is-nav id="nav_collapse">
+            <!-- Left Aligned Nav Items -->
+            <b-navbar-nav>
+              <b-nav-item-dropdown text="Subscriptions" right>
+                <b-dropdown-item v-for="subs in subscriptions" :key="subs.id" v-bind:href="subs.link">[[ subs.text ]]</b-dropdown-item>
+              </b-nav-item-dropdown>
+              <b-nav-item href="#">New</b-nav-item>
+              <b-nav-item href="#">Hot</b-nav-item>
+              <b-nav-item href="#">Popular</b-nav-item>
+            </b-navbar-nav>
+            <hr>
+            <!-- Right Aligned Nav Items -->
+            <b-navbar-nav class="ml-auto">
+              <b-nav-item>
+                <a class="text-muted" href="/account">
+                 Search
+                </a>
+              </b-nav-item>
+              <b-nav-item>
+                <a class="text-muted" href="/account">Login</a>
+              </b-nav-item>
+              <b-nav-item >
+                <a class="btn btn-sm btn-outline-primary" href="/account"> Write your story </a>
+              </b-nav-item>
+            </b-navbar-nav>
+          </b-collapse>
+        </b-navbar>
+        <!--/Navigation  -->
+
+        <!-- Header -->
+        <b-container class="p-5">
+          <b-row>
+            <b-col lg="8">
+              <h1>Featured Articles</h1>
+              <b-carousel id="carousel1"
+                    style="text-shadow: 1px 1px 2px #333;"
+                    controls
+                    indicators
+                    background="#ababab"
+                    :interval="4000"
+                    img-width="1024"
+                    img-height="480"
+                    v-model="slide"
+                    @sliding-start="onSlideStart"
+                    @sliding-end="onSlideEnd"
+              >
+                <b-carousel-slide class="carousel-item" caption="Blank Image" img-blank img-alt="Blank image">
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                    eros felis, tincidunt a tincidunt eget, convallis vel est. Ut pellentesque
+                    ut lacus vel interdum.
+                  </p>
+                </b-carousel-slide>
+                <b-carousel-slide class="carousel-item" caption="Blank Image" img-blank img-alt="Blank image">
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                    eros felis, tincidunt a tincidunt eget, convallis vel est. Ut pellentesque
+                    ut lacus vel interdum.
+                  </p>
+                </b-carousel-slide>
+                <b-carousel-slide class="carousel-item" caption="Blank Image" img-blank img-alt="Blank image">
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                    eros felis, tincidunt a tincidunt eget, convallis vel est. Ut pellentesque
+                    ut lacus vel interdum.
+                  </p>
+                </b-carousel-slide>
+                <b-carousel-slide class="carousel-item" caption="Blank Image" img-blank img-alt="Blank image">
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                    eros felis, tincidunt a tincidunt eget, convallis vel est. Ut pellentesque
+                    ut lacus vel interdum.
+                  </p>
+                </b-carousel-slide>
+                <b-carousel-slide class="carousel-item" caption="Blank Image" img-blank img-alt="Blank image">
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                    eros felis, tincidunt a tincidunt eget, convallis vel est. Ut pellentesque
+                    ut lacus vel interdum.
+                  </p>
+                </b-carousel-slide>
+              </b-carousel>
+            </b-col>
+            <b-col lg="4" class="mt-3" >
+              <h3>Top Stories</h3>
+              <b-card class="mb-2" title="Card title" sub-title="Card subtitle">
+                  <p class="card-text">
+                      Some quick example text to build on the <em>card title</em>
+                      and make up the bulk of the card's content.
+                  </p>
+                  <b-link href="#" class="card-link">Read More</b-link>
+              </b-card>
+              <b-card class="mb-2" title="Card title" sub-title="Card subtitle">
+                  <p class="card-text">
+                      Some quick example text to build on the <em>card title</em>
+                      and make up the bulk of the card's content.
+                  </p>
+                  <b-link href="#" class="card-link">Read More</b-link>
+              </b-card>
+            </b-col>
+          </b-row>
+        </b-container>
+        <!-- /Header -->
+
+        <hr class="container mb-5">
+
+        <!-- Categories Section -->
+        <b-container>
+          <b-row>
+            <!-- Blog Posts -->
+            <b-col lg="8" sm="12">
+              <div class="blog-post">
+                <h2 class="blog-post-title">Blog post</h2>
+                <p class="blog-post-meta">December 23, 2013 by <a href="https://getbootstrap.com/docs/4.1/examples/blog/#">Jacob</a></p>
+
+                <p>Cum sociis natoque penatibus et magnis <a href="https://getbootstrap.com/docs/4.1/examples/blog/#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
+                <blockquote>
+                  <p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                </blockquote>
+                <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+                <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+              </div>
+            </b-col>
+            <!-- Top Writers/Publications -->
+            <b-col lg="4" sm="12">
+              <div class="p-3">
+                <h4 class="font-italic">Top Writers</h4>
+                <ol class="mb-0">
+                  <li><a href="#">Writer 1</a></li>
+                  <li><a href="#">Writer 2</a></li>
+                  <li><a href="#">Writer 3</a></li>
+                  <li><a href="#">Writer 4</a></li>
+                  <li><a href="#">Writer 5</a></li>
+                  <li><a href="#">Writer 6</a></li>
+                  <li><a href="#">Writer 7</a></li>
+                  <li><a href="#">Writer 8</a></li>
+                </ol>
+              </div>
+
+              <div class="p-3">
+                <h4 class="font-italic">Top Publications</h4>
+                <ol class="mb-0">
+                  <li><a href="#">Publication 1</a></li>
+                  <li><a href="#">Publication 2</a></li>
+                  <li><a href="#">Publication 3</a></li>
+                  <li><a href="#">Publication 4</a></li>
+                  <li><a href="#">Publication 5</a></li>
+                  <li><a href="#">Publication 6</a></li>
+                  <li><a href="#">Publication 7</a></li>
+                  <li><a href="#">Publication 8</a></li>
+                </ol>
+              </div>
+
+            </b-col>
+          </b-row>
+        </b-container>
+
+        <footer class="blog-footer mt-2 font-small">
+          <div class="container text-center text-md-left">
+            <div class="row">
+              <div class="col-12">
+                <ul class="list-inline">
+                  <li class="list-inline-item"><a href="#">Help</a></li>
+                  <li class="list-inline-item"><a href="#">Team</a></li>
+                  <li class="list-inline-item"><a href="#">Blog</a></li>
+                  <li class="list-inline-item"><a href="#">Careers</a></li>
+                  <li class="list-inline-item"><a href="#">Privacy</a></li>
+                  <li class="list-inline-item"><a href="#">Terms</a></li>
+                  <li class="list-inline-item"><a href="#">About</a></li>
+                  <li class="list-inline-item"><a href="#">Contact</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+{% endblock %}
+
+{% block customJS %}
+    <script src="{% static 'js/homepage.js' %}"></script>
+{% endblock %}
