@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block body %}
-      <div class="homepage">
+      <div id="homepage">
         <!-- Navigation -->
         <b-navbar toggleable="md" type="light" variant="light">
           <b-navbar-brand href="#">
@@ -29,16 +29,10 @@
             <hr>
             <!-- Right Aligned Nav Items -->
             <b-navbar-nav class="ml-auto">
-              <b-nav-item>
-                <a class="text-muted" href="/account">
-                 Search
-                </a>
-              </b-nav-item>
-              <b-nav-item>
-                <a class="text-muted" href="/account">Login</a>
-              </b-nav-item>
-              <b-nav-item >
-                <a class="btn btn-sm btn-outline-primary" href="/account"> Write your story </a>
+              <b-nav-item href="search">Search</b-nav-item>
+              <b-nav-item href="login">Login</b-nav-item>
+              <b-nav-item href="write">
+                <b-button size="sm" variant="outline-primary"> Write your story </b-button>
               </b-nav-item>
             </b-navbar-nav>
           </b-collapse>
