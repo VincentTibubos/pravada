@@ -6,6 +6,10 @@
 {% block body %}
     <div class="login">
       <h1>Login</h1>
-
+      <form class="site-form" action="" method="post">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" value="Login">
+      </form>
     </div>
 {% endblock %}
