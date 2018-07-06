@@ -25,7 +25,7 @@ SECRET_KEY = '+q-_nw$7j!h&)bpxsm_xl*hg7@byzyj^_d_^4=k93$2zl+iieb'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1','192.168.1.145']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','192.168.1.145','0.0.0.0']
 
 
 # Application definition
@@ -84,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'pravada_db',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': '',
         'HOST': '127.0.0.1',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
         'OPTIONS': {
