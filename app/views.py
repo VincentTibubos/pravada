@@ -21,7 +21,13 @@ def home(request):
     return render(request, 'account/home.html')
 
 def profile(request):
-    return render(request, 'account/profile.html')
+    return render(request, 'account/index.html')
+
+def publication(request):
+    return render(request, 'account/publication.html')
+
+def article(request):
+    return render(request, 'account/article.html')
 
 def userhomepage(request):
     return render(request, 'account/userhomepage.html')

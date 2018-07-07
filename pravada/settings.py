@@ -41,12 +41,12 @@ INSTALLED_APPS = [
     'app',
     'post',
     
-    'django.contrib.sites',#allauth required apps
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.facebook',
-    'django_extensions'
+    # 'django.contrib.sites',#allauth required apps
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.facebook',
+    # 'django_extensions',
 
 
     'user'
