@@ -10,7 +10,7 @@
 {% block body %}
       <div id="homepage">
         <!-- Navigation -->
-        <b-navbar toggleable="md" type="light" variant="light">
+        <b-navbar toggleable="md" sticky="true" type="light" variant="light">
           <b-navbar-brand href="#">
             <img src="/static/img/logo.png" style="height: 40px; width 40px;" class="navbar-logo" alt="PVD">
             | Pravada
@@ -19,9 +19,6 @@
           <b-collapse is-nav id="nav_collapse">
             <!-- Left Aligned Nav Items -->
             <b-navbar-nav>
-              <b-nav-item-dropdown text="Subscriptions" right>
-                <b-dropdown-item v-for="subs in subscriptions" :key="subs.id" v-bind:href="subs.link">[[ subs.text ]]</b-dropdown-item>
-              </b-nav-item-dropdown>
               <b-nav-item href="#">New</b-nav-item>
               <b-nav-item href="#">Hot</b-nav-item>
               <b-nav-item href="#">Popular</b-nav-item>
@@ -44,7 +41,7 @@
         <!--/Navigation  -->
 
         <!-- Header -->
-        <b-container class="p-5">
+        <b-container class="p-3">
           <b-row>
             <b-col lg="8">
               <h1>Featured Articles</h1>
@@ -122,7 +119,7 @@
           <hr>
         </b-container>
 
-        <!-- Categories Section -->
+        <!-- Post Section -->
         <b-container>
           <b-row>
             <!-- Blog Posts -->
@@ -132,34 +129,35 @@
                 </div>
               </div>
               <div v-for="post in posts" :key="post.id" class="mb-2">
-
                 <b-card v-bind:title="post.title" >
                   <b-container fluid>
+                    {# Post Header #}
                     <b-row>
                       <b-col sm="2" md="2" lg="1" style="max-width: 100px;">
-                          <b-img src="/static/img/logo-alt.png"  rounded="circle" fluid alt="Responsive image" />
+                          <b-img src="/static/img/logo-alt.png" rounded="circle" fluid alt="Responsive image"/>
                       </b-col>
                       <b-col sm="10" md="10" lg="11">
                         <div><a v-bind:href="post.authorlink">[[post.author]]</a></div>
                         <small>[[post.date]]</small>
                       </b-col>
                     </b-row>
+                    {# Post Content #}
                     <b-row>
                         <b-col sm="8">
                             <p>[[post.details]]... <a v-bind:href='post.postLink'>(Read more)</a></p>
                         </b-col>
                         <b-col sm="4">
-
                             <b-img src="https://picsum.photos/1024/400/?image=41" fluid alt="Responsive image" />
                         </b-col>
                     </b-row>
                   </b-container>
+                  {# Post Footer #}
                   <div slot="footer">
                       <b-button-group >
                         <b-button variant="light"><span class="fa fa-arrow-up"></span></b-button>
                         <b-button variant="light" disabled>[[post.points]]</b-button>
                         <b-button variant="light"><span class="fa fa-arrow-down"></span></b-button>
-                        <b-button variant="light" class="visible-sm"><span class="fa fa-comment"></span><span class="d-none d-lg-block d-xl-block d-md-block">Comment</span></b-button>
+                        <b-button variant="light"><span class="fa fa-comment"></span><span> Comment</span></b-button>
                         <b-button variant="light"><span class="fa fa-share"></span> Share</b-button>
                       </b-button-group>
                   </div>

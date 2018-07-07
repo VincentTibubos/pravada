@@ -16,16 +16,6 @@ new Vue({
       {id: 8,link:'wewe.com', name: 'lupet'},
       {id: 9,link:'wewe.com', name: 'bukake'},
       {id: 10,link:'wewe.com', name: 'my step sister'},
-      {id: 11,link:'wewe.com', name: 'I just came'},
-      {id: 12,link:'wewe.com', name: 'team bahay'},
-      {id: 13,link:'wewe.com', name: 'dilawan'},
-      {id: 14,link:'wewe.com', name: 'malacanang'},
-      {id: 15,link:'wewe.com', name: 'php'},
-      {id: 16,link:'wewe.com', name: 'programming'},
-      {id: 17,link:'wewe.com', name: 'incredibles'},
-      {id: 18,link:'wewe.com', name: 'avengers'},
-      {id: 19,link:'wewe.com', name: 'your mom'},
-      {id: 20,link:'wewe.com', name: 'hentai is life'}
     ],
     subscriptions: [
       { id: 1, text: 'Subsciptions 1', link:'subscription1'},

@@ -10,14 +10,14 @@
 {% block body %}
       <div id="homepage">
         <!-- Navigation -->
-        <b-navbar toggleable="md" type="light" variant="light">
+        <b-navbar toggleable="md" type="light" sticky="true" variant="light">
           <b-navbar-brand href="#">
-            <img src="/static/img/logo.png" style="height: 40px; width 40px;" class="navbar-logo" alt="PVD">
+            <img src="/static/img/logo.png" style="height: 40px; width:40px;" class="navbar-logo" alt="PVD">
             | Pravada
           </b-navbar-brand>
           <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
           <b-collapse is-nav id="nav_collapse">
-            
+
             <!-- Left Aligned Nav Items -->
             <b-navbar-nav>
                 <b-nav-item-dropdown text="Subscriptions" right>
@@ -49,7 +49,7 @@
               </b-nav-item>
 
 
-              
+
             </b-navbar-nav>
           </b-collapse>
         </b-navbar>
@@ -60,8 +60,10 @@
           <b-row>
             <b-col lg="9">
               <div class="d-flex">
-                <div class="p-2"> 
-                    <b-badge pill v-for="tag in tags" :key="tag.id" v-bind:href="[[tag.link]]">[[tag.name]]</b-badge>
+                <div class="p-2">
+                  <b-button class="m-1" variant="secondary" v-for="tag in tags" :key="tag.id" v-bind:href="tag.link">
+                      [[tag.name]]
+                  </b-button>
                 </div>
               </div>
               <div v-for="post in posts" :key="post.id" class="mb-2">
@@ -98,21 +100,6 @@
                   </div>
                 </b-card>
               </div>
-<!-- 
-                <b-card title="Title">
-                  
-                  <b-row>
-                      <b-col sm="8">
-  
-                      </b-col>
-                      <b-col sm="4">
-  
-                      </b-col>
-                  </b-row>
-                  <div slot="footer">
-                      <small class="text-muted">Last updated 3 mins ago</small>
-                  </div>
-                </b-card> -->
             </b-col>
             <b-col lg="3">
                 <b-card img-top class="mb-3">
@@ -123,11 +110,11 @@
                   <b-button href="#" block variant="primary">Create</b-button>
                   <b-button href="#" block variant="primary">Community</b-button>
                 </b-card>
-                
-                <b-card 
+
+                <b-card
                     header="Top Writers"
                     class="text-center mb-3">
-                    
+
                     <ol class="mb-0">
                         <li><a href="#">Writer 1</a></li>
                         <li><a href="#">Writer 2</a></li>
@@ -139,10 +126,10 @@
                         <li><a href="#">Writer 8</a></li>
                       </ol>
                 </b-card>
-                <b-card 
+                <b-card
                     header="Top Publications"
                     class="text-center">
-                    
+
                     <ol class="mb-0">
                         <li><a href="#">Publications</a></li>
                         <li><a href="#">Publications</a></li>
@@ -161,7 +148,7 @@
 
 
         <!-- Categories Section -->
-   
+
 
         <footer class="blog-footer mt-2 font-small">
           <div class="container text-center text-md-left">

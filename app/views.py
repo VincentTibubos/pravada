@@ -6,12 +6,6 @@ def index(request):
     return render(request, 'homepage/index.html')
 
 def login(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(data = request.POST)
-        if form.is_valid():
-            return redirect ('app:home')
-    else:
-        form = AuthenticationForm()
     return render(request, 'account/login.html')
 
 def register(request):
