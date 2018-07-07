@@ -1,4 +1,4 @@
-from  rest_framework import serializers
+from rest_framework import serializers
 from post.models import Post
 
 # JSON Conversion and Validation
