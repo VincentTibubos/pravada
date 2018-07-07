@@ -3,9 +3,76 @@
 
 {% block title %} Pravada | Register {% endblock %}
 
-{% block body %}
-    <div class="register">
-      <h1>Register</h1>
 
+{% block customCSS %}
+    <link href="{% static 'css/register.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+
+    <div id="register">
+
+      <!--/Navigation  -->
+
+      <b-navbar toggleable="md" type="light" variant="light">
+        <b-navbar-brand href="/">
+          <img src="/static/img/logo.png" style="height: 40px; width 40px;" class="navbar-logo" alt="PVD">
+          | Pravada
+        </b-navbar-brand>
+        <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+        <b-collapse is-nav id="nav_collapse">
+
+          <!-- this hr is not visible why? -->
+          <!-- <hr> -->
+
+          <!-- Right Aligned Nav Items -->
+          <b-navbar-nav class="ml-auto">
+            <b-nav-item href="/login">Login</b-nav-item>
+          </b-navbar-nav>
+        </b-collapse>
+      </b-navbar>
+
+      <!-- Register Container -->
+
+      <b-container>
+          <b-row>
+              <b-col class="center" lg="4" offset-lg="4" md="6" offset-md="3" sm="6" offset-sm="3">
+                <form class="site-form" action="" method="post">
+                  <b-row>
+                    <b-col class="text-center">
+                        <img alt="img" src="{% static 'img/logo.png' %}" width="60"/><span class="pt-3" style="font-size: 30px;">
+                        <h1>Pravada|Register</h1>
+                    </b-col>
+                  </b-row>
+                  {% csrf_token %} 
+                  <b-form-group
+                      :invalid-feedback="invalidPassFeedback"
+                      :state="state"
+                  >
+                    <b-form-input :state="state" v-model.trim="username" placeholder="Username"></b-form-input>
+                    <b-form-input :state="state" v-model.trim="email" type="email" placeholder="Email"></b-form-input>
+                    <b-form-input :state="state" v-model.trim="password" placeholder="Password" type="password"></b-form-input>
+                    <b-form-input :state="state" v-model.trim="confirmPassword" placeholder="Confirm Password" type="password"></b-form-input>
+                  </b-form-group>
+                  <b-button type="submit" variant="custom" block="block" v-on:click.prevent='register'>Register</b-button>
+                  <div class="text-center">-or-</div>
+                 
+                  <b-container>
+                    <b-row>
+                      <b-col sm='6' class="px-1"><b-button type="submit" variant="danger" block>Google</b-button></b-col>
+                      <b-col sm='6' class="px-1"><b-button type="submit" variant="primary" block>Facebook</b-button></b-col>
+                    </b-row>
+                </b-container>
+                </form>
+              </b-col>
+            </b-row>
+      </b-container>
+      
     </div>
 {% endblock %}
+
+
+{% block customJS %}
+    <script src="{% static 'js/register.js' %}"></script>
+{% endblock %}
+

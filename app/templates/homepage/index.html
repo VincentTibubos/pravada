@@ -29,7 +29,11 @@
             <hr>
             <!-- Right Aligned Nav Items -->
             <b-navbar-nav class="ml-auto">
-              <b-nav-item href="search">Search</b-nav-item>
+              <b-nav-item href="search">
+                <form action="">
+                  <b-form-input placeholder="Search..."></b-form-input>
+                </form>
+              </b-nav-item>
               <b-nav-item href="login">Login</b-nav-item>
               <b-nav-item href="write">
                 <b-button size="sm" variant="outline-primary"> Write your story </b-button>
@@ -120,17 +124,44 @@
         <b-container>
           <b-row>
             <!-- Blog Posts -->
-            <b-col lg="8" sm="12">
-              <div class="blog-post">
-                <h2 class="blog-post-title">Blog post</h2>
-                <p class="blog-post-meta">December 23, 2013 by <a href="https://getbootstrap.com/docs/4.1/examples/blog/#">Jacob</a></p>
+            <b-col lg="8" sm="12"><div class="d-flex">
+                <div class="p-2"> 
+                  <b-badge pill v-for="tag in tags" :key="tag.id"><a  class="text-light">[[tag.name]]</a></b-badge>
+                </div>
+              </div>
+              <div v-for="post in posts" :key="post.id" class="mb-2">
 
-                <p>Cum sociis natoque penatibus et magnis <a href="https://getbootstrap.com/docs/4.1/examples/blog/#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
-                <blockquote>
-                  <p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                </blockquote>
-                <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-                <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                <b-card v-bind:title="post.title" >
+                  <b-container fluid>
+                    <b-row>
+                      <b-col sm="2" md="2" lg="1" style="max-width: 100px;">
+                          <b-img src="/static/img/logo-alt.png"  rounded="circle" fluid alt="Responsive image" />
+                      </b-col>
+                      <b-col sm="10" md="10" lg="11">
+                        <div><a v-bind:href="post.authorlink">[[post.author]]</a></div>
+                        <small>[[post.date]]</small>
+                      </b-col>
+                    </b-row>
+                    <b-row>
+                        <b-col sm="8">
+                            <p>[[post.details]]... <a v-bind:href='post.postLink'>(Read more)</a></p>
+                        </b-col>
+                        <b-col sm="4">
+
+                            <b-img src="https://picsum.photos/1024/400/?image=41" fluid alt="Responsive image" />
+                        </b-col>
+                    </b-row>
+                  </b-container>
+                  <div slot="footer">
+                      <b-button-group >
+                        <b-button variant="light"><span class="fa fa-arrow-up"></span></b-button>
+                        <b-button variant="light" disabled>[[post.points]]</b-button>
+                        <b-button variant="light"><span class="fa fa-arrow-down"></span></b-button>
+                        <b-button variant="light" class="visible-sm"><span class="fa fa-comment"></span><span class="d-none d-lg-block d-xl-block d-md-block">Comment</span></b-button>
+                        <b-button variant="light"><span class="fa fa-share"></span> Share</b-button>
+                      </b-button-group>
+                  </div>
+                </b-card>
               </div>
             </b-col>
             <!-- Top Writers/Publications -->

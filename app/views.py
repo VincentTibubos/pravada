@@ -12,10 +12,16 @@ def login(request):
             return redirect ('app:home')
     else:
         form = AuthenticationForm()
-    return render(request, 'account/login.html',{ 'form':form })
+    return render(request, 'account/login.html')
 
 def register(request):
     return render(request, 'account/register.html')
 
 def home(request):
     return render(request, 'account/home.html')
+
+def profile(request):
+    return render(request, 'account/profile.html')
+
+def userhomepage(request):
+    return render(request, 'account/userhomepage.html')

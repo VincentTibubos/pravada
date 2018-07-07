@@ -18,9 +18,10 @@ from django.urls import path, include
 from django.conf.urls import handler404, handler500
 
 urlpatterns = [
+    path('accounts/', include('django.contrib.auth.urls')),#allauth
     path('admin/', admin.site.urls),
     path('',include('app.urls')),
-    path('api/post/', include('post.api.urls')),
+    path('api/post/', include('post.api.urls'))
 ]
 
 

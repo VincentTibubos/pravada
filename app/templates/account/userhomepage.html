@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Pravada | Homepage {% endblock %}
+
+{% block customCSS %}
+    <link href="{% static 'css/userhomepage.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+      <div id="homepage">
+        <!-- Navigation -->
+        <b-navbar toggleable="md" type="light" variant="light">
+          <b-navbar-brand href="#">
+            <img src="/static/img/logo.png" style="height: 40px; width 40px;" class="navbar-logo" alt="PVD">
+            | Pravada
+          </b-navbar-brand>
+          <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+          <b-collapse is-nav id="nav_collapse">
+            
+            <!-- Left Aligned Nav Items -->
+            <b-navbar-nav>
+                <b-nav-item-dropdown text="Subscriptions" right>
+                  <b-dropdown-item v-for="subs in subscriptions" :key="subs.id" v-bind:href="subs.link">[[ subs.text ]]</b-dropdown-item>
+                </b-nav-item-dropdown>
+                <b-nav-item href="#">New</b-nav-item>
+                <b-nav-item href="#">Hot</b-nav-item>
+                <b-nav-item href="#">Popular</b-nav-item>
+              </b-navbar-nav>
+              <hr>
+            <!-- Right Aligned Nav Items -->
+            <b-navbar-nav class="ml-auto">
+              <b-nav-item href="search">
+                <form action="">
+                  <b-form-input placeholder="Search..."></b-form-input>
+                </form>
+              </b-nav-item>
+              <b-nav-item href="login"><span class="fa fa-bell"></span></b-nav-item>
+              <b-nav-item href="/login">Login</b-nav-item>
+              <b-nav-item href="write">
+                <b-dropdown size="sm" variant="outline-primary" text="Profile" right>
+                  <b-dropdown-item>First Action</b-dropdown-item>
+                  <b-dropdown-item>Second Action</b-dropdown-item>
+                  <b-dropdown-item>Third Action</b-dropdown-item>
+                  <b-dropdown-divider></b-dropdown-divider>
+                  <b-dropdown-item>Something else here...</b-dropdown-item>
+                  <b-dropdown-item disabled>Disabled action</b-dropdown-item>
+                </b-dropdown>
+              </b-nav-item>
+
+
+              
+            </b-navbar-nav>
+          </b-collapse>
+        </b-navbar>
+        <!--/Navigation  -->
+
+        <!-- Header -->
+        <b-container class="p-5">
+          <b-row>
+            <b-col lg="9">
+              <div class="d-flex">
+                <div class="p-2"> 
+                  <b-badge pill v-for="tag in tags" :key="tag.id"><a  class="text-light">[[tag.name]]</a></b-badge>
+                </div>
+              </div>
+              <div v-for="post in posts" :key="post.id" class="mb-2">
+
+                <b-card v-bind:title="post.title" >
+                  <b-container fluid>
+                    <b-row>
+                      <b-col sm="2" md="2" lg="1" style="max-width: 100px;">
+                          <b-img src="/static/img/logo-alt.png"  rounded="circle" fluid alt="Responsive image" />
+                      </b-col>
+                      <b-col sm="10" md="10" lg="11">
+                        <div><a v-bind:href="post.authorlink">[[post.author]]</a></div>
+                        <small>[[post.date]]</small>
+                      </b-col>
+                    </b-row>
+                    <b-row>
+                        <b-col sm="8">
+                            <p>[[post.details]]... <a v-bind:href='post.postLink'>(Read more)</a></p>
+                        </b-col>
+                        <b-col sm="4">
+
+                            <b-img src="https://picsum.photos/1024/400/?image=41" fluid alt="Responsive image" />
+                        </b-col>
+                    </b-row>
+                  </b-container>
+                  <div slot="footer">
+                      <b-button-group >
+                        <b-button variant="light"><span class="fa fa-arrow-up"></span></b-button>
+                        <b-button variant="light" disabled>[[post.points]]</b-button>
+                        <b-button variant="light"><span class="fa fa-arrow-down"></span></b-button>
+                        <b-button variant="light" class="visible-sm"><span class="fa fa-comment"></span><span class="d-none d-lg-block d-xl-block d-md-block">Comment</span></b-button>
+                        <b-button variant="light"><span class="fa fa-share"></span> Share</b-button>
+                      </b-button-group>
+                  </div>
+                </b-card>
+              </div>
+<!-- 
+                <b-card title="Title">
+                  
+                  <b-row>
+                      <b-col sm="8">
+  
+                      </b-col>
+                      <b-col sm="4">
+  
+                      </b-col>
+                  </b-row>
+                  <div slot="footer">
+                      <small class="text-muted">Last updated 3 mins ago</small>
+                  </div>
+                </b-card> -->
+            </b-col>
+            <b-col lg="3">
+                <b-card img-top class="mb-3">
+                  <div>
+                      <img src="https://placekitten.com/1000/300" class="img-fluid" id='img-cover'/>
+                      <img  src="{% static 'img/logo-alt.png' %}" width="15%" style="margin-top: -50%;" />
+                    </div>
+                  <b-button href="#" block variant="primary">Create</b-button>
+                  <b-button href="#" block variant="primary">Community</b-button>
+                </b-card>
+                
+                <b-card 
+                    header="Top Writers"
+                    class="text-center mb-3">
+                    
+                    <ol class="mb-0">
+                        <li><a href="#">Writer 1</a></li>
+                        <li><a href="#">Writer 2</a></li>
+                        <li><a href="#">Writer 3</a></li>
+                        <li><a href="#">Writer 4</a></li>
+                        <li><a href="#">Writer 5</a></li>
+                        <li><a href="#">Writer 6</a></li>
+                        <li><a href="#">Writer 7</a></li>
+                        <li><a href="#">Writer 8</a></li>
+                      </ol>
+                </b-card>
+                <b-card 
+                    header="Top Publications"
+                    class="text-center">
+                    
+                    <ol class="mb-0">
+                        <li><a href="#">Publications</a></li>
+                        <li><a href="#">Publications</a></li>
+                        <li><a href="#">Publications</a></li>
+                        <li><a href="#">Publications</a></li>
+                        <li><a href="#">Publications</a></li>
+                        <li><a href="#">Publications</a></li>
+                        <li><a href="#">Publications</a></li>
+                        <li><a href="#">Publications</a></li>
+                      </ol>
+                </b-card>
+            </b-col>
+          </b-row>
+        </b-container>
+        <!-- /Header -->
+
+
+        <!-- Categories Section -->
+   
+
+        <footer class="blog-footer mt-2 font-small">
+          <div class="container text-center text-md-left">
+            <div class="row">
+              <div class="col-12">
+                <ul class="list-inline">
+                  <li class="list-inline-item"><a href="#">Help</a></li>
+                  <li class="list-inline-item"><a href="#">Team</a></li>
+                  <li class="list-inline-item"><a href="#">Blog</a></li>
+                  <li class="list-inline-item"><a href="#">Careers</a></li>
+                  <li class="list-inline-item"><a href="#">Privacy</a></li>
+                  <li class="list-inline-item"><a href="#">Terms</a></li>
+                  <li class="list-inline-item"><a href="#">About</a></li>
+                  <li class="list-inline-item"><a href="#">Contact</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+{% endblock %}
+
+{% block customJS %}
+    <script src="{% static 'js/userhomepage.js' %}"></script>
+{% endblock %}

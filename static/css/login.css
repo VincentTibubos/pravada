@@ -1,0 +1,14 @@
+.site-form{
+  background-color: #f9f9f9;
+  padding: 20px;
+  margin-top: 30px;
+}
+.site-form>input{
+}
+.btn-custom{
+  background-color: #999;
+  color: white;
+}
+.btn-custom:hover{
+  background-color: #888;
+}
