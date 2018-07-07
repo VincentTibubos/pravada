@@ -40,16 +40,14 @@ INSTALLED_APPS = [
     'rest_framework',
     'app',
     'post',
-    
-    'django.contrib.sites',#allauth required apps
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.facebook',
-    'django_extensions'
-
-
     'user'
+
+    # 'django.contrib.sites',
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.facebook',
+    # 'django_extensions'
 ]
 
 SITE_ID = 1 #required by allauth
@@ -82,7 +80,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                
+
             ],
         },
     },
