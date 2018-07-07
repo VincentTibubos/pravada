@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Pravada | Homepage {% endblock %}
+
+{% block customCSS %}
+    <link href="{% static 'css/homepage.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+      <div id="homepage">
+        <!-- Navigation -->
+        <b-navbar toggleable="md" type="light" variant="light">
+          <b-navbar-brand href="#">
+            <img src="/static/img/logo.png" style="height: 40px; width: 40px;" class="navbar-logo" alt="PVD">
+            | Pravada
+          </b-navbar-brand>
+          <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+          <b-collapse is-nav id="nav_collapse">
+            
+            <!-- Left Aligned Nav Items -->
+            <b-navbar-nav>
+                <b-nav-item-dropdown text="Subscriptions" right>
+                  <b-dropdown-item v-for="subs in subscriptions" :key="subs.id" v-bind:href="subs.link">[[ subs.text ]]</b-dropdown-item>
+                </b-nav-item-dropdown>
+                <b-nav-item href="#">New</b-nav-item>
+                <b-nav-item href="#">Hot</b-nav-item>
+                <b-nav-item href="#">Popular</b-nav-item>
+              </b-navbar-nav>
+              <hr>
+            <!-- Right Aligned Nav Items -->
+            <b-navbar-nav class="ml-auto">
+              <b-nav-item href="search">
+                <form action="">
+                  <b-form-input placeholder="Search..."></b-form-input>
+                </form>
+              </b-nav-item>
+              <b-nav-item href="login"><span class="fa fa-bell"></span></b-nav-item>
+              <b-nav-item href="/login">Login</b-nav-item>
+              <b-nav-item href="write">
+                <b-dropdown size="sm" variant="outline-primary" text="Profile" right>
+                  <b-dropdown-item>First Action</b-dropdown-item>
+                  <b-dropdown-item>Second Action</b-dropdown-item>
+                  <b-dropdown-item>Third Action</b-dropdown-item>
+                  <b-dropdown-divider></b-dropdown-divider>
+                  <b-dropdown-item>Something else here...</b-dropdown-item>
+                  <b-dropdown-item disabled>Disabled action</b-dropdown-item>
+                </b-dropdown>
+              </b-nav-item>
+
+
+              
+            </b-navbar-nav>
+          </b-collapse>
+        </b-navbar>
+        <!--/Navigation  -->
+
+        <!-- Header -->
+        <b-container class="p-5">
+          <b-row>
+            <b-col lg=12>
+              <b-card title="Card Title"
+                img-src="https://picsum.photos/600/300/?image=25"
+                img-alt="Image"
+                img-top
+                tag="article">
+                <hr/>
+                <b-row class="mb-2">
+                  <b-col xs="2" style="max-width: 80px;">
+                      <b-img src="/static/img/logo-alt.png"  rounded="circle" fluid alt="Responsive image" />
+                  </b-col>
+                  <b-col xs="7">
+                    <div><a v-bind:href="posts[0].authorlink">[[posts[0].author]]</a></div>
+                    <small>[[posts[0].date]]</small>
+                  </b-col>
+                  <b-col xs="3" class="pr-0">
+                      <span class="fa fa-facebook"></span>
+                      <span class="fa fa-twitter"></span>
+                      <span class="fa fa-google-plus"></span>
+                  </b-col>
+                </b-row>
+                <hr />
+              <p class="card-text">
+                  [[posts[0].details]]tent.
+              </p>
+              <div class="d-flex">
+                  <div class="p-2"> 
+                    <b-badge pill v-for="tag in tags" :key="tag.id" v-bind:href="tag.link">[[tag.name]]</b-badge>
+                  </div>
+                </div>
+              
+              <div slot="footer">
+                  <b-button-group >
+                    <b-button variant="light"><span class="fa fa-arrow-up"></span></b-button>
+                    <b-button variant="light" disabled>[[posts[0].points]]</b-button>
+                    <b-button variant="light"><span class="fa fa-arrow-down"></span></b-button>
+                    <b-button variant="light" class="visible-sm"><span class="fa fa-comment"></span><span class="d-none d-lg-block d-xl-block d-md-block">Comment</span></b-button>
+                    <b-button variant="light"><span class="fa fa-share"></span> Share</b-button>
+                  </b-button-group>
+              </div>
+              
+              </b-card>
+              <div class="container">
+                  <div class="row border p-2">
+                      <div class="comments col-md-12" id="comments">
+                          <h3 class="mb-2">Comments</h3>
+                          <!-- comment -->
+                          <div class="comment mb-2 row">
+                              <div class="comment-avatar col-md-1 col-sm-2 text-center pr-1">
+                                  <a href=""><img class="mx-auto rounded-circle img-fluid" src="http://demos.themes.guide/bodeo/assets/images/users/m103.jpg" alt="avatar"></a>
+                              </div>
+                              <div class="comment-content col-md-11 col-sm-10">
+                                  <h6 class="small comment-meta"><a href="#">admin</a> Today, 2:38</h6>
+                                  <div class="comment-body">
+                                      <p>
+                                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod <a href>http://wwwwww.com</a> tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
+                                          <br>
+                                          <a href="" class="text-right small"><i class="ion-reply"></i> Reply</a>
+                                      </p>
+                                  </div>
+                              </div>
+                              
+                              <!-- reply is indented -->
+                              <div class="comment-reply col-md-11 offset-md-1 col-sm-10 offset-sm-2">
+                                  <div class="row">
+                                      <div class="comment-avatar col-md-1 col-sm-2 text-center pr-1">
+                                          <a href=""><img class="mx-auto rounded-circle img-fluid" src="http://demos.themes.guide/bodeo/assets/images/users/m101.jpg" alt="avatar"></a>
+                                      </div>
+                                      <div class="comment-content col-md-11 col-sm-10 col-12">
+                                          <h6 class="small comment-meta"><a href="#">phildownney</a> Today, 12:31</h6>
+                                          <div class="comment-body">
+                                              <p>Really?? Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat.
+                                                  <br>
+                                                  <a href="" class="text-right small"><i class="ion-reply"></i> Reply</a>
+                                              </p>
+                                          </div>
+                                      </div>
+                                  </div>
+                             </div>
+                             <!-- /reply is indented -->
+                          </div>
+                          <!-- /comment -->
+                          <!-- comment -->
+                          <div class="comment mb-2 row">
+                              <div class="comment-avatar col-md-1 col-sm-2 text-center pr-1">
+                                  <a href=""><img class="mx-auto rounded-circle img-fluid" src="http://demos.themes.guide/bodeo/assets/images/users/w102.jpg" alt="avatar"></a>
+                              </div>
+                              <div class="comment-content col-md-11 col-sm-10">
+                                  <h6 class="small comment-meta"><a href="#">maslarino</a> Yesterday, 5:03 PM</h6>
+                                  <div class="comment-body">
+                                      <p>Sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
+                                          <br>
+                                          <a href="" class="text-right small"><i class="ion-reply"></i> Reply</a>
+                                      </p>
+                                  </div>
+                              </div>
+                          </div>
+                          <!-- /comment -->
+                          <div class="row pt-2">
+                              <div class="col-12">
+                                <b-input-group>
+                                  <b-form-input></b-form-input>
+                                  <b-input-group-append>
+                                    <b-btn variant="default">Comment</b-btn>
+                                  </b-input-group-append>
+                                </b-input-group>
+                              </div>
+                          </div>
+              
+                      </div>
+                  </div>
+              </div>
+            </b-col>
+          </b-row>
+        </b-container>
+        <!-- /Header -->
+
+
+
+        <footer class="blog-footer mt-2 font-small">
+          <div class="container text-center text-md-left">
+            <div class="row">
+              <div class="col-12">
+                <ul class="list-inline">
+                  <li class="list-inline-item"><a href="#">Help</a></li>
+                  <li class="list-inline-item"><a href="#">Team</a></li>
+                  <li class="list-inline-item"><a href="#">Blog</a></li>
+                  <li class="list-inline-item"><a href="#">Careers</a></li>
+                  <li class="list-inline-item"><a href="#">Privacy</a></li>
+                  <li class="list-inline-item"><a href="#">Terms</a></li>
+                  <li class="list-inline-item"><a href="#">About</a></li>
+                  <li class="list-inline-item"><a href="#">Contact</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+{% endblock %}
+
+{% block customJS %}
+    <script src="{% static 'js/publication.js' %}"></script>
+    <script>
+        var img_cover=document.getElementById('img-cover');
+        console.log('sdf');
+    </script>
+{% endblock %}
