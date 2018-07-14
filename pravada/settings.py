@@ -41,17 +41,7 @@ INSTALLED_APPS = [
     'app',
     'post',
     'user'
-
-    # 'django.contrib.sites',
-    # 'allauth',
-    # 'allauth.account',
-    # 'allauth.socialaccount',
-    # 'allauth.socialaccount.providers.facebook',
-    # 'django_extensions'
 ]
-
-SITE_ID = 1 #required by allauth
-LOGIN_REDIRECT_URL = "/"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

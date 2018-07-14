@@ -17,7 +17,7 @@
           </b-navbar-brand>
           <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
           <b-collapse is-nav id="nav_collapse">
-            
+
             <!-- Left Aligned Nav Items -->
             <b-navbar-nav>
                 <b-nav-item-dropdown text="Subscriptions" right>
@@ -49,7 +49,7 @@
               </b-nav-item>
 
 
-              
+
             </b-navbar-nav>
           </b-collapse>
         </b-navbar>
@@ -73,16 +73,16 @@
             <b-col lg="9">
                 <h4 class="pl-3">Trending Tags</h4>
               <div class="d-flex">
-                <div class="p-2"> 
+                <div class="p-2">
                     <b-badge pill v-for="tag in tags" :key="tag.id" v-bind:href="[[tag.link]]">[[tag.name]]</b-badge>
                 </div>
               </div>
               <hr />
               <b-tabs>
                   <b-tab title="Latest" >
-                      
+
                     <div v-for="post in posts" :key="post.id" class="my-2">
-  
+
                       <b-card v-bind:title="post.title" >
                         <b-container fluid>
                           <b-row class="mb-2">
@@ -99,7 +99,7 @@
                                   <p>[[post.details]]... <a v-bind:href='post.postLink'>(Read more)</a></p>
                               </b-col>
                               <b-col sm="4">
-  
+
                                   <b-img src="https://picsum.photos/1024/400/?image=41" fluid alt="Responsive image" />
                               </b-col>
                           </b-row>
@@ -117,9 +117,9 @@
                     </div>
                   </b-tab>
                   <b-tab title="Most Read" >
-                      
+
                     <div v-for="post in posts" :key="post.id" class="my-2">
-  
+
                       <b-card v-bind:title="post.title" >
                         <b-container fluid>
                           <b-row class="mb-2">
@@ -136,7 +136,7 @@
                                   <p>[[post.details]]... <a v-bind:href='post.postLink'>(Read more)</a></p>
                               </b-col>
                               <b-col sm="4">
-  
+
                                   <b-img src="https://picsum.photos/1024/400/?image=41" fluid alt="Responsive image" />
                               </b-col>
                           </b-row>
@@ -154,9 +154,9 @@
                     </div>
                   </b-tab>
                   <b-tab title="Drafts" >
-                      
+
                     <div v-for="post in posts" :key="post.id" class="my-2">
-  
+
                       <b-card v-bind:title="post.title" >
                         <b-container fluid>
                           <b-row class="mb-2">
@@ -173,7 +173,7 @@
                                   <p>[[post.details]]... <a v-bind:href='post.postLink'>(Read more)</a></p>
                               </b-col>
                               <b-col sm="4">
-  
+
                                   <b-img src="https://picsum.photos/1024/400/?image=41" fluid alt="Responsive image" />
                               </b-col>
                           </b-row>
@@ -191,15 +191,15 @@
                     </div>
                   </b-tab>
               </b-tabs>
-<!-- 
+<!--
                 <b-card title="Title">
-                  
+
                   <b-row>
                       <b-col sm="8">
-  
+
                       </b-col>
                       <b-col sm="4">
-  
+
                       </b-col>
                   </b-row>
                   <div slot="footer">
@@ -207,8 +207,8 @@
                   </div>
                 </b-card> -->
             </b-col>
-            <b-col lg="3">           
-                <b-card 
+            <b-col lg="3">
+                <b-card
                     header="<span class='fa fa-users'><span> Team"
                     class="text-left">
                     <b-row>
@@ -238,7 +238,7 @@
                         <small>position</small>
                       </b-col>
                     </b-row>
-                      
+
                 </b-card>
             </b-col>
           </b-row>

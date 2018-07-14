@@ -124,9 +124,13 @@
           <b-row>
             <!-- Blog Posts -->
             <b-col lg="8" sm="12"><div class="d-flex">
-                <div class="p-2"> 
-                  <b-badge pill v-for="tag in tags" :key="tag.id" v-bind:href="tag.link">[[tag.name]]</b-badge>
+              <div class="d-flex">
+                <div class="p-2">
+                  <b-button class="m-1" variant="secondary" v-for="tag in tags" :key="tag.id" v-bind:href="tag.link">
+                      [[tag.name]]
+                  </b-button>
                 </div>
+              </div>
               </div>
               <div v-for="post in posts" :key="post.id" class="mb-2">
                 <b-card v-bind:title="post.title" >

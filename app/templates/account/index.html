@@ -4,20 +4,20 @@
 {% block title %} Pravada | Homepage {% endblock %}
 
 {% block customCSS %}
-    <link href="{% static 'css/homepage.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/userhomepage.css' %}" rel="stylesheet"/>
 {% endblock %}
 
 {% block body %}
       <div id="homepage">
         <!-- Navigation -->
-        <b-navbar toggleable="md" type="light" variant="light">
+        <b-navbar toggleable="md" type="light" sticky="true" variant="light">
           <b-navbar-brand href="#">
-            <img src="/static/img/logo.png" style="height: 40px; width 40px;" class="navbar-logo" alt="PVD">
+            <img src="/static/img/logo.png" style="height: 40px; width:40px;" class="navbar-logo" alt="PVD">
             | Pravada
           </b-navbar-brand>
           <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
           <b-collapse is-nav id="nav_collapse">
-            
+
             <!-- Left Aligned Nav Items -->
             <b-navbar-nav>
                 <b-nav-item-dropdown text="Subscriptions" right>
@@ -47,9 +47,6 @@
                   <b-dropdown-item disabled>Disabled action</b-dropdown-item>
                 </b-dropdown>
               </b-nav-item>
-
-
-              
             </b-navbar-nav>
           </b-collapse>
         </b-navbar>
@@ -59,73 +56,86 @@
         <b-container class="p-5">
           <b-row>
             <b-col lg="9">
-                        <b-row>
-                            <b-col sm="2" xs="2 ">
-                              <b-img left fluid src="https://picsum.photos/125/125/?image=58" rounded="circle" alt="left image"/>
-                            </b-col>
-                            <b-col sm="10" xs="10">
-                              <h3>Vincent Tibubos</h3>
-                              <p class="card-text">
-                                Reputation 
-                              </p>
-                              <b-button>Edit profile</b-button>
-                            </b-col>
-                        </b-row>
-                        <hr />
-                <b-tabs>
-                    <b-tab title="Latest" active>
-                      <br>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                    </b-tab>
-                    <b-tab title="Most Read" >
-                      <br>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+              <div class="d-flex">
+                <div class="p-2">
+                  <b-button class="m-1" variant="secondary" v-for="tag in tags" :key="tag.id" v-bind:href="tag.link">
+                      [[tag.name]]
+                  </b-button>
+                </div>
+              </div>
+              <div v-for="post in posts" :key="post.id" class="mb-2">
 
-                      The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
-                    </b-tab>
-                    <b-tab title="Drafts" >
-                      <br>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
-                    </b-tab>
-                  </b-tabs>
-<!-- 
-                <b-card title="Title">
-                  
-                  <b-row>
-                      <b-col sm="8">
-  
+                <b-card v-bind:title="post.title" >
+                  <b-container fluid>
+                    <b-row>
+                      <b-col sm="2" md="2" lg="1" style="max-width: 100px;">
+                          <b-img src="/static/img/logo-alt.png"  rounded="circle" fluid alt="Responsive image" />
                       </b-col>
-                      <b-col sm="4">
-  
+                      <b-col sm="10" md="10" lg="11">
+                        <div><a v-bind:href="post.authorlink">[[post.author]]</a></div>
+                        <small>[[post.date]]</small>
                       </b-col>
-                  </b-row>
+                    </b-row>
+                    <b-row>
+                        <b-col sm="8">
+                            <p>[[post.details]]... <a v-bind:href='post.postLink'>(Read more)</a></p>
+                        </b-col>
+                        <b-col sm="4">
+
+                            <b-img src="https://picsum.photos/1024/400/?image=41" fluid alt="Responsive image" />
+                        </b-col>
+                    </b-row>
+                  </b-container>
                   <div slot="footer">
-                      <small class="text-muted">Last updated 3 mins ago</small>
+                      <b-button-group >
+                        <b-button variant="light"><span class="fa fa-arrow-up"></span></b-button>
+                        <b-button variant="light" disabled>[[post.points]]</b-button>
+                        <b-button variant="light"><span class="fa fa-arrow-down"></span></b-button>
+                        <b-button variant="light" class="visible-sm"><span class="fa fa-comment"></span><span class="d-none d-lg-block d-xl-block d-md-block">Comment</span></b-button>
+                        <b-button variant="light"><span class="fa fa-share"></span> Share</b-button>
+                      </b-button-group>
                   </div>
-                </b-card> -->
-            </b-col>
-            <b-col lg="3">                
-                <b-card 
-                    header="Credentials"
-                    class="text-left mb-3">
-                      <p><span class="fa fa-birthday-cake"></span> August 23, 1998</p>
-                      <p><span class="fa fa-map-marker-alt"></span> Floridablanca, Pampanga</p>
-                      <p><span class="fa fa-user"></span> Developer</p>
-                    
-                    
                 </b-card>
-                <b-card 
-                    header="<span class='fa fa-users'><span> Organizations"
-                    class="text-center">
+              </div>
+            </b-col>
+            <b-col lg="3">
+                <b-card img-top class="mb-3">
+                  <div>
+                      <img src="https://placekitten.com/1000/300" class="img-fluid" id='img-cover'/>
+                      <img  src="{% static 'img/logo-alt.png' %}" width="15%" style="margin-top: -50%;" />
+                    </div>
+                  <b-button href="#" block variant="primary">Create</b-button>
+                  <b-button href="#" block variant="primary">Community</b-button>
+                </b-card>
+
+                <b-card
+                    header="Top Writers"
+                    class="text-center mb-3">
+
                     <ol class="mb-0">
-                        <li><a href="#">Organizations</a></li>
-                        <li><a href="#">Organizations</a></li>
-                        <li><a href="#">Organizations</a></li>
-                        <li><a href="#">Organizations</a></li>
-                        <li><a href="#">Organizations</a></li>
-                        <li><a href="#">Organizations</a></li>
-                        <li><a href="#">Organizations</a></li>
-                        <li><a href="#">Organizations</a></li>
-                        <li><a href="#">Organizations</a></li>
-                        <li><a href="#">Organizations</a></li>
-                        <li><a href="#">Organizations</a></li>
+                        <li><a href="#">Writer 1</a></li>
+                        <li><a href="#">Writer 2</a></li>
+                        <li><a href="#">Writer 3</a></li>
+                        <li><a href="#">Writer 4</a></li>
+                        <li><a href="#">Writer 5</a></li>
+                        <li><a href="#">Writer 6</a></li>
+                        <li><a href="#">Writer 7</a></li>
+                        <li><a href="#">Writer 8</a></li>
+                      </ol>
+                </b-card>
+                <b-card
+                    header="Top Publications"
+                    class="text-center">
+
+                    <ol class="mb-0">
+                        <li><a href="#">Publications</a></li>
+                        <li><a href="#">Publications</a></li>
+                        <li><a href="#">Publications</a></li>
+                        <li><a href="#">Publications</a></li>
+                        <li><a href="#">Publications</a></li>
+                        <li><a href="#">Publications</a></li>
+                        <li><a href="#">Publications</a></li>
+                        <li><a href="#">Publications</a></li>
                       </ol>
                 </b-card>
             </b-col>
@@ -133,6 +143,8 @@
         </b-container>
         <!-- /Header -->
 
+
+        <!-- Categories Section -->
 
 
         <footer class="blog-footer mt-2 font-small">
@@ -157,9 +169,5 @@
 {% endblock %}
 
 {% block customJS %}
-    <script src="{% static 'js/homepage.js' %}"></script>
-    <script>
-        var img_cover=document.getElementById('img-cover');
-        console.log('sdf');
-    </script>
+    <script src="{% static 'js/userhomepage.js' %}"></script>
 {% endblock %}
