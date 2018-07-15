@@ -10,7 +10,6 @@
 
 {% block body %}
       <div id="login">
-
         <!--/Navigation  -->
         <b-navbar toggleable="md" type="light" variant="light">
           <b-navbar-brand href="/">
@@ -21,7 +20,6 @@
             <b-nav-item href="/register">Register</b-nav-item>
           </b-navbar-nav>
         </b-navbar>
-
         <!-- Login Container -->
         <b-container>
             <b-row>
@@ -48,17 +46,6 @@
 
                     <b-button type="submit" variant="custom" block="block"
                               v-on:click.prevent="login">Login</b-button>
-                    <div class="text-center mt-4 mb-2">-Or Login Via -</div>
-                    <b-container>
-                        <b-row>
-                          <b-col sm='6' class="px-1">
-                            <b-button type="submit" variant="danger" block>Google</b-button>
-                          </b-col>
-                          <b-col sm='6' class="px-1">
-                            <b-button type="submit" variant="primary" block>Facebook</b-button>
-                          </b-col>
-                        </b-row>
-                    </b-container>
                   </form>
                 </b-col>
               </b-row>

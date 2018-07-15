@@ -26,7 +26,7 @@ SECRET_KEY = '+q-_nw$7j!h&)bpxsm_xl*hg7@byzyj^_d_^4=k93$2zl+iieb'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1','192.168.1.145','0.0.0.0']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','0.0.0.0']
 
 
 # Application definition
@@ -94,10 +94,10 @@ WSGI_APPLICATION = 'pravada.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dd2ro9hnvva34o',
-        'USER': 'hciumbmuxfwaoq',
-        'PASSWORD': 'dd38cf6d239ca4d2bbbe0877e8c52a1d0ecdfa49e3a03cd852fe1a8d7d43ae01',
-        'HOST': 'ec2-107-22-169-45.compute-1.amazonaws.com',
+        'NAME': 'pravada_db',
+        'USER': 'postgres',
+        'PASSWORD': 'root',
+        'HOST': '127.0.0.1',
         'PORT': '5432'
     }
 }
