@@ -8,6 +8,10 @@ urlpatterns = [
     # Homepage View
     path('',views.index, name='index'),
 
+    # Web Admin
+    path('webmaster/',views.admin, name='index'),
+    path('webmaster/login/',views.adminlogin, name='index'),
+
     # Account Views
     path('login/', views.login, name='login'),
     path('register/',views.register, name='register'),
@@ -21,5 +25,5 @@ urlpatterns = [
 
     # Publication Views
     path('publication/',views.publication, name='publication'),
-    path('dashboard/',views.dashboard, name='dashboard')
+    path('publication/dashboard/',views.dashboard, name='dashboard')
 ]

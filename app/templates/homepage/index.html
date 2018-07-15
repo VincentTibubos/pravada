@@ -132,41 +132,34 @@
                 </div>
               </div>
               </div>
-              <div v-for="post in posts" :key="post.id" class="mb-2">
-                <b-card v-bind:title="post.title" >
-                  <b-container fluid>
-                    {# Post Header #}
-                    <b-row>
-                      <b-col sm="2" md="2" lg="1" style="max-width: 100px;">
-                          <b-img src="/static/img/logo-alt.png" rounded="circle" fluid alt="Responsive image"/>
-                      </b-col>
-                      <b-col sm="10" md="10" lg="11">
-                        <div><a v-bind:href="post.authorlink">[[post.author]]</a></div>
-                        <small>[[post.date]]</small>
-                      </b-col>
-                    </b-row>
-                    {# Post Content #}
-                    <b-row>
-                        <b-col sm="8">
-                            <p>[[post.details]]... <a v-bind:href='post.postLink'>(Read more)</a></p>
-                        </b-col>
-                        <b-col sm="4">
-                            <b-img src="https://picsum.photos/1024/400/?image=41" fluid alt="Responsive image" />
-                        </b-col>
-                    </b-row>
-                  </b-container>
-                  {# Post Footer #}
-                  <div slot="footer">
-                      <b-button-group >
-                        <b-button variant="light"><span class="fa fa-arrow-up"></span></b-button>
-                        <b-button variant="light" disabled>[[post.points]]</b-button>
-                        <b-button variant="light"><span class="fa fa-arrow-down"></span></b-button>
-                        <b-button variant="light"><span class="fa fa-comment"></span><span> Comment</span></b-button>
-                        <b-button variant="light"><span class="fa fa-share"></span> Share</b-button>
-                      </b-button-group>
-                  </div>
-                </b-card>
-              </div>
+              {# Posts #}
+              <b-card v-for="post in posts" :key="post.id" class="my-3">
+                <b-container>
+                  <b-row class="mb-3">
+                    <b-col>
+                      <h3>[[post.title]]</h3>
+                      <span class="text-muted">Posted by <a v-bind:href="post.authorlink">[[post.author]]</a> on [[post.date]]</span>
+                    </b-col>
+                  </b-row>
+                  <b-row>
+                    <b-col sm="8"  md="8">
+                      <p>[[post.details]]... <a v-bind:href='post.postLink'>(Read more)</a></p>
+                    </b-col>
+                    <b-col sm="4"  md="4">
+                      <b-img class="d-none d-md-block" src="https://picsum.photos/1024/400/?image=41" thumbnail fluid alt="image" />
+                    </b-col>
+                  </b-row>
+                </b-container>
+                <div slot="footer" class="p-0">
+                  <b-button-group>
+                    <b-button variant="dark" disabled> 33 points</b-button>
+                    <b-button variant="light"><span class="fa fa-arrow-up"></span> Upvote</b-button>
+                    <b-button variant="light"><span class="fa fa-arrow-down"></span> Downvote</b-button>
+                    <b-button variant="light"><span class="fa fa-comment"></span> Comments</b-button>
+                    <b-button variant="light"><span class="fa fa-share"></span> Share</b-button>
+                  </b-button-group>
+                </div>
+              </b-card>
             </b-col>
             <!-- Top Writers/Publications -->
             <b-col lg="4" sm="12">

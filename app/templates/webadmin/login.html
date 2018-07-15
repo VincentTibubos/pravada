@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Pravada | Homepage {% endblock %}
+
+{% block customCSS %}
+    <link href="{% static 'css/userhomepage.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+      <div id="homepage">
+        <!-- Navigation -->
+        <b-navbar toggleable="md" type="light" sticky="true" variant="light">
+          <b-navbar-brand href="#">
+            <img src="/static/img/logo.png" style="height: 40px; width: 40px;"
+                 class="navbar-logo" alt="PVD"> | Pravada
+          </b-navbar-brand>
+          <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+          <b-collapse is-nav id="nav_collapse">
+            <!-- Left Aligned Nav Items -->
+            <b-navbar-nav>
+                <b-nav-item-dropdown text="Subscriptions" right>
+                  <b-dropdown-item v-for="subs in subscriptions" :key="subs.id" v-bind:href="subs.link">[[ subs.text ]]</b-dropdown-item>
+                </b-nav-item-dropdown>
+                <b-nav-item href="#">New</b-nav-item>
+                <b-nav-item href="#">Hot</b-nav-item>
+                <b-nav-item href="#">Popular</b-nav-item>
+              </b-navbar-nav>
+              <hr>
+            <!-- Right Aligned Nav Items -->
+            <b-navbar-nav class="ml-auto">
+              <b-nav-item href="search">
+                <form action="">
+                  <b-form-input placeholder="Search..."></b-form-input>
+                </form>
+              </b-nav-item>
+              <b-nav-item href="login"><span class="fa fa-bell"></span></b-nav-item>
+              <b-nav-item href="/login">Login</b-nav-item>
+              <b-nav-item href="write">
+                <b-dropdown size="sm" variant="outline-primary" text="Profile" right>
+                  <b-dropdown-item>First Action</b-dropdown-item>
+                  <b-dropdown-item>Second Action</b-dropdown-item>
+                  <b-dropdown-item>Third Action</b-dropdown-item>
+                  <b-dropdown-divider></b-dropdown-divider>
+                  <b-dropdown-item>Something else here...</b-dropdown-item>
+                  <b-dropdown-item disabled>Disabled action</b-dropdown-item>
+                </b-dropdown>
+              </b-nav-item>
+            </b-navbar-nav>
+          </b-collapse>
+        </b-navbar>
+        <!--/Navigation  -->
+
+        <h1>Webmaster Login</h1>
+
+
+        <!-- Footer -->
+        <footer class="blog-footer mt-2 font-small">
+          <div class="container text-center text-md-left">
+            <div class="row">
+              <div class="col-12">
+                <ul class="list-inline">
+                  <li class="list-inline-item"><a href="#">Help</a></li>
+                  <li class="list-inline-item"><a href="#">Team</a></li>
+                  <li class="list-inline-item"><a href="#">Blog</a></li>
+                  <li class="list-inline-item"><a href="#">Careers</a></li>
+                  <li class="list-inline-item"><a href="#">Privacy</a></li>
+                  <li class="list-inline-item"><a href="#">Terms</a></li>
+                  <li class="list-inline-item"><a href="#">About</a></li>
+                  <li class="list-inline-item"><a href="#">Contact</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+{% endblock %}
+
+{% block customJS %}
+    <script src="{% static 'js/userhomepage.js' %}"></script>
+{% endblock %}

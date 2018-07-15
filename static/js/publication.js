@@ -53,7 +53,14 @@ new Vue({
         authorlink:'vince', postLink:'postLink',details: 'We can use the v-for directive to render a list of items based on an array. The v-for directive requires a special syntax in the form of item in items, where items is the source data array and item is an alias for the array element being iterated on',points:33},
         { id: 2, title: 'Title2', date:'June 2, 2016', author:'Kyle Aquino',
           authorlink:'kyle', postLink:'postLink',details: 'We can use the v-for directive to render a list of items based on an array. The v-for directive requires a special syntax in the form of item in items, where items is the source data array and item is an alias for the array element being iterated on',points:34},
-    ]
+    ],
+    members:[
+      { id: 1, author: 'author', authorPosition:'position', authorLink:'authorlink'},
+      { id: 2, author: 'author', authorPosition:'position', authorLink:'authorlink'},
+      { id: 3, author: 'author', authorPosition:'position', authorLink:'authorlink'},
+      { id: 4, author: 'author', authorPosition:'position', authorLink:'authorlink'},
+      { id: 5, author: 'author', authorPosition:'position', authorLink:'authorlink'}
+    ],
   },
   methods: {
     onSlideStart (slide) {
