@@ -93,10 +93,10 @@ WSGI_APPLICATION = 'pravada.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'pravada_db',
-        'USER': 'postgres',
-        'PASSWORD': 'root',
-        'HOST': '127.0.0.1',
+        'NAME': 'dd2ro9hnvva34o',
+        'USER': 'hciumbmuxfwaoq',
+        'PASSWORD': 'dd38cf6d239ca4d2bbbe0877e8c52a1d0ecdfa49e3a03cd852fe1a8d7d43ae01',
+        'HOST': 'ec2-107-22-169-45.compute-1.amazonaws.com',
         'PORT': '5432'
     }
 }
