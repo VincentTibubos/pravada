@@ -74,56 +74,96 @@
                         <hr />
                 <b-tabs>
                     <b-tab title="Latest" active>
-                      <div v-for="post in posts" :key="post.id" class="p-2">
-                        <b-card v-bind:title="post.title" >
-                          <b-container fluid>
-                            {# Post Header #}
-                            <b-row>
-                              <b-col sm="2" md="2" lg="1" style="max-width: 100px;">
-                                  <b-img src="/static/img/logo-alt.png" rounded="circle" fluid alt="Responsive image"/>
-                              </b-col>
-                              <b-col sm="10" md="10" lg="11">
-                                <div><a v-bind:href="post.authorlink">[[post.author]]</a></div>
-                                <small>[[post.date]]</small>
-                              </b-col>
-                            </b-row>
-                            {# Post Content #}
-                            <b-row>
-                                <b-col sm="8">
-                                    <p>[[post.details]]... <a v-bind:href='post.postLink'>(Read more)</a></p>
-                                </b-col>
-                                <b-col sm="4">
-                                    <b-img src="https://picsum.photos/1024/400/?image=41" fluid alt="Responsive image" />
-                                </b-col>
-                            </b-row>
-                          </b-container>
-                          {# Post Footer #}
-                          <div slot="footer">
-                              <b-button-group >
-                                <b-button variant="light"><span class="fa fa-arrow-up"></span></b-button>
-                                <b-button variant="light" disabled>[[post.points]]</b-button>
-                                <b-button variant="light"><span class="fa fa-arrow-down"></span></b-button>
-                                <b-button variant="light"><span class="fa fa-comment"></span><span> Comment</span></b-button>
-                                <b-button variant="light"><span class="fa fa-share"></span> Share</b-button>
-                              </b-button-group>
-                          </div>
-                        </b-card>
-                      </div>
+                      <b-card v-for="post in posts" :key="post.id" class="my-3">
+                        <b-container>
+                          <b-row class="mb-3">
+                            <b-col>
+                              <h3>[[post.title]]</h3>
+                              <span class="text-muted">Posted by <a v-bind:href="post.authorlink">[[post.author]]</a> on [[post.date]]</span>
+                            </b-col>
+                          </b-row>
+                          <b-row>
+                            <b-col sm="8"  md="8">
+                              <p>[[post.details]]... <a v-bind:href='post.postLink'>(Read more)</a></p>
+                            </b-col>
+                            <b-col sm="4"  md="4">
+                              <b-img class="d-none d-md-block" src="https://picsum.photos/1024/400/?image=41" thumbnail fluid alt="image" />
+                            </b-col>
+                          </b-row>
+                        </b-container>
+                        <div slot="footer" class="p-0">
+                          <b-button-group>
+                            <b-button variant="dark" disabled> 33 points</b-button>
+                            <b-button variant="light"><span class="fa fa-arrow-up"></span> Upvote</b-button>
+                            <b-button variant="light"><span class="fa fa-arrow-down"></span> Downvote</b-button>
+                            <b-button variant="light"><span class="fa fa-comment"></span> Comments</b-button>
+                            <b-button variant="light"><span class="fa fa-share"></span> Share</b-button>
+                          </b-button-group>
+                        </div>
+                      </b-card>
                     </b-tab>
                     <b-tab title="Most Read" >
-                      <br>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-
-                      The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
+                      <b-card v-for="post in posts" :key="post.id" class="my-3">
+                        <b-container>
+                          <b-row class="mb-3">
+                            <b-col>
+                              <h3>[[post.title]]</h3>
+                              <span class="text-muted">Posted by <a v-bind:href="post.authorlink">[[post.author]]</a> on [[post.date]]</span>
+                            </b-col>
+                          </b-row>
+                          <b-row>
+                            <b-col sm="8"  md="8">
+                              <p>[[post.details]]... <a v-bind:href='post.postLink'>(Read more)</a></p>
+                            </b-col>
+                            <b-col sm="4"  md="4">
+                              <b-img class="d-none d-md-block" src="https://picsum.photos/1024/400/?image=41" thumbnail fluid alt="image" />
+                            </b-col>
+                          </b-row>
+                        </b-container>
+                        <div slot="footer" class="p-0">
+                          <b-button-group>
+                            <b-button variant="dark" disabled> 33 points</b-button>
+                            <b-button variant="light"><span class="fa fa-arrow-up"></span> Upvote</b-button>
+                            <b-button variant="light"><span class="fa fa-arrow-down"></span> Downvote</b-button>
+                            <b-button variant="light"><span class="fa fa-comment"></span> Comments</b-button>
+                            <b-button variant="light"><span class="fa fa-share"></span> Share</b-button>
+                          </b-button-group>
+                        </div>
+                      </b-card>
                     </b-tab>
-                    <b-tab title="Drafts" >
-                      <br>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
+                    <b-tab title="Drafts">
+                      <b-card v-for="post in posts" :key="post.id" class="my-3">
+                        <b-container>
+                          <b-row class="mb-3">
+                            <b-col>
+                              <h3>[[post.title]]</h3>
+                              <span class="text-muted">Posted by <a v-bind:href="post.authorlink">[[post.author]]</a> on [[post.date]]</span>
+                            </b-col>
+                          </b-row>
+                          <b-row>
+                            <b-col sm="8"  md="8">
+                              <p>[[post.details]]... <a v-bind:href='post.postLink'>(Read more)</a></p>
+                            </b-col>
+                            <b-col sm="4"  md="4">
+                              <b-img class="d-none d-md-block" src="https://picsum.photos/1024/400/?image=41" thumbnail fluid alt="image" />
+                            </b-col>
+                          </b-row>
+                        </b-container>
+                        <div slot="footer" class="p-0">
+                          <b-button-group>
+                            <b-button variant="dark" disabled> 33 points</b-button>
+                            <b-button variant="light"><span class="fa fa-arrow-up"></span> Upvote</b-button>
+                            <b-button variant="light"><span class="fa fa-arrow-down"></span> Downvote</b-button>
+                            <b-button variant="light"><span class="fa fa-comment"></span> Comments</b-button>
+                            <b-button variant="light"><span class="fa fa-share"></span> Share</b-button>
+                          </b-button-group>
+                        </div>
+                      </b-card>
                     </b-tab>
                   </b-tabs>
             </b-col>
             <b-col lg="3">
-                <b-card
-                    header="Credentials"
-                    class="text-left mb-3">
+                <b-card header="Credentials" class="text-left mb-3">
                       <p><span class="fa fa-birthday-cake"></span> August 23, 1998</p>
                       <p><span class="fa fa-map-marker-alt"></span> Floridablanca, Pampanga</p>
                       <p><span class="fa fa-user"></span> Developer</p>
