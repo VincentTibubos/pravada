@@ -29,5 +29,16 @@ class BaseComment(models.Model):
 class Reply(BaseComment):
     comment_by = models.ForeignKey(User, on_delete=models.CASCADE, unique=False, blank=True, null=True)
 
+    class Meta:
+        verbose_name_plural = "Replies"
+
     def __str__(self):
         return str(self.comment_by)
+
+class Category(models.Model):
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=40, unique=True)
+    description = models.TextField()
+
+    class Meta:
+        verbose_name_plural = "Categories"
