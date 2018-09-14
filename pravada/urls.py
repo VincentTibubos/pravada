@@ -5,6 +5,6 @@ from django.conf.urls import handler404, handler500
 
 urlpatterns = [
     path('',include('app.urls')),
-    path('admin/', admin.site.urls)
+    path('admin/', admin.site.urls),
     # path('api/', include(router.urls))
 ]
