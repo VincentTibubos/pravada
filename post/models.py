@@ -11,7 +11,7 @@ class Post(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     tag_line = models.CharField(max_length=100, null=True)
     recent_comments = models.IntegerField(default=5, null=True)
-    is_published = models.BooleanField(default=True, null=True)
+    is_published = models.NullBooleanField()
     publish_date = models.DateTimeField(null=True)
 
     def __str__(self):
