@@ -1,5 +1,8 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as auth_login
+from user.forms import UserLoginForm
 
 # Create your views here.
 
@@ -13,7 +16,20 @@ def admin(request):
     return render(request, 'webadmin/index.html')
 
 def adminlogin(request):
-    return render(request, 'webadmin/login.html')
+        if request.method == "POST":
+            form = UserLoginForm(request.POST)
+            if form.is_valid():
+                username = form.cleaned_data['username']
+                password = form.cleaned_data['password']
+                user = authenticate(username=username, password=password)
+                if user is not None:
+                    auth_login(request,user)
+                    return redirect('/webmaster/')
+                else:
+                    error = " Sorry! Username and Password didn't match, Please try again ! "
+        else:
+            form = UserLoginForm()
+        return render(request, 'webadmin/login.html', {"form":form})
 
 # Posts
 def article(request):

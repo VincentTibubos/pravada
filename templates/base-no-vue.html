@@ -25,16 +25,9 @@
   </head>
   <body id="page-top">
 
-    <div id="app">
-      {% block body%}{% endblock %}
-    </div>
+    {% block body%}{% endblock %}
 
-    <!-- Vue Plugins -->
-    <script src="{% static 'vendor/vue/vue.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap-vue/polyfill.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap-vue/bootstrap-vue.js' %}"></script>
-
-    <!-- Axios Plugin  -->
+    <!-- Axios Plugin -->
     <script src="{% static 'vendor/axios/axios.js' %}"></script>
     
     <!-- Custom JS -->{% block customJS %}{% endblock %}

@@ -26,5 +26,6 @@ urlpatterns = [
 
     # Publication Views
     path('publication/',views.publication, name='publication'),
-    path('publication/dashboard/',views.dashboard, name='dashboard')
+    path('publication/dashboard/',views.dashboard, name='dashboard'),
+
 ]
