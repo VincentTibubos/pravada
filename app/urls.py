@@ -12,6 +12,7 @@ urlpatterns = [
     # Web Admin
     path('webmaster/',views.admin, name='index'),
     path('webmaster/login/',views.adminlogin, name='index'),
+    path('webmaster/logout/',views.adminlogout, name='index'),
 
     # Account Views
     path('login/', views.login, name='login'),

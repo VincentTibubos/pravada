@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
+from django.contrib.auth import logout as auth_logout
 from user.forms import UserLoginForm
 
 # Create your views here.
@@ -13,9 +14,13 @@ def index(request):
 
 # Web Admin
 def admin(request):
-    return render(request, 'webadmin/index.html')
+    if request.user.is_authenticated:
+        return render(request, 'webadmin/index.html')
+    else:
+        return redirect('/webmaster/login/')
 
 def adminlogin(request):
+        error = None
         if request.method == "POST":
             form = UserLoginForm(request.POST)
             if form.is_valid():
@@ -29,7 +34,11 @@ def adminlogin(request):
                     error = " Sorry! Username and Password didn't match, Please try again ! "
         else:
             form = UserLoginForm()
-        return render(request, 'webadmin/login.html', {"form":form})
+        return render(request, 'webadmin/login.html', {"form":form, "error":error})
+
+def adminlogout(request):
+    auth_logout(request)
+    return redirect('/webmaster/login/')
 
 # Posts
 def article(request):
@@ -40,8 +49,6 @@ def category(request):
 
 def search(request):
     return render(request, 'post/search.html')
-
-# tinyMCE
 
 # Publications
 def publication(request):
