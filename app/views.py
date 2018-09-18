@@ -11,7 +11,6 @@ from user.forms import UserLoginForm
 def index(request):
     return render(request, 'homepage/index.html')
 
-
 # Web Admin
 def admin(request):
     if request.user.is_authenticated:
@@ -21,7 +20,9 @@ def admin(request):
 
 def adminlogin(request):
         error = None
-        if request.method == "POST":
+        if request.user.is_authenticated:   #IF USER IS ALREADY LOGGED IN
+            return redirect('/webmaster/')
+        elif request.method == "POST":      #CHECK LOGIN CREDENTIALS
             form = UserLoginForm(request.POST)
             if form.is_valid():
                 username = form.cleaned_data['username']
@@ -34,7 +35,7 @@ def adminlogin(request):
                     error = " Sorry! Username and Password didn't match, Please try again ! "
         else:
             form = UserLoginForm()
-        return render(request, 'webadmin/login.html', {"form":form, "error":error})
+        return render(request, 'webadmin/account/login.html', {"form":form, "error":error})
 
 def adminlogout(request):
     auth_logout(request)

@@ -1,0 +1,37 @@
+{% extends "base-no-vue.html" %}
+{% load static %}
+
+{% block title %} Pravada | Web Admin Login {% endblock %}
+
+{% block customCSS %}
+    <link href="{% static 'vendor/sb-admin/css/sb-admin.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+      <div class="card card-login mx-auto mt-5">
+        <div class="card-header">Pravada Webmaster Login</div>
+        <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <div class="form-label-group">
+                <input type="username" name="username" id="inputUsername" class="form-control" placeholder="Username" required="required" autofocus="autofocus">
+                <label for="inputUsername">Username</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-label-group">
+                <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required="required">
+                <label for="inputPassword">Password</label>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-block" value="login" type="submit">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+{% endblock %}
+
+{% block customJS %}
+{% endblock %}
