@@ -146,5 +146,7 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
  }
+ 
+CSRF_COOKIE_NAME="XSRF-TOKEN"
 
 django_heroku.settings(locals())
