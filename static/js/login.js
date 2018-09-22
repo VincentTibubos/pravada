@@ -5,26 +5,44 @@ new Vue({
     username: '',
     password: '',
     block:true,
-    message: '',
-    users:[
-      {username: 'Vincent', password: '12345678'},
-      {username: 'Jose', password: 'sample123'},
-      {username: 'Dilaw', password: 'dilawan123'}
-    ]
+    message: ''
+    // users:[
+    //   {username: 'Vincent', password: '12345678'},
+    //   {username: 'Jose', password: 'sample123'},
+    //   {username: 'Dilaw', password: 'dilawan123'}
+    // ]
   },
   methods:{
     login: function(){
-      if(this.username<4){
+      if(this.username.length<4){
         this.message='Username must have atleast 4 characters';
       }
-      else if(this.password<8){
+      else if(this.password.length<8){
         this.message='Password must have atleast 8 characters';
       }
-      else if(this.check()){
-        this.message='';
-        alert('successfully login');
-      }
       else{
+        var formdata=new FormData();
+        var csrf=document.getElementsByName('csrfmiddlewaretoken')[0].value;
+        formdata.append('csrfmiddlewaretoken',csrf);
+        formdata.append('username',this.username);
+        formdata.append('password',this.password);
+        axios.defaults.xsrfHeaderName='X-CSRFToken';
+        axios.defaults.xsrfCookieName='XCSRF-TOKEN';
+        axios({
+          method:'POST',
+          url: '/login/',
+          data:formdata,
+          headers:{
+            'X-CSRFToken': csrf
+          }
+        })
+        .then(function( res){
+          if(res.data.error==''){
+            window.location='/profile'
+          }
+        })
+        .catch(function( error){
+        });
         this.message="Invalid username or password";
         this.password='';
       }

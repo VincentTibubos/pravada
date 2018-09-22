@@ -32,8 +32,11 @@
                   </b-col>
                 </b-row>
                 {% csrf_token %}
-                <b-form-group :invalid-feedback="invalidPassFeedback" :state="state">
+                <!-- <b-form-group :invalid-feedback="invalidPassFeedback" :state="state" @submit.prevent='register'> -->
+                  <b-form-group :state="state" @submit.prevent='register'>
                   <b-form-input class="mb-1" :state="state" v-model.trim="username" placeholder="Username"></b-form-input>
+                  <b-form-input class="mb-1" :state="state" v-model.trim="fname" placeholder="First name"></b-form-input>
+                  <b-form-input class="mb-1" :state="state" v-model.trim="lname" placeholder="Last name"></b-form-input>
                   <b-form-input class="mb-1" :state="state" v-model.trim="email" type="email" placeholder="Email"></b-form-input>
                   <b-form-input class="mb-1" :state="state" v-model.trim="password" placeholder="Password" type="password"></b-form-input>
                   <b-form-input class="mb-1" :state="state" v-model.trim="confirmPassword" placeholder="Confirm Password" type="password"></b-form-input>
