@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
-from user.forms import UserLoginForm,LoginForm,RegisterForm
+from user.forms import LoginForm,RegisterForm
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 
@@ -25,7 +25,7 @@ def adminlogin(request):
         if request.user.is_authenticated and request.user.is_staff:   #IF USER IS ALREADY LOGGED IN
             return redirect('/webmaster/')
         elif request.method == "POST":      #CHECK LOGIN CREDENTIALS
-            form = UserLoginForm(request.POST)
+            form = LoginForm(request.POST)
             if form.is_valid():
                 username = form.cleaned_data['username']
                 password = form.cleaned_data['password']
@@ -36,7 +36,7 @@ def adminlogin(request):
                 else:
                     error = " Sorry! Username and Password didn't match, Please try again ! "
         else:
-            form = UserLoginForm()
+            form = LoginForm()
         return render(request, 'webadmin/account/login.html', {"form":form, "error":error})
 
 def adminlogout(request):
