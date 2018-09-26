@@ -14,6 +14,9 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{% static 'vendor/font-awesome/all.css' %}" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 
+    <!-- Pace Progress -->
+    <link href="{% static 'vendor/pace-progress/css/pace.min.css' %}" rel="stylesheet">
+
     <!-- Global Style -->
     <link href="{% static 'css/main.css' %}" rel="stylesheet">
 
@@ -35,7 +38,9 @@
 
     <!-- Core plugin JavaScript-->
     <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
-
+    <script src="{% static 'vendor/popper.js/popper.min.js' %}"></script>
+    <script src="{% static 'vendor/pace-progress/js/pace.min.js' %}"></script>
+    <script src="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
     <!-- Custom JS -->{% block customJS %}{% endblock %}
 
   </body>

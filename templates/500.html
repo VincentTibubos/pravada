@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Pravada | Homepage {% endblock %}
+
+<!-- Custom CSS -->
+{% block customCSS %}
+<link href="{% static 'css/error.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="error-template">
+                    <h1>
+                        Oops!</h1>
+                    <h2>
+                        500 Server Error</h2>
+                    <div class="error-details">
+                        Sorry, an error has occured, Contact Webmaster!
+                    </div>
+                    <div class="error-actions">
+                        <a onclick="history.back();" class="btn btn-primary btn-lg">
+                          <span class="glyphicon glyphicon-home"></span>
+                          Take Me Home
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

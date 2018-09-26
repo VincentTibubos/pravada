@@ -22,9 +22,9 @@ def admin(request):
 
 def adminlogin(request):
         error = None
-        if request.user.is_authenticated and request.user.is_staff:   #IF USER IS ALREADY LOGGED IN
+        if request.user.is_authenticated and request.user.is_staff:
             return redirect('/webmaster/')
-        elif request.method == "POST":      #CHECK LOGIN CREDENTIALS
+        elif request.method == "POST":
             form = LoginForm(request.POST)
             if form.is_valid():
                 username = form.cleaned_data['username']
@@ -62,7 +62,10 @@ def dashboard(request):
 
 # Account
 def home(request):
-    return render(request, 'account/index.html')
+    if request.user.is_authenticated:
+        return render(request, 'account/index.html')
+    else:
+        return redirect('/login/')
 
 def logout(request):
     if not request.user.is_authenticated:

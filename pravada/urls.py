@@ -8,3 +8,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
 ]
+
+handler404 = 'pravada.views.error_404'
+handler500 = 'pravada.views.error_500'
