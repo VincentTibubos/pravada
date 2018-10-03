@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from user.models import Profile,Organization,Role
+from user.models import Profile,Publication,Role
 from .serializers import ProfileSerializer,OrgSerializer,RoleSerializer
 
 from rest_framework.filters import SearchFilter, OrderingFilter
@@ -15,7 +15,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
     search_fields = __basic_fields
 
 class OrgViewSet(viewsets.ModelViewSet):
-    queryset = Organization.objects.all()
+    queryset = Publication.objects.all()
     serializer_class = OrgSerializer
 
     __basic_fields = ('id','name','description')

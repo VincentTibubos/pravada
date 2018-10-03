@@ -6,23 +6,35 @@ from django.contrib.auth import logout as auth_logout
 from user.forms import LoginForm,RegisterForm
 from django.contrib.auth.models import User
 from django.http import JsonResponse
+from . import views
 
 # Create your views here.
 
 # Homepage
 def index(request):
-    return render(request, 'homepage/index.html')
+    if request.user.is_authenticated:
+        if request.user.is_staff:
+            return redirect('/webmaster/')
+        else:
+            return redirect('/home/')
+    else:
+        return render(request, 'homepage/index.html')
 
 # Web Admin
 def admin(request):
-    if request.user.is_authenticated and request.user.is_staff:
-        return render(request, 'webadmin/index.html')
+    if request.user.is_authenticated:
+        if request.user.is_staff:
+            return render(request, 'webadmin/index.html')
+        else:
+            return index(request)
     else:
         return redirect('/webmaster/login/')
 
 def adminlogin(request):
         error = None
-        if request.user.is_authenticated and request.user.is_staff:
+        if request.user.is_authenticated:
+            if not request.user.is_staff:
+                return index(request)
             return redirect('/webmaster/')
         elif request.method == "POST":
             form = LoginForm(request.POST)
@@ -63,13 +75,15 @@ def dashboard(request):
 # Account
 def home(request):
     if request.user.is_authenticated:
+        if request.user.is_staff:
+            return index(request)
         return render(request, 'account/index.html')
     else:
         return redirect('/login/')
 
 def logout(request):
     if not request.user.is_authenticated:
-        return redirect('/home/')
+        return index(request)
     auth_logout(request)
     return redirect('/login/')
 

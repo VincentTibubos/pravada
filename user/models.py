@@ -11,7 +11,7 @@ class Profile(models.Model):
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     user_type = models.CharField(max_length=1, choices=USER_TYPES, default='u')
-    avatar = models.ImageField(blank=True, upload_to='uploads/%Y/%m/%d/')
+    avatar = models.ImageField(blank=True, upload_to='uploads/avatar/%Y/%m/%d/')
     bio = models.TextField(default='', blank=True)
     phone = models.CharField(max_length=20, blank=True, default='')
     birth_date = models.DateField(null=True, blank=True)
@@ -36,7 +36,7 @@ class Profile(models.Model):
     def is_webmaster(self):
         return self.user_type == 'w'
 
-class Organization(models.Model):
+class Publication(models.Model):
     name = models.CharField(max_length=120, null=False, blank=False)
     description = models.CharField(max_length=500, null=True, blank=True)
 
@@ -44,9 +44,9 @@ class Organization(models.Model):
         return str(self.name)
 
 class Role(models.Model):
-    org_id = models.ForeignKey(Organization, on_delete=models.CASCADE)
+    pub_id = models.ForeignKey(Publication, on_delete=models.CASCADE)
     staff_id = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     role = models.CharField(max_length=120,default='Staff', null=False, blank=False)
 
     def __str__(self):
-        return str(self.org_id)
+        return str(self.pub_id)
