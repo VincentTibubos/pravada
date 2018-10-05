@@ -1,71 +1,100 @@
 {% load static %}
 
-<div class="col-12 my-auto">
+<div class="col-12 mb-3">
   <div class="card">
+    <div class="card-header">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-6 col-sm-12">
+            <h3>Recently Added Pages</h3>
+          </div>
+          <div class="col-lg-6 col-sm-12">
+            <div class="float-right">
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-outline-secondary">
+                  <i class="fas fa-plus-square"></i> Create
+                </button>
+                <button type="button" class="btn btn-outline-secondary">
+                  <i class="far fa-eye"></i> Read
+                </button>
+                <button type="button" class="btn btn-outline-secondary">
+                  <i class="fas fa-edit"></i> Edit
+                </button>
+                <button type="button" class="btn btn-outline-secondary">
+                  <i class="fas fa-trash"></i> Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="card-body">
-      <h3>Recently Added Pages</h3>
-      <table>
+      <table class="table table-hover text-center">
         <thead>
           <tr>
+            <th>#</th>
             <th>Name</th>
-            <th>Email Address</th>
-            <th>User Type</th>
+            <th>Created on</th>
+            <th>Description</th>
+            <th>Created On</th>
             <th>Action</th>
           </tr>
         </thead>
-        <tbody id="usr-tbl">
+        <tbody id="page-tbl">
           <tr>
+            <td>1</td>
             <td>Kyle Aquino</td>
+            <td>kshaunaquino</td>
             <td>kshaunaquino@gmail.com</td>
+            <td>02/19/2018</td>
             <td>Webmaster</td>
             <td>
-              <a class="btn btn-primary" href="#"> Edit </a>
-              <a class="btn btn-primary" href="#"> Delete </a>
+              <a class="btn btn-primary" href="#"> Manage page</a>
             </td>
           </tr>
           <tr>
+            <td>1</td>
             <td>Kyle Aquino</td>
+            <td>kshaunaquino</td>
             <td>kshaunaquino@gmail.com</td>
+            <td>02/19/2018</td>
             <td>Webmaster</td>
             <td>
-              <a class="btn btn-primary" href="#"> Edit </a>
-              <a class="btn btn-primary" href="#"> Delete </a>
+              <a class="btn btn-primary" href="#"> Manage page</a>
             </td>
           </tr>
           <tr>
+            <td>1</td>
             <td>Kyle Aquino</td>
+            <td>kshaunaquino</td>
             <td>kshaunaquino@gmail.com</td>
+            <td>02/19/2018</td>
             <td>Webmaster</td>
             <td>
-              <a class="btn btn-primary" href="#"> Edit </a>
-              <a class="btn btn-primary" href="#"> Delete </a>
+              <a class="btn btn-primary" href="#"> Manage page</a>
             </td>
           </tr>
           <tr>
+            <td>1</td>
             <td>Kyle Aquino</td>
+            <td>kshaunaquino</td>
             <td>kshaunaquino@gmail.com</td>
+            <td>02/19/2018</td>
             <td>Webmaster</td>
             <td>
-              <a class="btn btn-primary" href="#"> Edit </a>
-              <a class="btn btn-primary" href="#"> Delete </a>
+              <a class="btn btn-primary" href="#"> Manage page</a>
             </td>
           </tr>
           <tr>
+            <td>1</td>
             <td>Kyle Aquino</td>
+            <td>kshaunaquino</td>
             <td>kshaunaquino@gmail.com</td>
+            <td>02/19/2018</td>
             <td>Webmaster</td>
             <td>
-              <a class="btn btn-primary" href="#"> Edit </a>
-              <a class="btn btn-primary" href="#"> Delete </a>
-            </td>
-          </tr>
-          <tr>
-            <td>Kyle Aquino</td>
-            <td>kshaunaquino@gmail.com</td>
-            <td>Webmaster</td>
-            <td>
-              <a class="btn btn-primary" href="#"> Edit </a>
-              <a class="btn btn-primary" href="#"> Delete </a>
+              <a class="btn btn-primary" href="#"> Manage page</a>
             </td>
           </tr>
         </tbody>

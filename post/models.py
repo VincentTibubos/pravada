@@ -1,8 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
-
+# Post Models
 class Post(models.Model):
     STATUS_CHOICES = (
         ('d', 'Draft'),
@@ -12,13 +11,13 @@ class Post(models.Model):
     title = models.CharField(max_length=120, null=True, blank=True)
     text = models.TextField(max_length=500, null=True, blank=True)
     slug = models.SlugField(max_length=40, unique=True)
-    tag_line = models.CharField(max_length=100, null=True)
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
-    is_published = models.NullBooleanField()
     publish_date = models.DateTimeField(null=True)
     cover = models.ImageField(blank=True, upload_to='uploads/%Y/%m/%d/')
     status = models.CharField(choices=STATUS_CHOICES, max_length=1,default='d')
+    comments = models.ManyToManyField('BaseComment',blank=True)
+    tags = models.ManyToManyField('Tag',blank=True)
 
     def __str__(self):
         return str(self.user.username+': '+self.title)
@@ -30,30 +29,30 @@ class Post(models.Model):
         return self.status == 'd'
 
 class BaseComment(models.Model):
-    text = models.TextField()
+    text = models.TextField(blank=True)
+    comment_by = models.ForeignKey(User, on_delete=models.CASCADE, unique=False, blank=True, null=True)
     comment_for = models.ForeignKey(Post, on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
-    username = models.CharField(max_length=100)
+    replies = models.ManyToManyField('Reply')
 
     def __str__(self):
-        return str(self.username)
+        return str(self.text)
 
-class Reply(BaseComment):
-    comment_by = models.ForeignKey(User, on_delete=models.CASCADE, unique=False, blank=True, null=True)
+class Reply(models.Model):
+    text = models.TextField(blank=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+    reply_by = models.ForeignKey(User, on_delete=models.CASCADE, unique=False, blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "Replies"
 
     def __str__(self):
-        return str(self.comment_by)
+        return str(self.text)
 
-class Category(models.Model):
+class Tag(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=40, unique=True)
-    description = models.TextField()
-
-    class Meta:
-        verbose_name_plural = "Categories"
+    description = models.TextField(blank=True)
 
     def __str__(self):
         return str(self.title)

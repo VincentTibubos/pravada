@@ -1,9 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from django.conf import settings
 
+# User-Related Models
 class Profile(models.Model):
     USER_TYPES = (
         ('u', 'User'),
@@ -36,17 +34,33 @@ class Profile(models.Model):
     def is_webmaster(self):
         return self.user_type == 'w'
 
+# Publication Models
 class Publication(models.Model):
     name = models.CharField(max_length=120, null=False, blank=False)
     description = models.CharField(max_length=500, null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    categories = models.ManyToManyField('Category')
+    roles = models.ManyToManyField('Role')
+    followers = models.ManyToManyField(User)
 
     def __str__(self):
         return str(self.name)
 
+class Category(models.Model):
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=40, unique=True)
+    description = models.TextField()
+
+    class Meta:
+        verbose_name_plural = "Categories"
+
+    def __str__(self):
+        return str(self.pub_id)
+
+# User/Publication Models
 class Role(models.Model):
-    pub_id = models.ForeignKey(Publication, on_delete=models.CASCADE)
     staff_id = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     role = models.CharField(max_length=120,default='Staff', null=False, blank=False)
 
     def __str__(self):
-        return str(self.pub_id)
+        return str(self.staff_id)
