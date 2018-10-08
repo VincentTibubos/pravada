@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post, BaseComment, Reply, Category
+from .models import Post, Comment, Reply, Category
 
 class PostForm(forms.Form):
     title = forms.CharField(label='title',)

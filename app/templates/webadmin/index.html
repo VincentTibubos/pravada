@@ -23,19 +23,20 @@
             {% include 'webadmin/components/icon-cards.html' %}
           </div>
           <div class="row">
-            {% include 'webadmin/components/table-user.html' %}
+            {% include 'webadmin/components/tables/table-user-recent.html' %}
           </div>
           <div class="row">
-            {% include 'webadmin/components/table-page.html' %}
+            {% include 'webadmin/components/tables/table-page-recent.html' %}
           </div>
           <div class="row">
-            {% include 'webadmin/components/table-post.html' %}
+            {% include 'webadmin/components/tables/table-post-recent.html' %}
           </div>
         </div>
         {% include 'webadmin/components/footer.html' %}
       </div>
     </div>
     {% include 'webadmin/components/logout-modal.html' %}
+    {% include 'webadmin/components/database-modals/users-modal.html' %}
 
 {% endblock %}
 

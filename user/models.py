@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User as auth_user
 
 # User-Related Models
 class Profile(models.Model):
@@ -7,7 +7,7 @@ class Profile(models.Model):
         ('u', 'User'),
         ('w', 'Webmaster')
     )
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    user = models.OneToOneField(auth_user, on_delete=models.CASCADE, related_name='profile')
     user_type = models.CharField(max_length=1, choices=USER_TYPES, default='u')
     avatar = models.ImageField(blank=True, upload_to='uploads/avatar/%Y/%m/%d/')
     bio = models.TextField(default='', blank=True)
@@ -17,6 +17,8 @@ class Profile(models.Model):
     country = models.CharField(max_length=100, default='', blank=True)
     reputation = models.IntegerField(default=1)
     last_updated = models.DateTimeField(auto_now=True)
+    user_followers = models.ManyToManyField('Profile',blank=True)
+    subscriptions = models.ManyToManyField('Publication',blank=True)
 
     def __str__(self):
         return str(self.user.username)
@@ -38,10 +40,11 @@ class Profile(models.Model):
 class Publication(models.Model):
     name = models.CharField(max_length=120, null=False, blank=False)
     description = models.CharField(max_length=500, null=True, blank=True)
+    cover = models.ImageField(blank=True, upload_to='uploads/publication/covers/%Y/%m/%d/')
     created = models.DateTimeField(auto_now_add=True)
-    categories = models.ManyToManyField('Category')
-    roles = models.ManyToManyField('Role')
-    followers = models.ManyToManyField(User)
+    categories = models.ManyToManyField('Category', blank=True)
+    roles = models.ManyToManyField('Role', blank=True)
+    pub_followers = models.ManyToManyField(auth_user)
 
     def __str__(self):
         return str(self.name)
@@ -59,8 +62,15 @@ class Category(models.Model):
 
 # User/Publication Models
 class Role(models.Model):
-    staff_id = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    role = models.CharField(max_length=120,default='Staff', null=False, blank=False)
+    ROLE_TYPES = (
+        ('a', 'Administrator'),
+        ('e', 'Editor'),
+        ('m', 'Moderator'),
+        ('s', 'Staff'),
+        ('c', 'Contributor'),
+    )
+    user_id = models.ForeignKey(auth_user, on_delete=models.SET_NULL, null=True)
+    role = models.CharField(max_length=1, choices=ROLE_TYPES, default='s')
 
     def __str__(self):
-        return str(self.staff_id)
+        return str(self.user_id)

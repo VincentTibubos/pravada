@@ -14,13 +14,18 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
     publish_date = models.DateTimeField(null=True)
-    cover = models.ImageField(blank=True, upload_to='uploads/%Y/%m/%d/')
+    cover = models.ImageField(blank=True, upload_to='uploads/post/cover/%Y/%m/%d/')
     status = models.CharField(choices=STATUS_CHOICES, max_length=1,default='d')
-    comments = models.ManyToManyField('BaseComment',blank=True)
+    comments = models.ManyToManyField('Comment',blank=True)
     tags = models.ManyToManyField('Tag',blank=True)
+    upvotes = models.PositiveIntegerField(default=0)
+    downvotes = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return str(self.user.username+': '+self.title)
+
+    def vote_sum(self):
+        return self.upvotes - self.downvotes
 
     def is_published(self):
         return self.status == 'p'
@@ -28,12 +33,12 @@ class Post(models.Model):
     def is_draft(self):
         return self.status == 'd'
 
-class BaseComment(models.Model):
+class Comment(models.Model):
     text = models.TextField(blank=True)
     comment_by = models.ForeignKey(User, on_delete=models.CASCADE, unique=False, blank=True, null=True)
     comment_for = models.ForeignKey(Post, on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
-    replies = models.ManyToManyField('Reply')
+    replies = models.ManyToManyField('Reply',blank=True)
 
     def __str__(self):
         return str(self.text)
