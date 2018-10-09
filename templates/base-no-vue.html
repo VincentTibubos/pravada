@@ -17,6 +17,9 @@
     <!-- Pace Progress -->
     <link href="{% static 'vendor/pace-progress/css/pace.min.css' %}" rel="stylesheet">
 
+    <!-- DataTables CSS -->
+    <link href="{% static 'vendor/datatables/css/datatables.min.css' %}" rel="stylesheet">
+
     <!-- Global Style -->
     <link href="{% static 'css/main.css' %}" rel="stylesheet">
 
@@ -28,10 +31,6 @@
   <body id="page-top">
 
     {% block body%}{% endblock %}
-
-    <!-- Global JS -->
-    <script src="{% static 'js/main.js' %}"></script>
-
     <!-- Axios Plugin -->
     <script src="{% static 'vendor/axios/axios.js' %}"></script>
 
@@ -44,6 +43,11 @@
     <script src="{% static 'vendor/popper.js/popper.min.js' %}"></script>
     <script src="{% static 'vendor/pace-progress/js/pace.min.js' %}"></script>
     <script src="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/js/datatables.min.js' %}"></script>
+
+    <!-- Global JS -->
+    <script src="{% static 'js/main.js' %}"></script>
+    
     <!-- Custom JS -->{% block customJS %}{% endblock %}
 
   </body>

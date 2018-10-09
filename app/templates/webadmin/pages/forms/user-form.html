@@ -12,7 +12,7 @@
 
     {% include 'webadmin/pages/base/header.html' %}
     <div id="wrapper">
-      {% include 'webadmin/pages/base/sidebar.html' %}
+      {% include 'webadmin/pages/dashboard/sidebar.html' %}
       <div id="content-wrapper">
         <div class="container-fluid">
           {% include 'webadmin/pages/dashboard/breadcrumb.html' %}
@@ -34,11 +34,7 @@
     </div>
     {% include 'webadmin/pages/base/scroll-to-top.html' %}
     {% include 'webadmin/pages/base/logout-modal.html' %}
-
     {% include 'webadmin/components/database-modals/users-modal.html' %}
-    {% include 'webadmin/components/database-modals/publications-modal.html' %}
-    {% include 'webadmin/components/database-modals/roles-modal.html' %}
-    {% include 'webadmin/components/database-modals/posts-modal.html' %}
 
 {% endblock %}
 

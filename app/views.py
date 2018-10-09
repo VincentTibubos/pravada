@@ -55,6 +55,12 @@ def adminlogout(request):
     auth_logout(request)
     return redirect('/webmaster/login/')
 
+def adminreports(request):
+    return render(request, 'webadmin/pages/reports/index.html')
+
+def adminsettings(request):
+    return render(request, 'webadmin/pages/settings/index.html')
+
 # Posts
 def article(request):
     return render(request, 'post/article.html')
@@ -141,3 +147,7 @@ def profile(request):
     if request.user.is_authenticated:
         return redirect('/login/')
     return render(request, 'account/profile.html')
+
+# Direct Views
+
+# def page_home(request):

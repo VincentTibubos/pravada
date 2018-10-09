@@ -1,26 +1,89 @@
 {% load static %}
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-  Launch demo modal
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Manage Posts</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        ...
+        <div class="table-responsive">
+          <table id="postFull" class="table table-sm table-hover">
+            <thead>
+              <tr>
+                <th>Author</th>
+                <th>Title</th>
+                <th>Created On</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="post-tbl">
+              <tr>
+                <td>Kyle Aquino</td>
+                <td>Post Title</td>
+                <td>02/19/2018</td>
+                <td>Published</td>
+                <td>
+                  <a class="btn btn-sm btn-primary" href="#"> Manage Post</a>
+                </td>
+              </tr>
+              <tr>
+                <td>Kyle Aquino</td>
+                <td>Post Title</td>
+                <td>02/19/2018</td>
+                <td>Published</td>
+                <td>
+                  <a class="btn btn-sm btn-primary" href="#"> Manage Post</a>
+                </td>
+              </tr>
+              <tr>
+                <td>Kyle Aquino</td>
+                <td>Post Title</td>
+                <td>02/19/2018</td>
+                <td>Published</td>
+                <td>
+                  <a class="btn btn-sm btn-primary" href="#"> Manage Post</a>
+                </td>
+              </tr>
+              <tr>
+                <td>Kyle Aquino</td>
+                <td>Post Title</td>
+                <td>02/19/2018</td>
+                <td>Published</td>
+                <td>
+                  <a class="btn btn-sm btn-primary" href="#"> Manage Post</a>
+                </td>
+              </tr>
+              <tr>
+                <td>Kyle Aquino</td>
+                <td>Post Title</td>
+                <td>02/19/2018</td>
+                <td>Published</td>
+                <td>
+                  <a class="btn btn-sm btn-primary" href="#"> Manage Post</a>
+                </td>
+              </tr>
+              <tr>
+                <td>Kyle Aquino</td>
+                <td>Post Title</td>
+                <td>02/19/2018</td>
+                <td>Published</td>
+                <td>
+                  <a class="btn btn-sm btn-primary" href="#"> Manage Post</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-outline-primary">
+          <i class="fas fa-plus-square"></i> Add Post
+        </button>
       </div>
     </div>
   </div>

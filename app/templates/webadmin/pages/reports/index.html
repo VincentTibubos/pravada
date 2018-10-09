@@ -1,7 +1,7 @@
 {% extends "base-no-vue.html" %}
 {% load static %}
 
-{% block title %} Pravada | Webmaster Homepage {% endblock %}
+{% block title %} Pravada | Webmaster Reports {% endblock %}
 
 {% block customCSS %}
     <!-- Custom styles for this template-->
@@ -15,18 +15,9 @@
       {% include 'webadmin/pages/base/sidebar.html' %}
       <div id="content-wrapper">
         <div class="container-fluid">
-          {% include 'webadmin/pages/dashboard/breadcrumb.html' %}
-          <div class="row">
-            {% include 'webadmin/pages/dashboard/icon-cards.html' %}
-          </div>
+          {% include 'webadmin/pages/reports/breadcrumb.html' %}
           <div class="row">
             {% include 'webadmin/components/tables/table-user-recent.html' %}
-          </div>
-          <div class="row">
-            {% include 'webadmin/components/tables/table-page-recent.html' %}
-          </div>
-          <div class="row">
-            {% include 'webadmin/components/tables/table-post-recent.html' %}
           </div>
         </div>
         {% include 'webadmin/pages/base/footer.html' %}

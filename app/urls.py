@@ -13,6 +13,8 @@ urlpatterns = [
     path('webmaster/',views.admin, name='index'),
     path('webmaster/login/',views.adminlogin, name='index'),
     path('webmaster/logout/',views.adminlogout, name='index'),
+    path('webmaster/reports/',views.adminreports, name='index'),
+    path('webmaster/settings/',views.adminsettings, name='index'),
 
     # Account Views
     path('login/', views.login, name='login'),
