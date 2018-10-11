@@ -1,7 +1,7 @@
 {% extends "base-no-vue.html" %}
 {% load static %}
 
-{% block title %} Pravada | Webmaster Homepage {% endblock %}
+{% block title %} Pravada | Webmaster Database {% endblock %}
 
 {% block customCSS %}
     <!-- Custom styles for this template-->
@@ -12,21 +12,12 @@
 
     {% include 'webadmin/pages/base/header.html' %}
     <div id="wrapper">
-      {% include 'webadmin/pages/dashboard/sidebar.html' %}
+      {% include 'webadmin/pages/base/sidebar.html' %}
       <div id="content-wrapper">
         <div class="container-fluid">
-          {% include 'webadmin/pages/dashboard/breadcrumb.html' %}
+          {% include 'webadmin/pages/database/breadcrumb.html' %}
           <div class="row">
-            {% include 'webadmin/pages/dashboard/icon-cards.html' %}
-          </div>
-          <div class="row">
-            {% include 'webadmin/components/tables/table-user-recent.html' %}
-          </div>
-          <div class="row">
-            {% include 'webadmin/components/tables/table-page-recent.html' %}
-          </div>
-          <div class="row">
-            {% include 'webadmin/components/tables/table-post-recent.html' %}
+            {% include 'webadmin/pages/database/directory.html' %}
           </div>
         </div>
         {% include 'webadmin/pages/base/footer.html' %}
@@ -34,7 +25,11 @@
     </div>
     {% include 'webadmin/pages/base/scroll-to-top.html' %}
     {% include 'webadmin/pages/base/logout-modal.html' %}
+
     {% include 'webadmin/components/database-modals/users-modal.html' %}
+    {% include 'webadmin/components/database-modals/publications-modal.html' %}
+    {% include 'webadmin/components/database-modals/roles-modal.html' %}
+    {% include 'webadmin/components/database-modals/posts-modal.html' %}
 
 {% endblock %}
 

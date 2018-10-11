@@ -55,6 +55,21 @@ def adminlogout(request):
     auth_logout(request)
     return redirect('/webmaster/login/')
 
+def admindatabase(request):
+    return render(request, 'webadmin/pages/database/index.html')
+
+def adminposts(request):
+    return render(request, 'webadmin/pages/database/posts/index.html')
+
+def adminpublications(request):
+    return render(request, 'webadmin/pages/database/publications/index.html')
+
+def adminroles(request):
+    return render(request, 'webadmin/pages/database/roles/index.html')
+
+def adminusers(request):
+    return render(request, 'webadmin/pages/database/users/index.html')
+
 def adminreports(request):
     return render(request, 'webadmin/pages/reports/index.html')
 

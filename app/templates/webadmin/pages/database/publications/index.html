@@ -1,7 +1,7 @@
 {% extends "base-no-vue.html" %}
 {% load static %}
 
-{% block title %} Pravada | Webmaster Settings {% endblock %}
+{% block title %} Pravada | Webmaster Database {% endblock %}
 
 {% block customCSS %}
     <!-- Custom styles for this template-->
@@ -15,9 +15,9 @@
       {% include 'webadmin/pages/base/sidebar.html' %}
       <div id="content-wrapper">
         <div class="container-fluid">
-          {% include 'webadmin/pages/settings/breadcrumb.html' %}
+          {% include 'webadmin/pages/database/publications/breadcrumb.html' %}
           <div class="row">
-            {% include 'webadmin/components/tables/table-user-recent.html' %}
+            {% include 'webadmin/components/data-tables/manage-publications.html' %}
           </div>
         </div>
         {% include 'webadmin/pages/base/footer.html' %}
@@ -25,11 +25,6 @@
     </div>
     {% include 'webadmin/pages/base/scroll-to-top.html' %}
     {% include 'webadmin/pages/base/logout-modal.html' %}
-
-    {% include 'webadmin/components/database-modals/users-modal.html' %}
-    {% include 'webadmin/components/database-modals/publications-modal.html' %}
-    {% include 'webadmin/components/database-modals/roles-modal.html' %}
-    {% include 'webadmin/components/database-modals/posts-modal.html' %}
 
 {% endblock %}
 

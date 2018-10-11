@@ -1,74 +1,19 @@
 {% load static %}
 
 <div class="modal fade" id="roleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Manage Roles</h5>
+        <h5 class="modal-title">Add New Role</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <div class="table-responsive">
-          <table id="roleFull" class="table table-sm table-hover">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Role Type</th>
-                <th>Publication</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="role-tbl">
-              <tr>
-                <td>Kyle Aquino</td>
-                <td>Editor</td>
-                <td>Publication Name</td>
-                <td>
-                  <a class="btn btn-sm btn-primary" href="#"> Manage Role</a>
-                </td>
-              </tr>
-              <tr>
-                <td>Kyle Aquino</td>
-                <td>Editor</td>
-                <td>Publication Name</td>
-                <td>
-                  <a class="btn btn-sm btn-primary" href="#"> Manage Role</a>
-                </td>
-              </tr>
-              <tr>
-                <td>Kyle Aquino</td>
-                <td>Editor</td>
-                <td>Publication Name</td>
-                <td>
-                  <a class="btn btn-sm btn-primary" href="#"> Manage Role</a>
-                </td>
-              </tr>
-              <tr>
-                <td>Kyle Aquino</td>
-                <td>Editor</td>
-                <td>Publication Name</td>
-                <td>
-                  <a class="btn btn-sm btn-primary" href="#"> Manage Role</a>
-                </td>
-              </tr>
-              <tr>
-                <td>Kyle Aquino</td>
-                <td>Editor</td>
-                <td>Publication Name</td>
-                <td>
-                  <a class="btn btn-sm btn-primary" href="#"> Manage Role</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        {% include 'webadmin/components/forms/add-role.html' %}
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-primary">
-          <i class="fas fa-plus-square"></i> Add Role
-        </button>
+        <a href="/webmaster/database/roles/"> View All Roles >> </a>
       </div>
     </div>
   </div>

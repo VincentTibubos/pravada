@@ -1,74 +1,19 @@
 {% load static %}
 
 <div class="modal fade" id="pubModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Manage Publications</h5>
+        <h5 class="modal-title">Add New Publication</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <div class="table-responsive">
-          <table id="publicationFull" class="table table-sm table-hover">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Created On</th>
-                <th>Description</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="publication-tbl">
-              <tr>
-                <td>Publication Name</td>
-                <td>10/2/2018</td>
-                <td>Publication Description</td>
-                <td>
-                  <a class="btn btn-sm btn-primary" href="#"> Manage Publication</a>
-                </td>
-              </tr>
-              <tr>
-                <td>Publication Name</td>
-                <td>10/2/2018</td>
-                <td>Publication Description</td>
-                <td>
-                  <a class="btn btn-sm btn-primary" href="#"> Manage Publication</a>
-                </td>
-              </tr>
-              <tr>
-                <td>Publication Name</td>
-                <td>10/2/2018</td>
-                <td>Publication Description</td>
-                <td>
-                  <a class="btn btn-sm btn-primary" href="#"> Manage Publication</a>
-                </td>
-              </tr>
-              <tr>
-                <td>Publication Name</td>
-                <td>10/2/2018</td>
-                <td>Publication Description</td>
-                <td>
-                  <a class="btn btn-sm btn-primary" href="#"> Manage Publication</a>
-                </td>
-              </tr>
-              <tr>
-                <td>Publication Name</td>
-                <td>10/2/2018</td>
-                <td>Publication Description</td>
-                <td>
-                  <a class="btn btn-sm btn-primary" href="#"> Manage Publication</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        {% include 'webadmin/components/forms/add-publication.html' %}
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-primary">
-          <i class="fas fa-plus-square"></i> Add Publication
-        </button>
+        <a href="/webmaster/database/publications/"> View All Publications >> </a>
       </div>
     </div>
   </div>
