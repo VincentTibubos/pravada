@@ -11,67 +11,30 @@
           <thead>
             <tr>
               <th>Author</th>
-              <th>Title</th>
-              <th>Created On</th>
-              <th>Status</th>
+              <th>Role</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody id="post-tbl">
+            {% for uroles in roles %}
             <tr>
-              <td>Kyle Aquino</td>
-              <td>Post Title</td>
-              <td>02/19/2018</td>
-              <td>Published</td>
+              <td>{{uroles.user_id}}</td>
+              {% if uroles.role == 'a' %}
+                <td>Administrator</td>
+              {% elif uroles.role == 'e' %}
+                <td>Editor</td>
+              {% elif uroles.role == 'm' %}
+                <td>Moderator</td>
+              {% elif uroles.role == 's' %}
+                <td>Staff</td>
+              {% elif uroles.role == 'c' %}
+                <td>Contributor</td>
+              {% endif %}
               <td>
                 <a class="btn btn-sm btn-primary" href="#"> Manage Post</a>
               </td>
             </tr>
-            <tr>
-              <td>Kyle Aquino</td>
-              <td>Post Title</td>
-              <td>02/19/2018</td>
-              <td>Published</td>
-              <td>
-                <a class="btn btn-sm btn-primary" href="#"> Manage Post</a>
-              </td>
-            </tr>
-            <tr>
-              <td>Kyle Aquino</td>
-              <td>Post Title</td>
-              <td>02/19/2018</td>
-              <td>Published</td>
-              <td>
-                <a class="btn btn-sm btn-primary" href="#"> Manage Post</a>
-              </td>
-            </tr>
-            <tr>
-              <td>Kyle Aquino</td>
-              <td>Post Title</td>
-              <td>02/19/2018</td>
-              <td>Published</td>
-              <td>
-                <a class="btn btn-sm btn-primary" href="#"> Manage Post</a>
-              </td>
-            </tr>
-            <tr>
-              <td>Kyle Aquino</td>
-              <td>Post Title</td>
-              <td>02/19/2018</td>
-              <td>Published</td>
-              <td>
-                <a class="btn btn-sm btn-primary" href="#"> Manage Post</a>
-              </td>
-            </tr>
-            <tr>
-              <td>Kyle Aquino</td>
-              <td>Post Title</td>
-              <td>02/19/2018</td>
-              <td>Published</td>
-              <td>
-                <a class="btn btn-sm btn-primary" href="#"> Manage Post</a>
-              </td>
-            </tr>
+            {% endfor %}
           </tbody>
         </table>
       </div>

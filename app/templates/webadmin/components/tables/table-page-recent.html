@@ -38,66 +38,21 @@
               <th>Name</th>
               <th>Created on</th>
               <th>Description</th>
-              <th>Created On</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody id="page-tbl">
+            {% for pub in publications %}
             <tr>
-              <td>1</td>
-              <td>Kyle Aquino</td>
-              <td>kshaunaquino</td>
-              <td>kshaunaquino@gmail.com</td>
-              <td>02/19/2018</td>
-              <td>Webmaster</td>
+              <td>{{pub.id}}</td>
+              <td>{{pub.name}}</td>
+              <td>{{pub.created}}</td>
+              <td>{{pub.description}}</td>
               <td>
-                <a class="btn btn-primary" href="#"> Manage page</a>
+                <a class="btn btn-sm btn-primary" href="#"> Manage Publication</a>
               </td>
             </tr>
-            <tr>
-              <td>1</td>
-              <td>Kyle Aquino</td>
-              <td>kshaunaquino</td>
-              <td>kshaunaquino@gmail.com</td>
-              <td>02/19/2018</td>
-              <td>Webmaster</td>
-              <td>
-                <a class="btn btn-primary" href="#"> Manage page</a>
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Kyle Aquino</td>
-              <td>kshaunaquino</td>
-              <td>kshaunaquino@gmail.com</td>
-              <td>02/19/2018</td>
-              <td>Webmaster</td>
-              <td>
-                <a class="btn btn-primary" href="#"> Manage page</a>
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Kyle Aquino</td>
-              <td>kshaunaquino</td>
-              <td>kshaunaquino@gmail.com</td>
-              <td>02/19/2018</td>
-              <td>Webmaster</td>
-              <td>
-                <a class="btn btn-primary" href="#"> Manage page</a>
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Kyle Aquino</td>
-              <td>kshaunaquino</td>
-              <td>kshaunaquino@gmail.com</td>
-              <td>02/19/2018</td>
-              <td>Webmaster</td>
-              <td>
-                <a class="btn btn-primary" href="#"> Manage page</a>
-              </td>
-            </tr>
+            {% endfor %}            
           </tbody>
         </table>
       </div>
