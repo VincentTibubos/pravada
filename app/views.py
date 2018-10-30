@@ -112,7 +112,7 @@ def login(request):
     if request.user.is_authenticated:
         return redirect('/home/')
     elif request.method == "GET":
-        return render(request, 'account/login.html')
+        return render(request, 'account/pages/login.html')
     elif request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -145,23 +145,13 @@ def register(request):
             error= ''
         else:
             error = " error occured while registering "
-        # form=RegisterForm(request.POST)
-        # if(form.is_valid()):
-        #     form.save()
-        #     username = form.cleaned_data['username']
-        #     password = form.cleaned_data['password1']
-        #     user = authenticate(username=username, password=password)
-        #     auth_login(request,user)
-        #     error= ''
-        # else:
-        #     error=request.POST
         return JsonResponse({'error':error})
-    return render(request, 'account/register.html')
+    return render(request, 'account/pages/register.html')
 
 def profile(request):
     if request.user.is_authenticated:
         return redirect('/login/')
-    return render(request, 'account/profile.html')
+    return render(request, 'account/pages/profile.html')
 
 # Direct Views
 

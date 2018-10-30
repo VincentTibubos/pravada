@@ -9,107 +9,16 @@
 
 {% block body %}
       <div id="homepage">
-        <!-- Navigation -->
-        <b-navbar toggleable="md" sticky="true" type="light" variant="light">
-          <b-navbar-brand href="#">
-            <img src="/static/img/logo.png" style="height: 40px; width 40px;" class="navbar-logo" alt="PVD">
-            | Pravada
-          </b-navbar-brand>
-          <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-          <b-collapse is-nav id="nav_collapse">
-            <!-- Left Aligned Nav Items -->
-            <b-navbar-nav>
-              <b-nav-item href="#">New</b-nav-item>
-              <b-nav-item href="#">Hot</b-nav-item>
-              <b-nav-item href="#">Popular</b-nav-item>
-            </b-navbar-nav>
-            <hr>
-            <!-- Right Aligned Nav Items -->
-            <b-navbar-nav class="ml-auto">
-              <b-nav-item href="search">
-                <form action="">
-                  <b-form-input placeholder="Search..."></b-form-input>
-                </form>
-              </b-nav-item>
-              <b-nav-item href="login">Login</b-nav-item>
-              <b-nav-item href="write">
-                <b-button size="sm" variant="outline-primary"> Write your story </b-button>
-              </b-nav-item>
-            </b-navbar-nav>
-          </b-collapse>
-        </b-navbar>
-        <!--/Navigation  -->
-
+        <!-- Add function to navbar if user is logged in -->
+        {% include 'base/header-non-user.html' %}
         <!-- Header -->
         <b-container class="p-3">
           <b-row>
             <b-col lg="8">
-              <h1>Featured Articles</h1>
-              <b-carousel id="carousel1"
-                    style="text-shadow: 1px 1px 2px #333;"
-                    controls
-                    indicators
-                    background="#ababab"
-                    :interval="4000"
-                    img-width="1024"
-                    img-height="480"
-                    v-model="slide"
-                    @sliding-start="onSlideStart"
-                    @sliding-end="onSlideEnd"
-              >
-                <b-carousel-slide class="carousel-item" caption="Blank Image" img-blank img-alt="Blank image">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                    eros felis, tincidunt a tincidunt eget, convallis vel est. Ut pellentesque
-                    ut lacus vel interdum.
-                  </p>
-                </b-carousel-slide>
-                <b-carousel-slide class="carousel-item" caption="Blank Image" img-blank img-alt="Blank image">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                    eros felis, tincidunt a tincidunt eget, convallis vel est. Ut pellentesque
-                    ut lacus vel interdum.
-                  </p>
-                </b-carousel-slide>
-                <b-carousel-slide class="carousel-item" caption="Blank Image" img-blank img-alt="Blank image">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                    eros felis, tincidunt a tincidunt eget, convallis vel est. Ut pellentesque
-                    ut lacus vel interdum.
-                  </p>
-                </b-carousel-slide>
-                <b-carousel-slide class="carousel-item" caption="Blank Image" img-blank img-alt="Blank image">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                    eros felis, tincidunt a tincidunt eget, convallis vel est. Ut pellentesque
-                    ut lacus vel interdum.
-                  </p>
-                </b-carousel-slide>
-                <b-carousel-slide class="carousel-item" caption="Blank Image" img-blank img-alt="Blank image">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                    eros felis, tincidunt a tincidunt eget, convallis vel est. Ut pellentesque
-                    ut lacus vel interdum.
-                  </p>
-                </b-carousel-slide>
-              </b-carousel>
+              {% include 'homepage/components/featured-articles.html' %}
             </b-col>
             <b-col lg="4" class="mt-3" >
-              <h3>Top Stories</h3>
-              <b-card class="mb-2" title="Card title" sub-title="Card subtitle">
-                  <p class="card-text">
-                      Some quick example text to build on the <em>card title</em>
-                      and make up the bulk of the card's content.
-                  </p>
-                  <b-link href="#" class="card-link">Read More</b-link>
-              </b-card>
-              <b-card class="mb-2" title="Card title" sub-title="Card subtitle">
-                  <p class="card-text">
-                      Some quick example text to build on the <em>card title</em>
-                      and make up the bulk of the card's content.
-                  </p>
-                  <b-link href="#" class="card-link">Read More</b-link>
-              </b-card>
+              {% include 'homepage/components/top-stories.html' %}
             </b-col>
           </b-row>
         </b-container>
@@ -123,99 +32,26 @@
         <b-container>
           <b-row>
             <!-- Blog Posts -->
-            <b-col lg="8" sm="12"><div class="d-flex">
+            <b-col lg="8" sm="12">
               <div class="d-flex">
-                <div class="p-2">
-                  <b-button class="m-1" variant="secondary" v-for="tag in tags" :key="tag.id" v-bind:href="tag.link">
-                      [[tag.name]]
-                  </b-button>
-                </div>
+                {% include 'base/tag.html' %}
               </div>
-              </div>
-              {# Posts #}
-              <b-card v-for="post in posts" :key="post.id" class="my-3">
-                <b-container>
-                  <b-row class="mb-3">
-                    <b-col>
-                      <h3>[[post.title]]</h3>
-                      <span class="text-muted">Posted by <a v-bind:href="post.authorlink">[[post.author]]</a> on [[post.date]]</span>
-                    </b-col>
-                  </b-row>
-                  <b-row>
-                    <b-col sm="8"  md="8">
-                      <p>[[post.details]]... <a v-bind:href='post.postLink'>(Read more)</a></p>
-                    </b-col>
-                    <b-col sm="4"  md="4">
-                      <b-img class="d-none d-md-block" src="https://picsum.photos/1024/400/?image=41" thumbnail fluid alt="image" />
-                    </b-col>
-                  </b-row>
-                </b-container>
-                <div slot="footer" class="p-0">
-                  <b-button-group>
-                    <b-button variant="dark" disabled> 33<div class="d-none d-md-inline-block pl-1">points</div></b-button>
-                    <b-button variant="light"><span class="fa fa-arrow-up"></span><div class="d-none d-md-inline-block pl-1">Upvote</div></b-button>
-                    <b-button variant="light"><span class="fa fa-arrow-down"></span><div class="d-none d-md-inline-block pl-1"> Downvote</div></b-button>
-                    <b-button variant="light"><span class="fa fa-comment"></span><div class="d-none d-md-inline-block pl-1"> Comments</div></b-button>
-                    <b-button variant="light"><span class="fa fa-share"></span><div class="d-none d-md-inline-block pl-1"> Share</div></b-button>
-                  </b-button-group>
-                </div>
-              </b-card>
+              {% include 'post/components/post-card.html' %}
             </b-col>
             <!-- Top Writers/Publications -->
             <b-col lg="4" sm="12">
               <div class="p-3">
-                <h4 class="font-italic">Top Writers</h4>
-                <ol class="mb-0">
-                  <li><a href="#">Writer 1</a></li>
-                  <li><a href="#">Writer 2</a></li>
-                  <li><a href="#">Writer 3</a></li>
-                  <li><a href="#">Writer 4</a></li>
-                  <li><a href="#">Writer 5</a></li>
-                  <li><a href="#">Writer 6</a></li>
-                  <li><a href="#">Writer 7</a></li>
-                  <li><a href="#">Writer 8</a></li>
-                </ol>
+                {% include 'homepage/components/top-writers-list.html' %}
               </div>
-
               <div class="p-3">
-                <h4 class="font-italic">Top Publications</h4>
-                <ol class="mb-0">
-                  <li><a href="#">Publication 1</a></li>
-                  <li><a href="#">Publication 2</a></li>
-                  <li><a href="#">Publication 3</a></li>
-                  <li><a href="#">Publication 4</a></li>
-                  <li><a href="#">Publication 5</a></li>
-                  <li><a href="#">Publication 6</a></li>
-                  <li><a href="#">Publication 7</a></li>
-                  <li><a href="#">Publication 8</a></li>
-                </ol>
+                {% include 'homepage/components/top-publications-list.html' %}
               </div>
-
             </b-col>
           </b-row>
         </b-container>
-
-        <footer class="blog-footer mt-2 font-small">
-          <div class="container text-center text-md-left">
-            <div class="row">
-              <div class="col-12">
-                <ul class="list-inline">
-                  <li class="list-inline-item"><a href="#">Help</a></li>
-                  <li class="list-inline-item"><a href="#">Team</a></li>
-                  <li class="list-inline-item"><a href="#">Blog</a></li>
-                  <li class="list-inline-item"><a href="#">Careers</a></li>
-                  <li class="list-inline-item"><a href="#">Privacy</a></li>
-                  <li class="list-inline-item"><a href="#">Terms</a></li>
-                  <li class="list-inline-item"><a href="#">About</a></li>
-                  <li class="list-inline-item"><a href="#">Contact</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </footer>
       </div>
 {% endblock %}
 
 {% block customJS %}
-    <script src="{% static 'js/homepage.js' %}"></script>
+      <script src="{% static 'js/homepage.js' %}"></script>
 {% endblock %}

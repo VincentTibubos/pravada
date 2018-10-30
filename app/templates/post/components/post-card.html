@@ -1,0 +1,29 @@
+{% load static %}
+
+  <b-card v-for="post in posts" :key="post.id" class="my-3">
+    <b-container>
+      <b-row class="mb-3">
+        <b-col>
+          <h3>[[post.title]]</h3>
+          <span class="text-muted">Posted by <a v-bind:href="post.authorlink">[[post.author]]</a> on [[post.date]]</span>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col sm="8"  md="8">
+          <p>[[post.details]]... <a v-bind:href='post.postLink'>(Read more)</a></p>
+        </b-col>
+        <b-col sm="4"  md="4">
+          <b-img class="d-none d-md-block" src="https://picsum.photos/1024/400/?image=41" thumbnail fluid alt="image" />
+        </b-col>
+      </b-row>
+    </b-container>
+    <div slot="footer" class="p-0">
+      <b-button-group>
+        <b-button variant="dark" disabled> 33<div class="d-none d-md-inline-block pl-1">points</div></b-button>
+        <b-button variant="light"><span class="fa fa-arrow-up"></span><div class="d-none d-md-inline-block pl-1">Upvote</div></b-button>
+        <b-button variant="light"><span class="fa fa-arrow-down"></span><div class="d-none d-md-inline-block pl-1"> Downvote</div></b-button>
+        <b-button variant="light"><span class="fa fa-comment"></span><div class="d-none d-md-inline-block pl-1"> Comments</div></b-button>
+        <b-button variant="light"><span class="fa fa-share"></span><div class="d-none d-md-inline-block pl-1"> Share</div></b-button>
+      </b-button-group>
+    </div>
+  </b-card>

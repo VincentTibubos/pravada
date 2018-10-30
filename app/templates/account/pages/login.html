@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Pravada | Login {% endblock %}
+
+
+{% block customCSS %}
+    <link href="{% static 'css/login.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+      <div id="login">
+        <!--/Navigation  -->
+        <b-navbar toggleable="md" type="light" variant="light">
+          <b-navbar-brand href="/">
+            <img src="/static/img/logo.png" style="height: 40px; width:40px;" class="navbar-logo" alt="PVD">
+            | Pravada
+          </b-navbar-brand>
+          <b-navbar-nav class="ml-auto">
+            <b-nav-item href="/register">Register</b-nav-item>
+          </b-navbar-nav>
+        </b-navbar>
+        <!-- Login Container -->
+        <b-container>
+            <b-row>
+                <b-col class="center" lg="4" offset-lg="4" md="6" offset-md="3" sm="6" offset-sm="3">
+                  <form class="site-form" action="" method="post">
+                    <b-row>
+                      <!-- Login Header -->
+                      <b-col class="text-center">
+                          <img alt="img" src="{% static 'img/logo.png' %}" width="60"/>
+                          <span class="pt-3" style="font-size: 30px;">
+                          <h1>Pravada|Login</h1>
+                      </b-col>
+                    </b-row>
+                    <!-- Login Form -->
+                    {% csrf_token %}
+                    <b-form-group :invalid-feedback="invalidPassFeedback" :state="state">
+                      <!-- Username Text Field -->
+                      <b-form-input class="my-1" :state="state" v-model.trim="username"
+                                    placeholder="Username"></b-form-input>
+                      <!-- Password Text Field -->
+                      <b-form-input class="my-1" :state="state" v-model.trim="password"
+                                    placeholder="Password" type="password"></b-form-input>
+                    </b-form-group>
+
+                    <b-button type="submit" variant="custom" block="block"
+                              v-on:click.prevent="login">Login</b-button>
+                  </form>
+                </b-col>
+              </b-row>
+            </b-container>
+          </div>
+{% endblock %}
+
+{% block customJS %}
+    <script src="{% static 'js/login.js' %}"></script>
+{% endblock %}
