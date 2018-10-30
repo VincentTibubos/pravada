@@ -23,7 +23,11 @@
               <td>{{post.author}}</td>
               <td>{{post.title}}</td>
               <td>{{post.publish_date}}</td>
-              <td>{{post.status}}</td>
+              {% if post.status %}
+                <td>Published</td>
+              {% else %}
+                <td>Draft</td>
+              {% endif %}
               <td>
                 <a class="btn btn-sm btn-primary" href="#"> Manage Post</a>
               </td>

@@ -31,7 +31,11 @@ def index(request):
 def admin(request):
     if request.user.is_authenticated:
         if request.user.is_staff:
-            return render(request, 'webadmin/index.html')
+            users = User.objects.all().order_by('date_joined').reverse()[:5]
+            posts = Post.objects.all().order_by('created').reverse()[:5]
+            publications = Publication.objects.all().order_by('created').reverse()[:5]
+            args = {'profile' : users ,'posts' : posts, 'publications' : publications }
+            return render(request, 'webadmin/index.html',args)
         else:
             return index(request)
     else:
@@ -85,8 +89,8 @@ def adminroles(request):
 
 #Users
 def adminusers(request):
-    profiles = Profile.objects.all()
-    args = {'profile' : profiles}
+    users = User.objects.all()
+    args = {'profile' : users}
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():

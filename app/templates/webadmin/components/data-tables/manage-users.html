@@ -11,19 +11,25 @@
           <thead>
             <tr>
               <th>Author</th>
-              <th>Birth Date</th>
-              <th>Last Updated</th>
-              <th>Reputation</th>
+              <th>Username</th>
+              <th>Date Created</th>
+              <th>Email</th>
+              <th>User Type</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody id="post-tbl">
             {%for users in profile%}
             <tr>
-              <td>{{users.user}}</td>
-              <td>{{users.birth_date}}</td>
-              <td>{{users.last_updated}}</td>
-              <td>{{users.reputation}}</td>
+              <td>{{users.first_name}} {{users.last_name}}</td>
+              <td>{{users.username}}</td>
+              <td>{{users.date_joined}}</td>
+              <td>{{users.email}}</td>
+              {% if users.is_superuser %}
+                <td>Webmaster</td>
+              {% else %}
+                <td>User</td>
+              {% endif %}
               <td>
                 <a class="btn btn-sm btn-primary" href="#"> Manage User</a>
               </td>
