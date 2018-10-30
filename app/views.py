@@ -7,9 +7,13 @@ from user.forms import LoginForm,RegisterForm
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from . import views
+
+# Model import
 from post.models import Post
+from user.models import Profile, Publication, Role
+
+# Form import
 from post.forms import PostForm
-from user.models import Profile
 
 # Create your views here.
 
@@ -61,17 +65,25 @@ def adminlogout(request):
 def admindatabase(request):
     return render(request, 'webadmin/pages/database/index.html')
 
+# Posts
 def adminposts(request):
     posts = Post.objects.all()
     args = {'posts' : posts}
     return render(request, 'webadmin/pages/database/posts/index.html',args)
 
+# Publications
 def adminpublications(request):
-    return render(request, 'webadmin/pages/database/publications/index.html')
+    publications = Publication.objects.all()
+    args ={'publications' : publications}
+    return render(request, 'webadmin/pages/database/publications/index.html', args)
 
+#Roles
 def adminroles(request):
-    return render(request, 'webadmin/pages/database/roles/index.html')
+    roles = Role.objects.all()
+    args = {'roles' : roles}
+    return render(request, 'webadmin/pages/database/roles/index.html', args)
 
+#Users
 def adminusers(request):
     profiles = Profile.objects.all()
     args = {'profile' : profiles}
