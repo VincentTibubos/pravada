@@ -18,66 +18,27 @@
             </tr>
           </thead>
           <tbody id="post-tbl">
+            {%for post in posts%}
             <tr>
-              <td>Kyle Aquino</td>
-              <td>Post Title</td>
-              <td>02/19/2018</td>
-              <td>Published</td>
+              <td>{{post.author}}</td>
+              <td>{{post.title}}</td>
+              <td>{{post.publish_date}}</td>
+              {% if post.status %}
+                <td>Published</td>
+              {% else %}
+                <td>Draft</td>
+              {% endif %}
               <td>
                 <a class="btn btn-sm btn-primary" href="#"> Manage Post</a>
               </td>
             </tr>
-            <tr>
-              <td>Kyle Aquino</td>
-              <td>Post Title</td>
-              <td>02/19/2018</td>
-              <td>Published</td>
-              <td>
-                <a class="btn btn-sm btn-primary" href="#"> Manage Post</a>
-              </td>
-            </tr>
-            <tr>
-              <td>Kyle Aquino</td>
-              <td>Post Title</td>
-              <td>02/19/2018</td>
-              <td>Published</td>
-              <td>
-                <a class="btn btn-sm btn-primary" href="#"> Manage Post</a>
-              </td>
-            </tr>
-            <tr>
-              <td>Kyle Aquino</td>
-              <td>Post Title</td>
-              <td>02/19/2018</td>
-              <td>Published</td>
-              <td>
-                <a class="btn btn-sm btn-primary" href="#"> Manage Post</a>
-              </td>
-            </tr>
-            <tr>
-              <td>Kyle Aquino</td>
-              <td>Post Title</td>
-              <td>02/19/2018</td>
-              <td>Published</td>
-              <td>
-                <a class="btn btn-sm btn-primary" href="#"> Manage Post</a>
-              </td>
-            </tr>
-            <tr>
-              <td>Kyle Aquino</td>
-              <td>Post Title</td>
-              <td>02/19/2018</td>
-              <td>Published</td>
-              <td>
-                <a class="btn btn-sm btn-primary" href="#"> Manage Post</a>
-              </td>
-            </tr>
+            {%endfor%}
           </tbody>
         </table>
       </div>
     </div>
     <div class="card-footer">
-      <button type="button" class="btn btn-outline-primary">
+      <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#postModal">
         <i class="fas fa-plus-square"></i> Add Post
       </button>
     </div>

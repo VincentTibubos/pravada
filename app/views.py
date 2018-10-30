@@ -8,6 +8,13 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 from . import views
 
+# Model import
+from post.models import Post
+from user.models import Profile, Publication, Role
+
+# Form import
+from post.forms import PostForm
+
 # Create your views here.
 
 # Homepage
@@ -24,7 +31,11 @@ def index(request):
 def admin(request):
     if request.user.is_authenticated:
         if request.user.is_staff:
-            return render(request, 'webadmin/index.html')
+            users = User.objects.all().order_by('date_joined').reverse()[:5]
+            posts = Post.objects.all().order_by('created').reverse()[:5]
+            publications = Publication.objects.all().order_by('created').reverse()[:5]
+            args = {'profile' : users ,'posts' : posts, 'publications' : publications }
+            return render(request, 'webadmin/index.html',args)
         else:
             return index(request)
     else:
@@ -58,17 +69,35 @@ def adminlogout(request):
 def admindatabase(request):
     return render(request, 'webadmin/pages/database/index.html')
 
+# Posts
 def adminposts(request):
-    return render(request, 'webadmin/pages/database/posts/index.html')
+    posts = Post.objects.all()
+    args = {'posts' : posts}
+    return render(request, 'webadmin/pages/database/posts/index.html',args)
 
+# Publications
 def adminpublications(request):
-    return render(request, 'webadmin/pages/database/publications/index.html')
+    publications = Publication.objects.all()
+    args ={'publications' : publications}
+    return render(request, 'webadmin/pages/database/publications/index.html', args)
 
+#Roles
 def adminroles(request):
-    return render(request, 'webadmin/pages/database/roles/index.html')
+    roles = Role.objects.all()
+    args = {'roles' : roles}
+    return render(request, 'webadmin/pages/database/roles/index.html', args)
 
+#Users
 def adminusers(request):
-    return render(request, 'webadmin/pages/database/users/index.html')
+    users = User.objects.all()
+    args = {'profile' : users}
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'webadmin/pages/database/users/index.html',args)
+    else:
+        return render(request, 'webadmin/pages/database/users/index.html',args)
 
 def adminreports(request):
     return render(request, 'webadmin/pages/reports/index.html')

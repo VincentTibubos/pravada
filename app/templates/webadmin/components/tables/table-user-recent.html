@@ -44,63 +44,25 @@
             </tr>
           </thead>
           <tbody id="user-tbl">
+            {% for profiles in profile %}
             <tr>
-              <td>1</td>
-              <td>Kyle Aquino</td>
-              <td>kshaunaquino</td>
-              <td>kshaunaquino@gmail.com</td>
-              <td>02/19/2018</td>
-              <td>Webmaster</td>
+              <td>{{profiles.id}}</td>
+              <td>{{profiles.first_name }} {{profiles.last_name}}</td>
+              <td>{{profiles.username}}</td>
+              <td>{{profiles.email}}</td>
+              <td>{{profiles.date_joined}}</td>
+              {% if profiles.is_superuser %}
+                <td>Webmaster</td>
+              {% else %}
+                <td>User</td>
+              {% endif %}
               <td>
                 <a class="btn btn-primary" href="#"> Manage User</a>
               </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Kyle Aquino</td>
-              <td>kshaunaquino</td>
-              <td>kshaunaquino@gmail.com</td>
-              <td>02/19/2018</td>
-              <td>Webmaster</td>
-              <td>
-                <a class="btn btn-primary" href="#"> Manage User</a>
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Kyle Aquino</td>
-              <td>kshaunaquino</td>
-              <td>kshaunaquino@gmail.com</td>
-              <td>02/19/2018</td>
-              <td>Webmaster</td>
-              <td>
-                <a class="btn btn-primary" href="#"> Manage User</a>
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Kyle Aquino</td>
-              <td>kshaunaquino</td>
-              <td>kshaunaquino@gmail.com</td>
-              <td>02/19/2018</td>
-              <td>Webmaster</td>
-              <td>
-                <a class="btn btn-primary" href="#"> Manage User</a>
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Kyle Aquino</td>
-              <td>kshaunaquino</td>
-              <td>kshaunaquino@gmail.com</td>
-              <td>02/19/2018</td>
-              <td>Webmaster</td>
-              <td>
-                <a class="btn btn-primary" href="#"> Manage User</a>
-              </td>
+              {% endfor %}
             </tr>
           </tbody>
-        </table>        
+        </table>
       </div>
     </div>
   </div>
