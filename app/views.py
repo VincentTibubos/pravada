@@ -7,6 +7,9 @@ from user.forms import LoginForm,RegisterForm
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from . import views
+from post.models import Post
+from post.forms import PostForm
+from user.models import Profile
 
 # Create your views here.
 
@@ -59,7 +62,9 @@ def admindatabase(request):
     return render(request, 'webadmin/pages/database/index.html')
 
 def adminposts(request):
-    return render(request, 'webadmin/pages/database/posts/index.html')
+    posts = Post.objects.all()
+    args = {'posts' : posts}
+    return render(request, 'webadmin/pages/database/posts/index.html',args)
 
 def adminpublications(request):
     return render(request, 'webadmin/pages/database/publications/index.html')
@@ -68,7 +73,15 @@ def adminroles(request):
     return render(request, 'webadmin/pages/database/roles/index.html')
 
 def adminusers(request):
-    return render(request, 'webadmin/pages/database/users/index.html')
+    profiles = Profile.objects.all()
+    args = {'profile' : profiles}
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'webadmin/pages/database/users/index.html',args)
+    else:
+        return render(request, 'webadmin/pages/database/users/index.html',args)
 
 def adminreports(request):
     return render(request, 'webadmin/pages/reports/index.html')

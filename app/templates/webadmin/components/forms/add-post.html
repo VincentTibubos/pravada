@@ -1,6 +1,7 @@
 {% load static %}
 
-<form>
+<form method="post" action="">
+  {% csrf_token %}
   <div class="form-row">
     <div class="form-group col-3">
       <input type="firstname" class="form-control" id="inputFirstName" placeholder="First Name">
