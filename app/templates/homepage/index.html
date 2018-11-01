@@ -9,8 +9,8 @@
 
 {% block body %}
       <div id="homepage">
-        <!-- Add function to navbar if user is logged in -->
         {% include 'base/header-non-user.html' %}
+
         <!-- Header -->
         <b-container class="p-3">
           <b-row>
@@ -22,7 +22,6 @@
             </b-col>
           </b-row>
         </b-container>
-        <!-- /Header -->
 
         <b-container class="mb-5">
           <hr>
@@ -33,22 +32,18 @@
           <b-row>
             <!-- Blog Posts -->
             <b-col lg="8" sm="12">
-              <div class="d-flex">
-                {% include 'base/tag.html' %}
-              </div>
+              {% include 'base/tags.html' %}
               {% include 'post/components/post-card.html' %}
             </b-col>
             <!-- Top Writers/Publications -->
             <b-col lg="4" sm="12">
-              <div class="p-3">
-                {% include 'homepage/components/top-writers-list.html' %}
-              </div>
-              <div class="p-3">
-                {% include 'homepage/components/top-publications-list.html' %}
-              </div>
+              {% include 'base/top-writers-list.html' %}
+              {% include 'base/top-publications-list.html' %}
+              {% include 'base/footer.html' %}
             </b-col>
           </b-row>
         </b-container>
+
       </div>
 {% endblock %}
 

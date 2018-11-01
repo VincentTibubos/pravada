@@ -178,7 +178,7 @@ def register(request):
     return render(request, 'account/pages/register.html')
 
 def profile(request):
-    if request.user.is_authenticated:
+    if not request.user.is_authenticated:
         return redirect('/login/')
     return render(request, 'account/pages/profile.html')
 

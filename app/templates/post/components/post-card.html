@@ -1,29 +1,36 @@
 {% load static %}
 
-  <b-card v-for="post in posts" :key="post.id" class="my-3">
-    <b-container>
-      <b-row class="mb-3">
-        <b-col>
-          <h3>[[post.title]]</h3>
-          <span class="text-muted">Posted by <a v-bind:href="post.authorlink">[[post.author]]</a> on [[post.date]]</span>
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col sm="8"  md="8">
-          <p>[[post.details]]... <a v-bind:href='post.postLink'>(Read more)</a></p>
-        </b-col>
-        <b-col sm="4"  md="4">
-          <b-img class="d-none d-md-block" src="https://picsum.photos/1024/400/?image=41" thumbnail fluid alt="image" />
-        </b-col>
-      </b-row>
-    </b-container>
+  <b-card img-src="https://placekitten.com/1000/300" img-right v-for="post in posts" :key="post.id" class="my-3">
+    <b-row class="mb-3">
+      <b-col cols="1" class="p-1">
+        <b-button-group  vertical>
+          <b-button size="sm" variant="outline-primary"><span class="fa fa-arrow-up"></span></b-button>
+          <b-button size="sm" variant="outline-dark" disabled> <b>33.3k</b></b-button>
+          <b-button size="sm" variant="outline-danger"><span class="fa fa-arrow-down"></span></b-button>
+        </b-button-group>
+      </b-col>
+      <b-col cols="11" class="my-auto">
+        <h3>[[post.title]]</h3>
+        <span class="text-muted">Posted by <a v-bind:href="post.authorlink">[[post.author]]</a> on [[post.date]]</span>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col>
+        <p>[[post.details]]... <a v-bind:href='post.postLink'>(Read more)</a></p>
+      </b-col>
+    </b-row>
     <div slot="footer" class="p-0">
       <b-button-group>
-        <b-button variant="dark" disabled> 33<div class="d-none d-md-inline-block pl-1">points</div></b-button>
-        <b-button variant="light"><span class="fa fa-arrow-up"></span><div class="d-none d-md-inline-block pl-1">Upvote</div></b-button>
-        <b-button variant="light"><span class="fa fa-arrow-down"></span><div class="d-none d-md-inline-block pl-1"> Downvote</div></b-button>
-        <b-button variant="light"><span class="fa fa-comment"></span><div class="d-none d-md-inline-block pl-1"> Comments</div></b-button>
-        <b-button variant="light"><span class="fa fa-share"></span><div class="d-none d-md-inline-block pl-1"> Share</div></b-button>
+        <b-button size="sm" variant="light"><span class="fa fa-comment"></span><div class="d-none d-md-inline-block pl-1"> Comments</div></b-button>
+        <b-button size="sm" variant="light"><span class="fa fa-share"></span><div class="d-none d-md-inline-block pl-1"> Share</div></b-button>
+        <b-button size="sm" variant="light"><span class="fa fa-save"></span><div class="d-none d-md-inline-block pl-1"> Save</div></b-button>
       </b-button-group>
+      <b-dropdown variant="light" class="text-muted" size="sm" no-caret>
+        <template slot="button-content">
+          <span class="fa fa-ellipsis-h">
+        </template>
+        <b-dropdown-item href="#">Report</b-dropdown-item>
+        <b-dropdown-item href="#">Hide Post</b-dropdown-item>
+      </b-dropdown>
     </div>
   </b-card>

@@ -40,7 +40,7 @@ new Vue({
       { id: 5, text: 'Publication 5', link:'Publication'}
     ],
     posts:[
-      { id: 1, title: 'Title', date:'June 1, 2016', author:'Vincent TIbbs',
+      { id: 1, title: 'Key Republican Senator Says She Will Not Vote for former president!', date:'June 1, 2016', author:'Vincent TIbbs',
         authorlink:'vince', postLink:'postLink',details: 'We can use the v-for directive to render a list of items based on an array. The v-for directive requires a special syntax in the form of item in items, where items is the source data array and item is an alias for the array element being iterated on',points:33},
         { id: 2, title: 'Title2', date:'June 2, 2016', author:'Kyle Aquino',
           authorlink:'kyle', postLink:'postLink',details: 'We can use the v-for directive to render a list of items based on an array. The v-for directive requires a special syntax in the form of item in items, where items is the source data array and item is an alias for the array element being iterated on',points:34},
