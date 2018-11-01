@@ -1,0 +1,9 @@
+{% load static %}
+
+<div class="d-flex">
+  <div class="p-2">
+    <b-button class="m-1" variant="secondary" v-for="tag in tags" :key="tag.id" v-bind:href="tag.link">
+        [[tag.name]]
+    </b-button>
+  </div>
+</div>

@@ -9,181 +9,26 @@
 
 {% block body %}
       <div id="homepage">
-        <!-- Navigation -->
-        <b-navbar toggleable="md" type="light" sticky="true" variant="light">
-          <b-navbar-brand href="#">
-            <img src="/static/img/logo.png" style="height: 40px; width: 40px;"
-                 class="navbar-logo" alt="PVD"> | Pravada
-          </b-navbar-brand>
-          <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-          <b-collapse is-nav id="nav_collapse">
-            <!-- Left Aligned Nav Items -->
-            <b-navbar-nav>
-                <b-nav-item-dropdown text="Subscriptions" right>
-                  <b-dropdown-item v-for="subs in subscriptions" :key="subs.id" v-bind:href="subs.link">[[ subs.text ]]</b-dropdown-item>
-                </b-nav-item-dropdown>
-                <b-nav-item href="#">New</b-nav-item>
-                <b-nav-item href="#">Hot</b-nav-item>
-                <b-nav-item href="#">Popular</b-nav-item>
-              </b-navbar-nav>
-              <hr>
-            <!-- Right Aligned Nav Items -->
-            <b-navbar-nav class="ml-auto">
-              <b-nav-item href="search">
-                <form action="">
-                  <b-form-input placeholder="Search..."></b-form-input>
-                </form>
-              </b-nav-item>
-              <b-nav-item href="login"><span class="fa fa-bell"></span></b-nav-item>
-              <b-nav-item href="/login">Login</b-nav-item>
-              <b-nav-item href="write">
-                <b-dropdown size="sm" variant="outline-primary" text="Profile" right>
-                  <b-dropdown-item>First Action</b-dropdown-item>
-                  <b-dropdown-item>Second Action</b-dropdown-item>
-                  <b-dropdown-item>Third Action</b-dropdown-item>
-                  <b-dropdown-divider></b-dropdown-divider>
-                  <b-dropdown-item>Something else here...</b-dropdown-item>
-                  <b-dropdown-item disabled>Disabled action</b-dropdown-item>
-                </b-dropdown>
-              </b-nav-item>
-            </b-navbar-nav>
-          </b-collapse>
-        </b-navbar>
-        <!--/Navigation  -->
+        {% include 'base/header-user.html' %}
 
         <!-- Main -->
         <b-container class="p-5">
           <b-row>
-            {# Left Side Components #}
-            <b-col lg="9">
-              {# Tags #}
-              <div class="d-flex">
-                <div class="p-2">
-                  <b-button class="m-1" variant="secondary" v-for="tag in tags"
-                            :key="tag.id" v-bind:href="tag.link">[[tag.name]]
-                  </b-button>
-                </div>
-              </div>
-
-              {# Posts #}
-              <b-card v-for="post in posts" :key="post.id" class="my-3">
-                <b-container>
-                  <b-row class="mb-3">
-                    <b-col>
-                      <h3>[[post.title]]</h3>
-                      <span class="text-muted">Posted by <a v-bind:href="post.authorlink">[[post.author]]</a> on [[post.date]]</span>
-                    </b-col>
-                  </b-row>
-                  <b-row>
-                    <b-col sm="8"  md="8">
-                      <p>[[post.details]]... <a v-bind:href='post.postLink'>(Read more)</a></p>
-                    </b-col>
-                    <b-col sm="4"  md="4">
-                      <b-img class="d-none d-md-block" src="https://picsum.photos/1024/400/?image=41" thumbnail fluid alt="image" />
-                    </b-col>
-                  </b-row>
-                </b-container>
-                <b-container slot="footer">
-                  <b-row>
-                    <b-col class="my-auto" lg="7">
-                      <b-link><span class="fa fa-arrow-up"></span></b-link>
-                       <b>33.01k</b>
-                      <b-link><span class="fa fa-arrow-down"></span></b-link>
-                      <b-button variant="light"><span class="fa fa-comment"></span> Comments</b-button>
-                      <b-button variant="light"><span class="fa fa-share"></span> Share</b-button>
-                    </b-col>
-                  </b-row>
-                </b-container>
-              </b-card>
+            <!-- Left Side Components -->
+            <b-col lg="8">
+              {% include 'base/tags.html' %}
+              {% include 'post/components/post-card.html' %}
             </b-col>
-
-            {# Right Side Components #}
-            <b-col lg="3">
-              <b-container class="p-2 mb-3 border">
-                <b-row class="mb-1">
-                  <b-col cols="5">
-                    <b-img fluid alt="Responsive image" rounded blank width="75" height="75" blank-color="#777" alt="img" class="m-1" />
-                  </b-col>
-                  <b-col cols="7" class="p-0 my-auto">
-                    <b-link href="#" class="text-dark"><b>Author Name</b></b-link>
-                    <b-link href="#">@username</b-link>
-                  </b-col>
-                </b-row>
-                <b-row class="mb-2">
-                  <b-col>
-                    <b-list-group style="font-size: 80%">
-                      <b-list-group-item class="p-1 d-flex justify-content-between align-items-center">
-                        ARTICLES <b-badge variant="primary">14</b-badge>
-                      </b-list-group-item>
-                      <b-list-group-item class="p-1 d-flex justify-content-between align-items-center">
-                        FOLLOWERS <b-badge variant="primary">2</b-badge>
-                      </b-list-group-item>
-                      <b-list-group-item class="p-1 d-flex justify-content-between align-items-center">
-                        CREDIT <b-badge variant="primary">1</b-badge>
-                      </b-list-group-item>
-                    </b-list-group>
-                  </b-col>
-                </b-row>
-                <b-row>
-                  <b-col>
-                    <b-button size="sm" href="#" block variant="primary">Write Article</b-button>
-                    <b-button size="sm" href="#" block variant="outline-primary">Create Publication</b-button>
-                  </b-col>
-                </b-row>
-              </b-container>
-
-              {# Top Writers #}
-              <b-card header="Top Writers" class="mb-3">
-                <ol class="mb-0">
-                  <li><a href="#">@writer1</a></li>
-                  <li><a href="#">Writer 2</a></li>
-                  <li><a href="#">Writer 3</a></li>
-                  <li><a href="#">Writer 4</a></li>
-                  <li><a href="#">Writer 5</a></li>
-                  <li><a href="#">Writer 6</a></li>
-                  <li><a href="#">Writer 7</a></li>
-                  <li><a href="#">Writer 8</a></li>
-                </ol>
-              </b-card>
-
-              {# Top Publications #}
-              <b-card header="Top Publications" class="mb-3">
-                <ol class="mb-0">
-                  <li><a href="#">Publications</a></li>
-                  <li><a href="#">Publications</a></li>
-                  <li><a href="#">Publications</a></li>
-                  <li><a href="#">Publications</a></li>
-                  <li><a href="#">Publications</a></li>
-                  <li><a href="#">Publications</a></li>
-                  <li><a href="#">Publications</a></li>
-                  <li><a href="#">Publications</a></li>
-                </ol>
-              </b-card>
-
-              <!-- Footer -->
-              <hr>
-              <footer class=" mt-2 font-small">
-                <div class="container text-center text-md-left">
-                  <div class="row">
-                    <div class="col-12">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><a href="#">Help</a></li>
-                        <li class="list-inline-item"><a href="#">Team</a></li>
-                        <li class="list-inline-item"><a href="#">Blog</a></li>
-                        <li class="list-inline-item"><a href="#">Careers</a></li>
-                        <li class="list-inline-item"><a href="#">Privacy</a></li>
-                        <li class="list-inline-item"><a href="#">Terms</a></li>
-                        <li class="list-inline-item"><a href="#">About</a></li>
-                        <li class="list-inline-item"><a href="#">Contact</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </footer>
+            <!-- Right Side Components -->
+            <b-col lg="4">
+              {% include 'account/components/user-profile-card.html' %}
+              {% include 'account/components/user-stats-card.html' %}
+              {% include 'base/top-writers-list.html' %}
+              {% include 'base/top-publications-list.html' %}
+              {% include 'base/footer.html' %}
             </b-col>
           </b-row>
         </b-container>
-        <!-- /Header -->
 
       </div>
 {% endblock %}
