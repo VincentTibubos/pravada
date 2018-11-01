@@ -34,7 +34,18 @@ def admin(request):
             users = User.objects.all().order_by('date_joined').reverse()[:5]
             posts = Post.objects.all().order_by('created').reverse()[:5]
             publications = Publication.objects.all().order_by('created').reverse()[:5]
-            args = {'profile' : users ,'posts' : posts, 'publications' : publications }
+            form = PostForm()
+            args = {'profile' : users ,'posts' : posts, 'publications' : publications, 'form' : form }
+            print(form)
+            if request.method == "POST":
+                form = PostForm(request.POST)
+                if form.is_valid():
+                    form.save()
+                else:
+                    print('=============================')
+                    print("errors : {}".format(form.errors.as_data()))
+                    print('=============================')
+                    print(form.cleaned_data['author'])
             return render(request, 'webadmin/index.html',args)
         else:
             return index(request)
