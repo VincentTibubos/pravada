@@ -23,7 +23,7 @@
               <td>{{post.author}}</td>
               <td>{{post.title}}</td>
               <td>{{post.publish_date}}</td>
-              {% if post.status %}
+              {% if post.status == 'p' %}
                 <td>Published</td>
               {% else %}
                 <td>Draft</td>

@@ -1,14 +1,22 @@
+from datetime import date
 from django import forms
+from django.contrib.auth.models import User
 from .models import Post, Comment, Reply, Tag
 
-class PostForm(forms.Form):
-    title = forms.CharField(label='title',)
-    slug = forms.CharField(label='slug',)
-    text = forms.CharField(label='text',)
-    timestamp = forms.DateField(label='timestamp',)
-    tag_line = forms.CharField(label='tagline',)
-    is_published = forms.NullBooleanField()
-    publish_date = forms.DateTimeField()
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ('title','author','slug','publish_date','text','status')
+
+        widgets = {
+            'title': forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Title'}),
+            'author': forms.Select(attrs={'class' : 'form-control'}),
+            'slug': forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Slug'}),
+            'text': forms.Textarea(attrs={'class' : 'form-control', 'placeholder' : 'Text'}),
+            'status': forms.Select(attrs={'class' : 'form-control'}),
+            'publish_date': forms.DateInput(attrs={'class' : 'form-control', 'value' : date.today()})
+        }
+
 
 class CommentForm(forms.Form):
     comment_for = forms.IntegerField(widget=forms.HiddenInput())
