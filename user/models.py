@@ -58,7 +58,7 @@ class Category(models.Model):
         verbose_name_plural = "Categories"
 
     def __str__(self):
-        return str(self.pub_id)
+        return str(self.title)
 
 # User/Publication Models
 class Role(models.Model):

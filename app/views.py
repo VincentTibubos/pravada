@@ -14,6 +14,7 @@ from user.models import Profile, Publication, Role
 
 # Form import
 from post.forms import PostForm
+from user.forms import RoleForm, PublicationForm
 
 # Create your views here.
 
@@ -34,14 +35,28 @@ def admin(request):
             users = User.objects.all().order_by('date_joined').reverse()[:5]
             posts = Post.objects.all().order_by('created').reverse()[:5]
             publications = Publication.objects.all().order_by('created').reverse()[:5]
-            form = PostForm()
-            args = {'profile' : users ,'posts' : posts, 'publications' : publications, 'form' : form }
+            postform = PostForm()
+            roleform = RoleForm()
+            publicationform = PublicationForm()
+            args = {'profile' : users ,'posts' : posts, 'publications' : publications, 'postform' : postform, 'roleform' : roleform, 'publicationform' :publicationform }
             if request.method == "POST":
-                form = PostForm(request.POST)
-                if form.is_valid():
-                    form.save()
-                else:
-                    print("errors : {}".format(form.errors.as_data()))
+                if 'add_post' in request.POST:
+                    postform = PostForm(request.POST)
+                    if postform.is_valid():
+                        postform.save()
+                    else:
+                        print("errors : {}".format(postform.errors.as_data()))
+                elif 'add_role' in request.POST:
+                    roleform = RoleForm(request.POST)
+                    if roleform.is_valid():
+                        roleform.save()
+                elif 'add_publication' in request.POST:
+                    publicationform = PublicationForm(request.POST, request.FILES)
+                    if publicationform.is_valid():
+                    #    print(publication.cleaned_data)
+                        publicationform.save()
+                    else:
+                        print("errors : {}".format(publicationform.errors.as_data()))
             return render(request, 'webadmin/index.html',args)
         else:
             return index(request)

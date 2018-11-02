@@ -1,32 +1,32 @@
 {% load static %}
 
-<form method="post" action="">
+<form method="post">
   {% csrf_token %}
   <div class="form-row">
     <div class="form-group col-9">
-    {{form.title}}
+    {{postform.title}}
     </div>
     <div class="form-group col-3">
-    {{form.slug}}
+    {{postform.slug}}
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-md-12">
-      {{form.text}}
+      {{postform.text}}
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-2">
-    {{form.publish_date}}
+    {{postform.publish_date}}
     </div>
     <div class="form-group col-8">
-    {{form.author}}
+    {{postform.author}}
     </div>
     <div class="form-group col-2">
-    {{form.status}}
+    {{postform.status}}
     </div>
   </div>
-  <button type="submit" class="btn btn-outline-primary">
+  <button type="submit" class="btn btn-outline-primary" name="add_post">
     <i class="fas fa-plus-square"></i> Add Post
   </button>
   <button type="clear" class="btn btn-outline-primary">
