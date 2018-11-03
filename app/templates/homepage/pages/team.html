@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Pravada | Team {% endblock %}
+
+{% block customCSS %}
+{% endblock %}
+
+{% block body %}
+      <div id="homepage">
+        {% if user.is_authenticated %}
+            {% include 'base/header-user.html' %}
+        {% else %}
+            {% include 'base/header-non-user.html' %}
+        {% endif %}
+
+        <!-- Main -->
+        <b-container class="p-5">
+          <b-row>
+            <!-- Left Side Components -->
+            <b-col lg="8">
+
+            </b-col>
+            <!-- Right Side Components -->
+            <b-col lg="4">
+              {% include 'base/footer.html' %}
+            </b-col>
+          </b-row>
+        </b-container>
+
+      </div>
+{% endblock %}
+
+{% block customJS %}
+    <script src="{% static 'js/homepage.js' %}"></script>
+{% endblock %}

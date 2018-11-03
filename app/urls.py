@@ -8,6 +8,23 @@ urlpatterns = [
 
     # Homepage View
     path('',views.index, name='index'),
+    path('about/',views.about, name='about'),
+    path('contact/',views.contact, name='newposts'),
+    path('help/',views.help, name='help'),
+    path('team/',views.team, name='team'),
+
+    # Profile View
+    path('writer/profile/',views.writerprofile, name='newposts'),
+    path('publication/profile/',views.publicationprofile, name='newposts'),
+
+    # Feeds
+    path('new/',views.newposts, name='newposts'),
+    path('hot/',views.hotposts, name='hotposts'),
+    path('popular/',views.popularposts, name='popularposts'),
+
+    # Top
+    path('top/publications/',views.toppublications, name='new'),
+    path('top/writers/',views.topwriters, name='new'),
 
     # Web Admin
     path('webmaster/',views.admin, name='index'),
@@ -24,20 +41,22 @@ urlpatterns = [
     path('webmaster/database/users/',views.adminusers, name='index'),
 
     # Account Views
+    path('home/',views.home, name='index'),
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
     path('register/',views.register, name='register'),
-    path('home/',views.home, name='home'),
-    # path('settings/',views.profile, name='profile'), #update
     # path('submit/',views.profile, name='profile'),
     # path('search/',views.search, name='search'),
 
     # Account Profile Views
     path('profile/',views.profile, name='profile'),
-    # path('profile/posts/',views.profile, name='profile'), #update
-    # path('profile/posts/draft/',views.profile, name='profile'), #update
-    # path('profile/posts/published/',views.profile, name='profile'), #update
-    # path('profile/publications/',views.profile, name='profile'), #update
+    path('profile/settings/',views.settings, name='settings'),
+    path('profile/posts/',views.posts, name='posts'),
+    path('profile/publications/',views.publications, name='publications'),
+    path('profile/activitylog/',views.activitylog, name='activitylog'),
+    path('profile/followers/',views.followers, name='followers'),
+    path('profile/following/',views.following, name='following'),
+    path('profile/subscriptions/',views.subscriptions, name='subscriptions'),
 
     # Post Views
     path('post/',views.article, name='article'), #replace article to post
@@ -54,15 +73,4 @@ urlpatterns = [
     # path('publication/manage/',views.dashboard, name='dashboard'), # Pub Setttings Update
     # path('publication/manage/posts/',views.dashboard, name='dashboard'),
     # path('publication/manage/staff/',views.dashboard, name='dashboard'),
-
-    # Feeds (Please Update!!)
-    # path('subscriptions/',views.home, name='new'),
-    # path('new/',views.home, name='new'),
-    # path('hot/',views.home, name='new'),
-    # path('popular/',views.home, name='new'),
-
-    # Top
-    path('top/',views.home, name='new'),
-    path('top/publications/',views.home, name='new'),
-    path('top/writers/',views.home, name='new'),
 ]

@@ -15,9 +15,7 @@ from user.models import Profile, Publication, Role
 # Form import
 from post.forms import PostForm
 
-# Create your views here.
-
-# Homepage
+# Homepage Routes
 def index(request):
     if request.user.is_authenticated:
         if request.user.is_staff:
@@ -27,7 +25,41 @@ def index(request):
     else:
         return render(request, 'homepage/index.html')
 
-# Web Admin
+def about(request):
+    return render(request, 'homepage/pages/about.html')
+
+def contact(request):
+    return render(request, 'homepage/pages/contact.html')
+
+def help(request):
+    return render(request, 'homepage/pages/help.html')
+
+def team(request):
+    return render(request, 'homepage/pages/team.html')
+
+def toppublications(request):
+    return render(request, 'homepage/pages/top-publications.html')
+
+def topwriters(request):
+    return render(request, 'homepage/pages/top-writers.html')
+
+def writerprofile(request):
+    return render(request, 'homepage/pages/writer-profile.html')
+
+def publicationprofile(request):
+    return render(request, 'homepage/pages/publication-profile.html')
+
+#Feeds Routes
+def hotposts(request):
+    return render(request, 'homepage/pages/hot-posts.html')
+
+def popularposts(request):
+    return render(request, 'homepage/pages/popular-posts.html')
+
+def newposts(request):
+    return render(request, 'homepage/pages/new-posts.html')
+
+# Web Admin Routes
 def admin(request):
     if request.user.is_authenticated:
         if request.user.is_staff:
@@ -42,7 +74,7 @@ def admin(request):
         return redirect('/webmaster/login/')
 
 def adminlogin(request):
-        error = None
+        error = ''
         if request.user.is_authenticated:
             if not request.user.is_staff:
                 return index(request)
@@ -69,25 +101,25 @@ def adminlogout(request):
 def admindatabase(request):
     return render(request, 'webadmin/pages/database/index.html')
 
-# Posts
+# Web Admin Posts Routes
 def adminposts(request):
     posts = Post.objects.all()
     args = {'posts' : posts}
     return render(request, 'webadmin/pages/database/posts/index.html',args)
 
-# Publications
+# Web Admin Publications Routes
 def adminpublications(request):
     publications = Publication.objects.all()
     args ={'publications' : publications}
     return render(request, 'webadmin/pages/database/publications/index.html', args)
 
-#Roles
+# Web Admin Roles Routes
 def adminroles(request):
     roles = Role.objects.all()
     args = {'roles' : roles}
     return render(request, 'webadmin/pages/database/roles/index.html', args)
 
-#Users
+# Web Admin Users Routes
 def adminusers(request):
     users = User.objects.all()
     args = {'profile' : users}
@@ -122,7 +154,7 @@ def publication(request):
 def dashboard(request):
     return render(request, 'publication/dashboard.html')
 
-# Account
+# Account Routes
 def home(request):
     if request.user.is_authenticated:
         if request.user.is_staff:
@@ -182,6 +214,45 @@ def profile(request):
         return redirect('/login/')
     return render(request, 'account/pages/profile.html')
 
-# Direct Views
+def settings(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/settings.html')
 
-# def page_home(request):
+def activitylog(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/activity-log.html')
+
+def followers(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/followers.html')
+
+def following(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/following.html')
+
+def publications(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/publications.html')
+
+def posts(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/posts.html')
+
+def reputation(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/reputation.html')
+
+def subscriptions(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/subscriptions.html')
+
+# Posts Routes (CREATE HERE)
+# Publication Routes (CREATE HERE)
