@@ -1,6 +1,16 @@
 {% load static %}
 
-<b-card no-body header="<span class='fa fa-users'><span> My Publications" class="mb-3">
+<b-card no-body class="mb-3">
+  <b-card-header class="d-flex justify-content-between">
+    <div>
+      <span class='fa fa-users'><span> My Publications
+    </div>
+    <div>
+      <b-button size="sm" variant="outline-primary" href="/profile/publications/">
+        <i class="fas fa-edit"></i>
+      </b-button>
+    </div>
+  </b-card-header>
   <b-list-group flush>
     <b-list-group-item button>
       <b-row>

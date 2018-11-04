@@ -1,22 +1,15 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %} Pravada | Homepage {% endblock %}
+{% block title %} Pravada | Category {% endblock %}
 
 {% block customCSS %}
     <link href="{% static 'css/homepage.css' %}" rel="stylesheet"/>
 {% endblock %}
 
 {% block body %}
-      <div class="category">
-        <h1>Category Page</h1>
-      </div>
 {% endblock %}
 
 {% block customJS %}
     <script src="{% static 'js/publication.js' %}"></script>
-    <script>
-        var img_cover=document.getElementById('img-cover');
-        console.log('sdf');
-    </script>
 {% endblock %}

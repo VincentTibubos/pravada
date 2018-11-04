@@ -145,14 +145,17 @@ def adminsettings(request):
     return render(request, 'webadmin/pages/settings/index.html')
 
 # Posts
-def article(request):
-    return render(request, 'post/article.html')
+def post(request):
+    return render(request, 'post/pages/post.html')
 
-def category(request):
-    return render(request, 'post/category.html')
+def writepost(request):
+    return render(request, 'post/pages/write-post.html')
 
-def search(request):
-    return render(request, 'post/search.html')
+def editpost(request):
+    return render(request, 'post/pages/edit-post.html')
+
+def tag(request):
+    return render(request, 'post/pages/tag.html')
 
 # Publications
 def publication(request):
@@ -160,6 +163,24 @@ def publication(request):
 
 def dashboard(request):
     return render(request, 'publication/dashboard.html')
+
+def publicationposts(request):
+    return render(request, 'publication/pages/posts.html')
+
+def publicationstaff(request):
+    return render(request, 'publication/pages/staff.html')
+
+def publicationsettings(request):
+    return render(request, 'publication/pages/settings.html')
+
+def pubmanagestaff(request):
+    return render(request, 'publication/pages/category.html')
+
+def pubmanageposts(request):
+    return render(request, 'publication/pages/category.html')
+
+def category(request):
+    return render(request, 'publication/pages/category.html')
 
 # Account Routes
 def home(request):
@@ -260,6 +281,3 @@ def subscriptions(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
     return render(request, 'account/pages/subscriptions.html')
-
-# Posts Routes (CREATE HERE)
-# Publication Routes (CREATE HERE)
