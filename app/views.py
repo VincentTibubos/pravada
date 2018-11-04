@@ -38,26 +38,186 @@ def team(request):
     return render(request, 'homepage/pages/team.html')
 
 def toppublications(request):
-    return render(request, 'homepage/pages/top-publications.html')
+    return render(request, 'homepage/pages/top/top-publications.html')
 
 def topwriters(request):
-    return render(request, 'homepage/pages/top-writers.html')
+    return render(request, 'homepage/pages/top/top-writers.html')
 
 def writerprofile(request):
-    return render(request, 'homepage/pages/writer-profile.html')
+    return render(request, 'homepage/pages/writer/writer-profile.html')
 
 def publicationprofile(request):
-    return render(request, 'homepage/pages/publication-profile.html')
+    return render(request, 'homepage/pages/publication/publication-profile.html')
 
 #Feeds Routes
 def hotposts(request):
-    return render(request, 'homepage/pages/hot-posts.html')
+    return render(request, 'homepage/pages/post/hot-posts.html')
 
 def popularposts(request):
-    return render(request, 'homepage/pages/popular-posts.html')
+    return render(request, 'homepage/pages/post/popular-posts.html')
 
 def newposts(request):
-    return render(request, 'homepage/pages/new-posts.html')
+    return render(request, 'homepage/pages/post/new-posts.html')
+
+# Search Routes
+def search(request):
+    return render(request, 'search/index.html')
+
+def searchuser(request):
+    return render(request, 'search/pages/tag.html')
+
+def searchpublication(request):
+    return render(request, 'search/pages/tag.html')
+
+def searchtag(request):
+    return render(request, 'search/pages/tag.html')
+
+def searchcategory(request):
+    return render(request, 'search/pages/category.html')
+
+# Posts
+def post(request):
+    return render(request, 'post/pages/post.html')
+
+def writepost(request):
+    return render(request, 'post/pages/write-post.html')
+
+def editpost(request):
+    return render(request, 'post/pages/edit-post.html')
+
+# Publications
+def publication(request):
+    return render(request, 'publication/index.html')
+
+def dashboard(request):
+    return render(request, 'publication/pages/dashboard/index.html')
+
+def publicationposts(request):
+    return render(request, 'publication/pages/posts.html')
+
+def publicationstaff(request):
+    return render(request, 'publication/pages/staff.html')
+
+def publicationsettings(request):
+    return render(request, 'publication/pages/settings/index.html')
+
+def pubmanagestaff(request):
+    return render(request, 'publication/pages/settings/manage-staff.html')
+
+def pubmanageposts(request):
+    return render(request, 'publication/pages/settings/manage-posts.html')
+
+# Account Routes
+def home(request):
+    if request.user.is_authenticated:
+        if request.user.is_staff:
+            return index(request)
+        return render(request, 'account/index.html')
+    else:
+        return redirect('/login/')
+
+def logout(request):
+    if not request.user.is_authenticated:
+        return index(request)
+    auth_logout(request)
+    return redirect('/login/')
+
+def login(request):
+    if request.user.is_authenticated:
+        return redirect('/home/')
+    elif request.method == "GET":
+        return render(request, 'account/pages/login.html')
+    elif request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+                username = form.cleaned_data['username']
+                password = form.cleaned_data['password']
+                user = authenticate(username=username, password=password)
+                if user is not None:
+                    auth_login(request,user)
+                    error= ''
+                else:
+                    error = " Sorry! Username and Password didn't match, Please try again ! "
+        return JsonResponse({'error':error})
+
+def register(request):
+    if request.user.is_authenticated:
+        return redirect('/home/')
+    elif request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        email = request.POST['email']
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        user=User.objects.create_user(username,email,password)
+        user.first_name=first_name
+        user.last_name=last_name
+        user.save()
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            auth_login(request,user)
+            error= ''
+        else:
+            error = " error occured while registering "
+        return JsonResponse({'error':error})
+    return render(request, 'account/pages/register.html')
+
+# User Profile Routes
+def profile(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/profile/index.html')
+
+def followers(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/profile/followers.html')
+
+def following(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/profile/following.html')
+
+def publications(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/profile/publications.html')
+
+def posts(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/profile/posts.html')
+
+def reputation(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/profile/reputation.html')
+
+def subscriptions(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/profile/subscriptions.html')
+
+# User Settings Routes
+def settings(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/settings/index.html')
+
+def publicationsettings(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/settings/publication.html')
+
+def postsettings(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/settings/post.html')
+
+def activitylog(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/settings/activity-log.html')
 
 # Web Admin Routes
 def admin(request):
@@ -143,141 +303,3 @@ def adminreports(request):
 
 def adminsettings(request):
     return render(request, 'webadmin/pages/settings/index.html')
-
-# Posts
-def post(request):
-    return render(request, 'post/pages/post.html')
-
-def writepost(request):
-    return render(request, 'post/pages/write-post.html')
-
-def editpost(request):
-    return render(request, 'post/pages/edit-post.html')
-
-def tag(request):
-    return render(request, 'post/pages/tag.html')
-
-# Publications
-def publication(request):
-    return render(request, 'publication/index.html')
-
-def dashboard(request):
-    return render(request, 'publication/dashboard.html')
-
-def publicationposts(request):
-    return render(request, 'publication/pages/posts.html')
-
-def publicationstaff(request):
-    return render(request, 'publication/pages/staff.html')
-
-def publicationsettings(request):
-    return render(request, 'publication/pages/settings.html')
-
-def pubmanagestaff(request):
-    return render(request, 'publication/pages/category.html')
-
-def pubmanageposts(request):
-    return render(request, 'publication/pages/category.html')
-
-def category(request):
-    return render(request, 'publication/pages/category.html')
-
-# Account Routes
-def home(request):
-    if request.user.is_authenticated:
-        if request.user.is_staff:
-            return index(request)
-        return render(request, 'account/index.html')
-    else:
-        return redirect('/login/')
-
-def logout(request):
-    if not request.user.is_authenticated:
-        return index(request)
-    auth_logout(request)
-    return redirect('/login/')
-
-def login(request):
-    if request.user.is_authenticated:
-        return redirect('/home/')
-    elif request.method == "GET":
-        return render(request, 'account/pages/login.html')
-    elif request.method == "POST":
-        form = LoginForm(request.POST)
-        if form.is_valid():
-                username = form.cleaned_data['username']
-                password = form.cleaned_data['password']
-                user = authenticate(username=username, password=password)
-                if user is not None:
-                    auth_login(request,user)
-                    error= ''
-                else:
-                    error = " Sorry! Username and Password didn't match, Please try again ! "
-        return JsonResponse({'error':error})
-
-def register(request):
-    if request.user.is_authenticated:
-        return redirect('/home/')
-    elif request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        email = request.POST['email']
-        first_name = request.POST['first_name']
-        last_name = request.POST['last_name']
-        user=User.objects.create_user(username,email,password)
-        user.first_name=first_name
-        user.last_name=last_name
-        user.save()
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            auth_login(request,user)
-            error= ''
-        else:
-            error = " error occured while registering "
-        return JsonResponse({'error':error})
-    return render(request, 'account/pages/register.html')
-
-def profile(request):
-    if not request.user.is_authenticated:
-        return redirect('/login/')
-    return render(request, 'account/pages/profile.html')
-
-def settings(request):
-    if not request.user.is_authenticated:
-        return redirect('/login/')
-    return render(request, 'account/pages/settings.html')
-
-def activitylog(request):
-    if not request.user.is_authenticated:
-        return redirect('/login/')
-    return render(request, 'account/pages/activity-log.html')
-
-def followers(request):
-    if not request.user.is_authenticated:
-        return redirect('/login/')
-    return render(request, 'account/pages/followers.html')
-
-def following(request):
-    if not request.user.is_authenticated:
-        return redirect('/login/')
-    return render(request, 'account/pages/following.html')
-
-def publications(request):
-    if not request.user.is_authenticated:
-        return redirect('/login/')
-    return render(request, 'account/pages/publications.html')
-
-def posts(request):
-    if not request.user.is_authenticated:
-        return redirect('/login/')
-    return render(request, 'account/pages/posts.html')
-
-def reputation(request):
-    if not request.user.is_authenticated:
-        return redirect('/login/')
-    return render(request, 'account/pages/reputation.html')
-
-def subscriptions(request):
-    if not request.user.is_authenticated:
-        return redirect('/login/')
-    return render(request, 'account/pages/subscriptions.html')

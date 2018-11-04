@@ -14,16 +14,14 @@
         <b-container class="p-5">
           <b-row>
             <!-- Left Side Components -->
-            <b-col lg="8">
-
+            <b-col lg="3">
+              {% include 'account/components/list/user-settings-list.html' %}
             </b-col>
             <!-- Right Side Components -->
-            <b-col lg="4">
-              {% include 'base/footer.html' %}
+            <b-col lg="9">
             </b-col>
           </b-row>
         </b-container>
-
       </div>
 {% endblock %}
 

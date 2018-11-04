@@ -13,6 +13,12 @@ urlpatterns = [
     path('help/',views.help, name='help'),
     path('team/',views.team, name='team'),
 
+    # Search View
+    path('search/user/',views.searchuser, name='searchuser'),
+    path('search/publication/',views.searchpublication, name='searchpublication'),
+    path('search/tag/',views.searchtag, name='searchtag'),
+    path('search/category/',views.searchcategory, name='searchcategory'),
+
     # Profile View
     path('writer/profile/',views.writerprofile, name='writerprofile'),
     path('publication/profile/',views.publicationprofile, name='publicationprofile'),
@@ -25,20 +31,6 @@ urlpatterns = [
     # Top
     path('top/publications/',views.toppublications, name='toppublications'),
     path('top/writers/',views.topwriters, name='topwriters'),
-
-    # Web Admin
-    path('webmaster/',views.admin, name='index'),
-    path('webmaster/login/',views.adminlogin, name='adminlogin'),
-    path('webmaster/logout/',views.adminlogout, name='adminlogout'),
-    path('webmaster/reports/',views.adminreports, name='adminreports'),
-    path('webmaster/settings/',views.adminsettings, name='adminsettings'),
-
-    # Web Admin CRUD
-    path('webmaster/database/',views.admindatabase, name='admindatabase'),
-    path('webmaster/database/posts/',views.adminposts, name='adminposts'),
-    path('webmaster/database/publications/',views.adminpublications, name='adminpublications'),
-    path('webmaster/database/roles/',views.adminroles, name='adminroles'),
-    path('webmaster/database/users/',views.adminusers, name='adminusers'),
 
     # Account Views
     path('home/',views.home, name='index'),
@@ -61,17 +53,29 @@ urlpatterns = [
     path('post/',views.post, name='post'),
     path('post/write/',views.writepost, name='writepost'),
     path('post/edit/',views.editpost, name='editpost'),
-    path('post/tag/',views.tag, name='tag'),
 
     # Public Publication Views
     path('publication/',views.publication, name='publication'),
     path('publication/posts/',views.publicationposts, name='publicationposts'),
     path('publication/staff/',views.publicationstaff, name='publicationstaff'),
-    path('publication/category/',views.category, name='category'),
 
     # Publication Admin Views
     path('publication/dashboard/',views.dashboard, name='dashboard'),
     path('publication/manage/',views.publicationsettings, name='publicationsettings'),
     path('publication/manage/posts/',views.pubmanageposts, name='pubmanageposts'),
     path('publication/manage/staff/',views.pubmanagestaff, name='pubmanagestaff'),
+
+    # Web Admin
+    path('webmaster/',views.admin, name='index'),
+    path('webmaster/login/',views.adminlogin, name='adminlogin'),
+    path('webmaster/logout/',views.adminlogout, name='adminlogout'),
+    path('webmaster/reports/',views.adminreports, name='adminreports'),
+    path('webmaster/settings/',views.adminsettings, name='adminsettings'),
+
+    # Web Admin CRUD
+    path('webmaster/database/',views.admindatabase, name='admindatabase'),
+    path('webmaster/database/posts/',views.adminposts, name='adminposts'),
+    path('webmaster/database/publications/',views.adminpublications, name='adminpublications'),
+    path('webmaster/database/roles/',views.adminroles, name='adminroles'),
+    path('webmaster/database/users/',views.adminusers, name='adminusers'),
 ]

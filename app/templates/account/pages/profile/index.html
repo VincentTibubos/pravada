@@ -10,15 +10,15 @@
 {% block body %}
 <div id="homepage">
   {% include 'base/header-user.html' %}
-  {% include 'account/components/user-profile-jumbotron.html' %}
+  {% include 'account/components/jumbotron/user-profile-jumbotron.html' %}
 
   <b-container class="p-5">
     <b-row>
       <b-col lg="8">
-        {% include 'account/components/user-posts-card.html' %}
+        {% include 'account/components/card/user-posts-card.html' %}
       </b-col>
       <b-col lg="4">
-        {% include 'account/components/user-publications-card.html' %}
+        {% include 'account/components/card/user-publications-card.html' %}
         {% include 'base/footer.html' %}
       </b-col>
     </b-row>
