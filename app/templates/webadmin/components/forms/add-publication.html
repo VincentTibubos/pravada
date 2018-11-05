@@ -1,13 +1,22 @@
 {% load static %}
 
-<form>
-  <div class="form-group">
-    <input type="name" class="form-control" id="inputPublicationName" placeholder="Publication Name">
+<form  method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="form-row">
+    <div class="form-group col-9">
+      {{publicationform.name}}
+    </div>
+    <div class="form-group col-3">
+      {{publicationform.cover}}
+    </div>
   </div>
   <div class="form-group">
-    <input type="description" class="form-control" id="inputPublicationDescription" placeholder="Description">
+    {{publicationform.description}}
   </div>
-  <button type="submit" class="btn btn-outline-primary">
+  <div class="form-group">
+    {{publicationform.categories}}
+  </div>
+  <button type="submit" class="btn btn-outline-primary" name="add_publication">
     <i class="fas fa-plus-square"></i> Add Publication
   </button>
   <button type="clear" class="btn btn-outline-primary">
