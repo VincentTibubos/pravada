@@ -14,7 +14,7 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
     publish_date = models.DateTimeField(null=True)
-    cover = models.ImageField(blank=True, upload_to='uploads/post/cover/%Y/%m/%d/')
+    cover = models.ImageField(blank=True, upload_to='storage/uploads/post/cover/%Y/%m/%d/')
     status = models.CharField(choices=STATUS_CHOICES, max_length=1,default='d')
     comments = models.ManyToManyField('Comment',blank=True)
     tags = models.ManyToManyField('Tag',blank=True)

@@ -16,9 +16,9 @@ class Profile(models.Model):
     city = models.CharField(max_length=100, default='', blank=True)
     country = models.CharField(max_length=100, default='', blank=True)
     reputation = models.IntegerField(default=1)
-    last_updated = models.DateTimeField(auto_now=True)
     user_followers = models.ManyToManyField('Profile',blank=True)
     subscriptions = models.ManyToManyField('Publication',blank=True)
+    slug = models.SlugField(max_length=40, unique=True)
 
     def __str__(self):
         return str(self.user.username)
@@ -40,11 +40,12 @@ class Profile(models.Model):
 class Publication(models.Model):
     name = models.CharField(max_length=120, null=False, blank=False)
     description = models.CharField(max_length=500, null=True, blank=True)
-    cover = models.ImageField(blank=True, upload_to='uploads/publication/covers/%Y/%m/%d/')
+    cover = models.ImageField(blank=True, upload_to='storage/uploads/publication/covers/%Y/%m/%d/')
     created = models.DateTimeField(auto_now_add=True)
     categories = models.ManyToManyField('Category', blank=True)
     roles = models.ManyToManyField('Role', blank=True)
     pub_followers = models.ManyToManyField(auth_user)
+    slug = models.SlugField(max_length=40, unique=True)
 
     def __str__(self):
         return str(self.name)
