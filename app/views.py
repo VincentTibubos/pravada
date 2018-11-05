@@ -235,7 +235,7 @@ def admin(request):
             args = {'profile' : users ,'posts' : posts, 'publications' : publications, 'postform' : postform, 'roleform' : roleform, 'publicationform' :publicationform, 'profileform' : profileform, 'userform' : userform }
             if request.method == "POST":
                 if 'add_post' in request.POST:
-                    postform = PostForm(request.POST)
+                    postform = PostForm(request.POST, request.FILES)
                     if postform.is_valid():
                         postform.save()
                     else:
@@ -303,7 +303,7 @@ def admindatabase(request):
     args = {'postform' : postform, 'roleform' : roleform, 'publicationform' :publicationform, 'profileform' : profileform, 'userform' : userform }
     if request.method == "POST":
         if 'add_post' in request.POST:
-            postform = PostForm(request.POST)
+            postform = PostForm(request.POST, request.FILES)
             if postform.is_valid():
                 postform.save()
             else:

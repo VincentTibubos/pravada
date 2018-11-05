@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime
 from django import forms
 from django.contrib.auth.models import User
 from .models import Post, Comment, Reply, Tag
@@ -6,7 +6,7 @@ from .models import Post, Comment, Reply, Tag
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title','author','slug','publish_date','text','status')
+        fields = ('title','author','slug','tags','text','status','cover')
 
         widgets = {
             'title': forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Title'}),
@@ -14,7 +14,8 @@ class PostForm(forms.ModelForm):
             'slug': forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Slug'}),
             'text': forms.Textarea(attrs={'class' : 'form-control', 'placeholder' : 'Text'}),
             'status': forms.Select(attrs={'class' : 'form-control'}),
-            'publish_date': forms.DateInput(attrs={'class' : 'form-control', 'value' : date.today()})
+            'cover': forms.FileInput(attrs={'class' : 'btn btn-primary'}),
+            'tags' :  forms.SelectMultiple(attrs={'class' : 'form-control'}),
         }
 
 
