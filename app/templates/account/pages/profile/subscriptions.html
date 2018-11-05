@@ -1,18 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %} Pravada | Help {% endblock %}
+{% block title %} Pravada | Subscriptions {% endblock %}
 
 {% block customCSS %}
 {% endblock %}
 
 {% block body %}
       <div id="homepage">
-        {% if user.is_authenticated %}
-            {% include 'base/header-user.html' %}
-        {% else %}
-            {% include 'base/header-non-user.html' %}
-        {% endif %}
+        {% include 'base/header-user.html' %}
 
         <!-- Main -->
         <b-container class="p-5">
@@ -32,5 +28,5 @@
 {% endblock %}
 
 {% block customJS %}
-    <script src="{% static 'js/homepage.js' %}"></script>
+  <script src="{% static 'js/homepage.js' %}"></script>
 {% endblock %}

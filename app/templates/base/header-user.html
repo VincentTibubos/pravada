@@ -1,6 +1,6 @@
 {% load static %}
 <b-navbar toggleable="md" type="dark" sticky="true" variant="info">
-  <b-navbar-brand href="#">
+  <b-navbar-brand href="/">
     <img src="/static/img/logo.png" style="height: 40px; width: 40px;"
          class="navbar-logo" alt="PVD"> | Pravada
   </b-navbar-brand>
@@ -12,14 +12,14 @@
           <b-dropdown-item>My Subscription 1</b-dropdown-item>
           <b-dropdown-item>My Subscription 2</b-dropdown-item>
         </b-nav-item-dropdown>
-        <b-nav-item href="#">New</b-nav-item>
-        <b-nav-item href="#">Hot</b-nav-item>
-        <b-nav-item href="#">Popular</b-nav-item>
+        <b-nav-item href="/new/">New</b-nav-item>
+        <b-nav-item href="/hot/">Hot</b-nav-item>
+        <b-nav-item href="/popular/">Popular</b-nav-item>
       </b-navbar-nav>
       <hr>
     <!-- Right Aligned Nav Items -->
     <b-navbar-nav class="ml-auto">
-      <b-nav-item href="search">
+      <b-nav-item>
         <form action="">
           <b-form-input placeholder="Search..."></b-form-input>
         </form>
@@ -31,29 +31,30 @@
         <b-dropdown-item>My Subscription 1</b-dropdown-item>
         <b-dropdown-item>My Subscription 2</b-dropdown-item>
       </b-nav-item-dropdown>
-      <b-nav-item href="create">
-        <b-dropdown size="sm" variant="outline-light" text="+" right>
-          <b-dropdown-item>Write Article</b-dropdown-item>
-          <b-dropdown-item>Create Publication</b-dropdown-item>
-        </b-dropdown>
-      </b-nav-item>
-      <b-nav-item href="profile">
-        <b-dropdown size="sm" variant="outline-light" text="Kyle Aquino" right>
-          <b-dropdown-item>My Profile</b-dropdown-item>
-          <b-dropdown-divider></b-dropdown-divider>
-          <b-dropdown-header>Manage Contents</b-dropdown-header>
-          <b-dropdown-item>Manage Articles</b-dropdown-item>
-          <b-dropdown-item>Manage Subscriptions</b-dropdown-item>
-          <b-dropdown-item>Manage Publications</b-dropdown-item>
-
-          <b-dropdown-divider></b-dropdown-divider>
-          <b-dropdown-header>System</b-dropdown-header>
-          <b-dropdown-item>Help</b-dropdown-item>
-          <b-dropdown-item>Activity Log</b-dropdown-item>
-          <b-dropdown-item>Settings</b-dropdown-item>
-          <b-dropdown-item href="/logout/">Logout</b-dropdown-item>
-        </b-dropdown>
-      </b-nav-item>
+      <b-nav-item-dropdown right>
+        <template slot="button-content">
+          <b-button size="sm" variant="outline-light"> + </b-button>
+        </template>
+        <b-dropdown-item>Write Article</b-dropdown-item>
+        <b-dropdown-item>Create Publication</b-dropdown-item>
+      </b-nav-item-dropdown>
+      <b-nav-item-dropdown right>
+        <template slot="button-content">
+          <b-button size="sm" variant="outline-light"> Kyle Aquino </b-button>
+        </template>
+        <b-dropdown-item href="/profile/">My Profile</b-dropdown-item>
+        <b-dropdown-divider></b-dropdown-divider>
+        <b-dropdown-header>Manage Contents</b-dropdown-header>
+        <b-dropdown-item href="/profile/posts/">Manage Articles</b-dropdown-item>
+        <b-dropdown-item href="/profile/subscriptions/">Manage Subscriptions</b-dropdown-item>
+        <b-dropdown-item href="/profile/publications/">Manage Publications</b-dropdown-item>
+        <b-dropdown-divider></b-dropdown-divider>
+        <b-dropdown-header>System</b-dropdown-header>
+        <b-dropdown-item href="/help/">Help</b-dropdown-item>
+        <b-dropdown-item href="/profile/activitylog/">Activity Log</b-dropdown-item>
+        <b-dropdown-item href="/profile/settings/">Settings</b-dropdown-item>
+        <b-dropdown-item href="/logout/">Logout</b-dropdown-item>
+      </b-nav-item-dropdown>
     </b-navbar-nav>
   </b-collapse>
 </b-navbar>

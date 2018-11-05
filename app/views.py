@@ -16,9 +16,7 @@ from user.models import Profile, Publication, Role
 from post.forms import PostForm
 from user.forms import RoleForm, PublicationForm
 
-# Create your views here.
-
-# Homepage
+# Homepage Routes
 def index(request):
     if request.user.is_authenticated:
         if request.user.is_staff:
@@ -28,123 +26,89 @@ def index(request):
     else:
         return render(request, 'homepage/index.html')
 
-# Web Admin
-def admin(request):
-    if request.user.is_authenticated:
-        if request.user.is_staff:
-            users = User.objects.all().order_by('date_joined').reverse()[:5]
-            posts = Post.objects.all().order_by('created').reverse()[:5]
-            publications = Publication.objects.all().order_by('created').reverse()[:5]
-            postform = PostForm()
-            roleform = RoleForm()
-            publicationform = PublicationForm()
-            args = {'profile' : users ,'posts' : posts, 'publications' : publications, 'postform' : postform, 'roleform' : roleform, 'publicationform' :publicationform }
-            if request.method == "POST":
-                if 'add_post' in request.POST:
-                    postform = PostForm(request.POST)
-                    if postform.is_valid():
-                        postform.save()
-                    else:
-                        print("errors : {}".format(postform.errors.as_data()))
-                elif 'add_role' in request.POST:
-                    roleform = RoleForm(request.POST)
-                    if roleform.is_valid():
-                        roleform.save()
-                elif 'add_publication' in request.POST:
-                    publicationform = PublicationForm(request.POST, request.FILES)
-                    if publicationform.is_valid():
-                    #    print(publication.cleaned_data)
-                        publicationform.save()
-                    else:
-                        print("errors : {}".format(publicationform.errors.as_data()))
-            return render(request, 'webadmin/index.html',args)
-        else:
-            return index(request)
-    else:
-        return redirect('/webmaster/login/')
+def about(request):
+    return render(request, 'homepage/pages/about.html')
 
-def adminlogin(request):
-        error = None
-        if request.user.is_authenticated:
-            if not request.user.is_staff:
-                return index(request)
-            return redirect('/webmaster/')
-        elif request.method == "POST":
-            form = LoginForm(request.POST)
-            if form.is_valid():
-                username = form.cleaned_data['username']
-                password = form.cleaned_data['password']
-                user = authenticate(username=username, password=password)
-                if user is not None:
-                    auth_login(request,user)
-                    return redirect('/webmaster/')
-                else:
-                    error = " Sorry! Username and Password didn't match, Please try again ! "
-        else:
-            form = LoginForm()
-        return render(request, 'webadmin/account/login.html', {"form":form, "error":error})
+def contact(request):
+    return render(request, 'homepage/pages/contact.html')
 
-def adminlogout(request):
-    auth_logout(request)
-    return redirect('/webmaster/login/')
+def help(request):
+    return render(request, 'homepage/pages/help.html')
 
-def admindatabase(request):
-    return render(request, 'webadmin/pages/database/index.html')
+def team(request):
+    return render(request, 'homepage/pages/team.html')
 
-# Posts
-def adminposts(request):
-    posts = Post.objects.all()
-    args = {'posts' : posts}
-    return render(request, 'webadmin/pages/database/posts/index.html',args)
+def toppublications(request):
+    return render(request, 'homepage/pages/top/top-publications.html')
 
-# Publications
-def adminpublications(request):
-    publications = Publication.objects.all()
-    args ={'publications' : publications}
-    return render(request, 'webadmin/pages/database/publications/index.html', args)
+def topwriters(request):
+    return render(request, 'homepage/pages/top/top-writers.html')
 
-#Roles
-def adminroles(request):
-    roles = Role.objects.all()
-    args = {'roles' : roles}
-    return render(request, 'webadmin/pages/database/roles/index.html', args)
+def writerprofile(request):
+    return render(request, 'homepage/pages/writer/writer-profile.html')
 
-#Users
-def adminusers(request):
-    users = User.objects.all()
-    args = {'profile' : users}
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return render(request, 'webadmin/pages/database/users/index.html',args)
-    else:
-        return render(request, 'webadmin/pages/database/users/index.html',args)
+def publicationprofile(request):
+    return render(request, 'homepage/pages/publication/publication-profile.html')
 
-def adminreports(request):
-    return render(request, 'webadmin/pages/reports/index.html')
+#Feeds Routes
+def hotposts(request):
+    return render(request, 'homepage/pages/post/hot-posts.html')
 
-def adminsettings(request):
-    return render(request, 'webadmin/pages/settings/index.html')
+def popularposts(request):
+    return render(request, 'homepage/pages/post/popular-posts.html')
 
-# Posts
-def article(request):
-    return render(request, 'post/article.html')
+def newposts(request):
+    return render(request, 'homepage/pages/post/new-posts.html')
 
-def category(request):
-    return render(request, 'post/category.html')
-
+# Search Routes
 def search(request):
-    return render(request, 'post/search.html')
+    return render(request, 'search/index.html')
+
+def searchuser(request):
+    return render(request, 'search/pages/tag.html')
+
+def searchpublication(request):
+    return render(request, 'search/pages/tag.html')
+
+def searchtag(request):
+    return render(request, 'search/pages/tag.html')
+
+def searchcategory(request):
+    return render(request, 'search/pages/category.html')
+
+# Posts
+def post(request):
+    return render(request, 'post/pages/post.html')
+
+def writepost(request):
+    return render(request, 'post/pages/write-post.html')
+
+def editpost(request):
+    return render(request, 'post/pages/edit-post.html')
 
 # Publications
 def publication(request):
     return render(request, 'publication/index.html')
 
 def dashboard(request):
-    return render(request, 'publication/dashboard.html')
+    return render(request, 'publication/pages/dashboard/index.html')
 
-# Account
+def publicationposts(request):
+    return render(request, 'publication/pages/posts.html')
+
+def publicationstaff(request):
+    return render(request, 'publication/pages/staff.html')
+
+def publicationsettings(request):
+    return render(request, 'publication/pages/settings/index.html')
+
+def pubmanagestaff(request):
+    return render(request, 'publication/pages/settings/manage-staff.html')
+
+def pubmanageposts(request):
+    return render(request, 'publication/pages/settings/manage-posts.html')
+
+# Account Routes
 def home(request):
     if request.user.is_authenticated:
         if request.user.is_staff:
@@ -199,11 +163,158 @@ def register(request):
         return JsonResponse({'error':error})
     return render(request, 'account/pages/register.html')
 
+# User Profile Routes
 def profile(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
-    return render(request, 'account/pages/profile.html')
+    return render(request, 'account/pages/profile/index.html')
 
-# Direct Views
+def followers(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/profile/followers.html')
 
-# def page_home(request):
+def following(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/profile/following.html')
+
+def publications(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/profile/publications.html')
+
+def posts(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/profile/posts.html')
+
+def reputation(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/profile/reputation.html')
+
+def subscriptions(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/profile/subscriptions.html')
+
+# User Settings Routes
+def settings(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/settings/index.html')
+
+def publicationsettings(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/settings/publication.html')
+
+def postsettings(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/settings/post.html')
+
+def activitylog(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/settings/activity-log.html')
+
+# Web Admin Routes
+def admin(request):
+    if request.user.is_authenticated:
+        if request.user.is_staff:
+            users = User.objects.all().order_by('date_joined').reverse()[:5]
+            posts = Post.objects.all().order_by('created').reverse()[:5]
+            publications = Publication.objects.all().order_by('created').reverse()[:5]
+            postform = PostForm()
+            roleform = RoleForm()
+            publicationform = PublicationForm()
+            args = {'profile' : users ,'posts' : posts, 'publications' : publications, 'postform' : postform, 'roleform' : roleform, 'publicationform' :publicationform }
+            if request.method == "POST":
+                if 'add_post' in request.POST:
+                    postform = PostForm(request.POST)
+                    if postform.is_valid():
+                        postform.save()
+                    else:
+                        print("errors : {}".format(postform.errors.as_data()))
+                elif 'add_role' in request.POST:
+                    roleform = RoleForm(request.POST)
+                    if roleform.is_valid():
+                        roleform.save()
+                elif 'add_publication' in request.POST:
+                    publicationform = PublicationForm(request.POST, request.FILES)
+                    if publicationform.is_valid():
+                    #    print(publication.cleaned_data)
+                        publicationform.save()
+                    else:
+                        print("errors : {}".format(publicationform.errors.as_data()))
+            return render(request, 'webadmin/index.html',args)
+        else:
+            return index(request)
+    else:
+        return redirect('/webmaster/login/')
+
+def adminlogin(request):
+        error = ''
+        if request.user.is_authenticated:
+            if not request.user.is_staff:
+                return index(request)
+            return redirect('/webmaster/')
+        elif request.method == "POST":
+            form = LoginForm(request.POST)
+            if form.is_valid():
+                username = form.cleaned_data['username']
+                password = form.cleaned_data['password']
+                user = authenticate(username=username, password=password)
+                if user is not None:
+                    auth_login(request,user)
+                    return redirect('/webmaster/')
+                else:
+                    error = " Sorry! Username and Password didn't match, Please try again ! "
+        else:
+            form = LoginForm()
+        return render(request, 'webadmin/account/login.html', {"form":form, "error":error})
+
+def adminlogout(request):
+    auth_logout(request)
+    return redirect('/webmaster/login/')
+
+def admindatabase(request):
+    return render(request, 'webadmin/pages/database/index.html')
+
+# Web Admin Posts Routes
+def adminposts(request):
+    posts = Post.objects.all()
+    args = {'posts' : posts}
+    return render(request, 'webadmin/pages/database/posts/index.html',args)
+
+# Web Admin Publications Routes
+def adminpublications(request):
+    publications = Publication.objects.all()
+    args ={'publications' : publications}
+    return render(request, 'webadmin/pages/database/publications/index.html', args)
+
+# Web Admin Roles Routes
+def adminroles(request):
+    roles = Role.objects.all()
+    args = {'roles' : roles}
+    return render(request, 'webadmin/pages/database/roles/index.html', args)
+
+# Web Admin Users Routes
+def adminusers(request):
+    users = User.objects.all()
+    args = {'profile' : users}
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'webadmin/pages/database/users/index.html',args)
+    else:
+        return render(request, 'webadmin/pages/database/users/index.html',args)
+
+def adminreports(request):
+    return render(request, 'webadmin/pages/reports/index.html')
+
+def adminsettings(request):
+    return render(request, 'webadmin/pages/settings/index.html')

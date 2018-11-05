@@ -1,0 +1,51 @@
+{% load static %}
+
+<div class="jumbotron pb-3">
+  <b-container>
+    <b-row>
+      <b-col class="my-auto" cols="2">
+        <b-img src="https://picsum.photos/125/125/?image=58" rounded="circle" alt="left image"/>
+      </b-col>
+      <b-col cols="7">
+        <h1 class="display-3">Kyle Aquino</h1>
+        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+        <b-button-group class="shadow-sm bg-white rounded">
+          <b-button variant="light" href="/profile/following/" class="text-left">
+            <small>Following</small> <br> <b-badge variant="dark">100</b-badge>
+          </b-button>
+          <b-button variant="light" href="/profile/followers/" class="text-left">
+            <small>Followers</small> <br> <b-badge variant="dark">10k</b-badge>
+          </b-button>
+          <b-button variant="light" href="/profile/publications/" class="text-left">
+            <small>Publications</small> <br> <b-badge variant="dark">5</b-badge>
+          </b-button>
+          <b-button variant="light" href="/profile/reputation/" class="text-left">
+            <small>Reputation</small> <br> <b-badge variant="dark">20</b-badge>
+          </b-button>
+          <b-button variant="light" href="/profile/subscriptions/" class="text-left">
+            <small>Subscriptions</small> <br> <b-badge variant="dark">20</b-badge>
+          </b-button>
+        </b-button-group>
+      </b-col>
+      <b-col cols="3">
+        <b-card no-body>
+            <b-card-header class="d-flex justify-content-between">
+              <div>
+                <span class='fa fa-user'><span> User Profile
+              </div>
+              <div>
+                <b-button size="sm" variant="outline-primary" href="/profile/settings/">
+                  <i class="fas fa-user-edit"></i>
+                </b-button>
+              </div>
+            </b-card-header>
+            <b-card-body>
+              <p><span class="fa fa-birthday-cake"></span> August 23, 1998</p>
+              <p><span class="fa fa-map-marker-alt"></span> Floridablanca, Pampanga</p>
+              <p><span class="fa fa-user"></span> Developer</p>
+            </b-card-body>
+        </b-card>
+      </b-col>
+    </b-row>
+  </b-container>
+</div>

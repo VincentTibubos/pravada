@@ -1,7 +1,7 @@
 {% load static %}
 
 <b-navbar toggleable="md" sticky="true" type="dark" variant="info">
-  <b-navbar-brand href="#">
+  <b-navbar-brand href="/">
     <img src="/static/img/logo.png" style="height: 40px; width 40px;" class="navbar-logo" alt="PVD">
     | Pravada
   </b-navbar-brand>
@@ -9,21 +9,21 @@
   <b-collapse is-nav id="nav_collapse">
     <!-- Left Aligned Nav Items -->
     <b-navbar-nav>
-      <b-nav-item href="#">New</b-nav-item>
-      <b-nav-item href="#">Hot</b-nav-item>
-      <b-nav-item href="#">Popular</b-nav-item>
+      <b-nav-item href="/new/">New</b-nav-item>
+      <b-nav-item href="/hot/">Hot</b-nav-item>
+      <b-nav-item href="/popular/">Popular</b-nav-item>
     </b-navbar-nav>
     <hr>
     <!-- Right Aligned Nav Items -->
     <b-navbar-nav class="ml-auto">
-      <b-nav-item href="search">
+      <b-nav-item>
         <form action="">
           <b-form-input placeholder="Search..."></b-form-input>
         </form>
       </b-nav-item>
-      <b-nav-item href="login">Login</b-nav-item>
-      <b-nav-item href="write">
-        <b-button size="sm" variant="outline-light"> Get Started! </b-button>
+      <b-nav-item href="/login/">Login</b-nav-item>
+      <b-nav-item>
+        <b-button size="sm" variant="outline-light">Get Started!</b-button>
       </b-nav-item>
     </b-navbar-nav>
   </b-collapse>

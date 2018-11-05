@@ -8,61 +8,74 @@ urlpatterns = [
 
     # Homepage View
     path('',views.index, name='index'),
+    path('about/',views.about, name='about'),
+    path('contact/',views.contact, name='contact'),
+    path('help/',views.help, name='help'),
+    path('team/',views.team, name='team'),
 
-    # Web Admin
-    path('webmaster/',views.admin, name='index'),
-    path('webmaster/login/',views.adminlogin, name='index'),
-    path('webmaster/logout/',views.adminlogout, name='index'),
-    path('webmaster/reports/',views.adminreports, name='index'),
-    path('webmaster/settings/',views.adminsettings, name='index'),
+    # Search View
+    path('search/user/',views.searchuser, name='searchuser'),
+    path('search/publication/',views.searchpublication, name='searchpublication'),
+    path('search/tag/',views.searchtag, name='searchtag'),
+    path('search/category/',views.searchcategory, name='searchcategory'),
 
-    # Web Admin CRUD
-    path('webmaster/database/',views.admindatabase, name='index'),
-    path('webmaster/database/posts/',views.adminposts, name='index'),
-    path('webmaster/database/publications/',views.adminpublications, name='index'),
-    path('webmaster/database/roles/',views.adminroles, name='index'),
-    path('webmaster/database/users/',views.adminusers, name='index'),
+    # Profile View
+    path('writer/profile/',views.writerprofile, name='writerprofile'),
+    path('publication/profile/',views.publicationprofile, name='publicationprofile'),
+
+    # Feeds
+    path('new/',views.newposts, name='newposts'),
+    path('hot/',views.hotposts, name='hotposts'),
+    path('popular/',views.popularposts, name='popularposts'),
+
+    # Top
+    path('top/publications/',views.toppublications, name='toppublications'),
+    path('top/writers/',views.topwriters, name='topwriters'),
 
     # Account Views
+    path('home/',views.home, name='index'),
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
     path('register/',views.register, name='register'),
-    path('home/',views.home, name='home'),
-    # path('settings/',views.profile, name='profile'), #update
-    # path('submit/',views.profile, name='profile'),
-    # path('search/',views.search, name='search'),
 
     # Account Profile Views
     path('profile/',views.profile, name='profile'),
-    # path('profile/posts/',views.profile, name='profile'), #update
-    # path('profile/posts/draft/',views.profile, name='profile'), #update
-    # path('profile/posts/published/',views.profile, name='profile'), #update
-    # path('profile/publications/',views.profile, name='profile'), #update
+    path('profile/settings/',views.settings, name='settings'),
+    path('profile/posts/',views.posts, name='posts'),
+    path('profile/publications/',views.publications, name='publications'),
+    path('profile/activitylog/',views.activitylog, name='activitylog'),
+    path('profile/followers/',views.followers, name='followers'),
+    path('profile/following/',views.following, name='following'),
+    path('profile/subscriptions/',views.subscriptions, name='subscriptions'),
+    path('profile/reputation/',views.reputation, name='reputation'),
 
     # Post Views
-    path('post/',views.article, name='article'), #replace article to post
-    path('tag/',views.category, name='category'), #replace tag
+    path('post/',views.post, name='post'),
+    path('post/write/',views.writepost, name='writepost'),
+    path('post/edit/',views.editpost, name='editpost'),
 
     # Public Publication Views
     path('publication/',views.publication, name='publication'),
-    # path('publication/posts/',views.dashboard, name='dashboard'),
-    # path('publication/staff/',views.dashboard, name='dashboard'), # update
-    # path('publication/category/',views.dashboard, name='dashboard'), # update
+    path('publication/posts/',views.publicationposts, name='publicationposts'),
+    path('publication/staff/',views.publicationstaff, name='publicationstaff'),
 
     # Publication Admin Views
     path('publication/dashboard/',views.dashboard, name='dashboard'),
-    # path('publication/manage/',views.dashboard, name='dashboard'), # Pub Setttings Update
-    # path('publication/manage/posts/',views.dashboard, name='dashboard'),
-    # path('publication/manage/staff/',views.dashboard, name='dashboard'),
+    path('publication/manage/',views.publicationsettings, name='publicationsettings'),
+    path('publication/manage/posts/',views.pubmanageposts, name='pubmanageposts'),
+    path('publication/manage/staff/',views.pubmanagestaff, name='pubmanagestaff'),
 
-    # Feeds (Please Update!!)
-    # path('subscriptions/',views.home, name='new'),
-    # path('new/',views.home, name='new'),
-    # path('hot/',views.home, name='new'),
-    # path('popular/',views.home, name='new'),
+    # Web Admin
+    path('webmaster/',views.admin, name='index'),
+    path('webmaster/login/',views.adminlogin, name='adminlogin'),
+    path('webmaster/logout/',views.adminlogout, name='adminlogout'),
+    path('webmaster/reports/',views.adminreports, name='adminreports'),
+    path('webmaster/settings/',views.adminsettings, name='adminsettings'),
 
-    # Top
-    path('top/',views.home, name='new'),
-    path('top/publications/',views.home, name='new'),
-    path('top/writers/',views.home, name='new'),
+    # Web Admin CRUD
+    path('webmaster/database/',views.admindatabase, name='admindatabase'),
+    path('webmaster/database/posts/',views.adminposts, name='adminposts'),
+    path('webmaster/database/publications/',views.adminpublications, name='adminpublications'),
+    path('webmaster/database/roles/',views.adminroles, name='adminroles'),
+    path('webmaster/database/users/',views.adminusers, name='adminusers'),
 ]

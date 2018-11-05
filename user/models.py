@@ -9,7 +9,7 @@ class Profile(models.Model):
     )
     user = models.OneToOneField(auth_user, on_delete=models.CASCADE, related_name='profile')
     user_type = models.CharField(max_length=1, choices=USER_TYPES, default='u')
-    avatar = models.ImageField(blank=True, upload_to='uploads/avatar/%Y/%m/%d/')
+    avatar = models.ImageField(blank=True, upload_to='storage/uploads/avatar/%Y/%m/%d/')
     bio = models.TextField(default='', blank=True)
     phone = models.CharField(max_length=20, blank=True, default='')
     birth_date = models.DateField(null=True, blank=True)
