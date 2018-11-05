@@ -14,7 +14,7 @@ from user.models import Profile, Publication, Role
 
 # Form import
 from post.forms import PostForm
-from user.forms import RoleForm, PublicationForm
+from user.forms import RoleForm, PublicationForm, UserForm, ProfileForm
 
 # Homepage Routes
 def index(request):
@@ -229,8 +229,10 @@ def admin(request):
             publications = Publication.objects.all().order_by('created').reverse()[:5]
             postform = PostForm()
             roleform = RoleForm()
+            profileform = ProfileForm()
+            userform = UserForm()
             publicationform = PublicationForm()
-            args = {'profile' : users ,'posts' : posts, 'publications' : publications, 'postform' : postform, 'roleform' : roleform, 'publicationform' :publicationform }
+            args = {'profile' : users ,'posts' : posts, 'publications' : publications, 'postform' : postform, 'roleform' : roleform, 'publicationform' :publicationform, 'profileform' : profileform, 'userform' : userform }
             if request.method == "POST":
                 if 'add_post' in request.POST:
                     postform = PostForm(request.POST)
@@ -242,13 +244,25 @@ def admin(request):
                     roleform = RoleForm(request.POST)
                     if roleform.is_valid():
                         roleform.save()
+                    else:
+                        print("errors : {}".format(roleform.errors.as_data()))
                 elif 'add_publication' in request.POST:
                     publicationform = PublicationForm(request.POST, request.FILES)
                     if publicationform.is_valid():
-                    #    print(publication.cleaned_data)
                         publicationform.save()
                     else:
                         print("errors : {}".format(publicationform.errors.as_data()))
+                elif 'add_user' in request.POST:
+                    profileform = ProfileForm(request.POST)
+                    userform = UserForm(request.POST)
+                    if profileform.is_valid() and userform.is_valid():
+                        profile = profileform.save(commit=False)
+                        user = userform.save()                
+                        profile.user = user
+                        profile.save()
+                    else:
+                        print("errors : {}".format(profileform.errors.as_data()))
+                        print("errors : {}".format(userform.errors.as_data()))
             return render(request, 'webadmin/index.html',args)
         else:
             return index(request)

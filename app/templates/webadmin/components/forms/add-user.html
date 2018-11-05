@@ -1,52 +1,49 @@
 {% load static %}
 
-<form method="post" action="">  
+<form method="post" action="">
+  {% csrf_token %}
   <div class="form-row">
     <div class="form-group col-4">
-      <select id="inputUserType" class="form-control">
-        <option selected>Choose User Type...</option>
-        <option>User</option>
-        <option>Webmaster</option>
-      </select>
+      {{profileform.user_type}}
     </div>
     <div class="form-group col-4">
-      <input type="firstname" class="form-control" id="inputFirstName" placeholder="First Name">
+      {{userform.first_name}}
     </div>
     <div class="form-group col-4">
-      <input type="lastname" class="form-control" id="inputLastName" placeholder="Last Name">
+      {{userform.last_name}}
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-6">
-      <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+      {{userform.email}}
     </div>
     <div class="form-group col-6">
-      <input type="username" class="form-control" id="inputUsername" placeholder="Username">
+      {{userform.username}}
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-6">
-      <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+      {{userform.password1}}
     </div>
     <div class="form-group col-6">
-      <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm Password">
+      {{userform.password2}}
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-4">
-      <input type="text" class="form-control" id="inputBirthday" placeholder="Birthday">
+      {{profileform.birth_date}}
     </div>
     <div class="form-group col-4">
-      <input type="text" class="form-control" id="inputCity" placeholder="City">
+      {{profileform.city}}
     </div>
     <div class="form-group col-4">
-      <input type="text" class="form-control" id="inputCountry" placeholder="Country">
+      {{profileform.country}}
     </div>
   </div>
   <div class="form-group">
-    <input type="text" class="form-control" id="inputPhone" placeholder="Phone Number">
+    {{profileform.phone}}
   </div>
-  <button type="submit" class="btn btn-outline-primary">
+  <button type="submit" class="btn btn-outline-primary" name="add_user">
     <i class="fas fa-plus-square"></i> Add User
   </button>
   <button type="clear" class="btn btn-outline-primary">
