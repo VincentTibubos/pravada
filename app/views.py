@@ -235,7 +235,7 @@ def admin(request):
             args = {'profile' : users ,'posts' : posts, 'publications' : publications, 'postform' : postform, 'roleform' : roleform, 'publicationform' :publicationform, 'profileform' : profileform, 'userform' : userform }
             if request.method == "POST":
                 if 'add_post' in request.POST:
-                    postform = PostForm(request.POST)
+                    postform = PostForm(request.POST, request.FILES)
                     if postform.is_valid():
                         postform.save()
                     else:
@@ -257,7 +257,7 @@ def admin(request):
                     userform = UserForm(request.POST)
                     if profileform.is_valid() and userform.is_valid():
                         profile = profileform.save(commit=False)
-                        user = userform.save()                
+                        user = userform.save()
                         profile.user = user
                         profile.save()
                     else:
@@ -295,7 +295,43 @@ def adminlogout(request):
     return redirect('/webmaster/login/')
 
 def admindatabase(request):
-    return render(request, 'webadmin/pages/database/index.html')
+    postform = PostForm()
+    roleform = RoleForm()
+    profileform = ProfileForm()
+    userform = UserForm()
+    publicationform = PublicationForm()
+    args = {'postform' : postform, 'roleform' : roleform, 'publicationform' :publicationform, 'profileform' : profileform, 'userform' : userform }
+    if request.method == "POST":
+        if 'add_post' in request.POST:
+            postform = PostForm(request.POST, request.FILES)
+            if postform.is_valid():
+                postform.save()
+            else:
+                print("errors : {}".format(postform.errors.as_data()))
+        elif 'add_role' in request.POST:
+            roleform = RoleForm(request.POST)
+            if roleform.is_valid():
+                roleform.save()
+            else:
+                print("errors : {}".format(roleform.errors.as_data()))
+        elif 'add_publication' in request.POST:
+            publicationform = PublicationForm(request.POST, request.FILES)
+            if publicationform.is_valid():
+                publicationform.save()
+            else:
+                print("errors : {}".format(publicationform.errors.as_data()))
+        elif 'add_user' in request.POST:
+            profileform = ProfileForm(request.POST)
+            userform = UserForm(request.POST)
+            if profileform.is_valid() and userform.is_valid():
+                profile = profileform.save(commit=False)
+                user = userform.save()
+                profile.user = user
+                profile.save()
+            else:
+                print("errors : {}".format(profileform.errors.as_data()))
+                print("errors : {}".format(userform.errors.as_data()))
+    return render(request, 'webadmin/pages/database/index.html', args)
 
 # Web Admin Posts Routes
 def adminposts(request):
