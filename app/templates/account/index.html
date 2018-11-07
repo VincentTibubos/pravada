@@ -4,11 +4,10 @@
 {% block title %} Pravada | Homepage {% endblock %}
 
 {% block customCSS %}
-    <link href="{% static 'css/userhomepage.css' %}" rel="stylesheet"/>
 {% endblock %}
 
 {% block body %}
-      <div id="homepage">
+      <div id="account">
         {% include 'base/header-user.html' %}
 
         <!-- Main -->
@@ -34,5 +33,5 @@
 {% endblock %}
 
 {% block customJS %}
-    <script src="{% static 'js/userhomepage.js' %}"></script>
+    <script src="{% static 'js/account/index.js' %}"></script>
 {% endblock %}

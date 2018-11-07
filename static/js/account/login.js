@@ -6,11 +6,6 @@ new Vue({
     password: '',
     block:true,
     message: ''
-    // users:[
-    //   {username: 'Vincent', password: '12345678'},
-    //   {username: 'Jose', password: 'sample123'},
-    //   {username: 'Dilaw', password: 'dilawan123'}
-    // ]
   },
   methods:{
     login: function(){
@@ -57,26 +52,8 @@ new Vue({
     state () {
       return (this.message == '' ? true : false)
     },
-    // state2 () {
-    //   return this.password.length >= 8 ? true : false
-    // },
-    // invalidUserFeedback () {
-    //   if (this.username.length > 4) {
-    //     return ''
-    //   } else if (this.username.length > 0) {
-    //     return 'Enter at least 4 characters'
-    //   } else {
-    //     return 'Please enter something'
-    //   }
-    // },
-    // validUserFeedback () {
-    //   return this.state === true ? 'Valid Username' : ''
-    // },
     invalidPassFeedback () {
       return this.message;
     },
-    // validPassFeedback () {
-    //   return this.state === true ? 'Your good tog go' : ''
-    // }
   }
 })

@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Pravada | Post {% endblock %}
+
+{% block customCSS %}
+{% endblock %}
+
+{% block body %}
+      <div id="post">
+        {% include 'base/header-user.html' %}
+        <b-container class="pt-3">
+          <b-card img-src="https://picsum.photos/600/200/?random" img-alt="Image" img-top class="m-5">
+            <b-row class="mb-3">
+              <b-col cols="1" class="ml-auto">
+                <b-button-group vertical>
+                  <b-button size="sm" variant="outline-primary"><span class="fa fa-arrow-up"></span></b-button>
+                  <b-button size="sm" variant="outline-dark" disabled> <b>33.3k</b></b-button>
+                  <b-button size="sm" variant="outline-danger"><span class="fa fa-arrow-down"></span></b-button>
+                </b-button-group>
+              </b-col>
+              <b-col cols="11" class="my-auto">
+                <h1>The New Menil Drawing Institute Is Perfect for a Medium So Intimate</h1>
+                <span class="text-muted">Posted by <a>Kyle Aquino</a> on 02/01/2018</span>
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col>
+                <p class="post-paragraph p-5">
+                  Lorem ipsum dolor sit amet, cum in meis mandamus petentium, pri reque constituam cu, per an everti albucius mentitum. At decore disputando nec, id pri dicta tation, ut modo summo eos. Nam argumentum complectitur eu. In eam porro congue doming.
+                  <br><br>Cu eius torquatos sea. Hinc insolens comprehensam sit at, cum velit eruditi intellegat ea, an est ubique eirmod phaedrum. Tempor forensibus no eum, facilisi quaerendum qui at. Paulo graeco percipitur mei ad, ius ei sumo clita mucius. Augue labore tincidunt est at. Vix exerci percipitur cotidieque te. Vel eu dolorum ceteros reformidans, no ius agam putant iisque.
+                  <br><br>Ea mea veri molestie copiosae, at nec delicata mandamus disputationi. Quo sumo delenit cu. Sit ex propriae abhorreant expetendis, ad quot gloriatur sea. Vel nullam sadipscing ei, sed in integre invenire. Ne vis repudiare philosophia, mei inani mediocrem eu, porro periculis usu no.
+                  <br><br>Aeterno consequuntur definitiones te vis. Diam esse indoctum nec ne. Ea nostrud suscipit vel. Mei ad malis solet nullam, ut vis lorem appareat, eu sea adhuc tacimates. Malis melius te mei. Mea natum assum ei.
+                  <br><br>Usu ea possit sententiae, quo sumo animal appellantur ei. Eu habemus platonem nam. Ius cu tritani moderatius. Te eam erat omnium dissentiet.
+                  <br><br>Te qui habeo voluptatum, mea ea tantas ornatus, ut per elitr vituperata. Ea mazim similique vis, autem aliquip accusam te vel. Pro consul saperet tibique ne. Latine nominavi gloriatur ius te, sed ad cotidieque appellantur, eos diam aperiri electram cu.
+                  <br><br>Ius solum corpora ei. An quo virtute fierent theophrastus. Cu clita labitur qui, eu impedit theophrastus sit. Mei duis utinam id, tempor indoctum ut vix. Audire saperet vim ne, vim eu oblique saperet conclusionemque, ex regione legimus theophrastus cum.
+                  <br><br>Ad est ignota expetendis definiebas, nonumy causae necessitatibus mel ea. Mel altera signiferumque ut, sed te affert essent. An possit labitur maluisset duo, eum movet nihil discere cu. Ei viris elaboraret pri. Ne mea tollit detracto, tota assum choro eos id, summo percipit vix in. Ea sapientem instructior delicatissimi vis, per ea mucius voluptua.
+                  <br><br>Iudico mandamus duo et, in nam deserunt conceptam signiferumque. Id vim omnis comprehensam. Id tale intellegat nec. Mel mucius assentior ad, ea mel veri scripserit. Cu vel sint inermis detracto.
+                  <br><br>Et habeo recteque vel. Eam mucius aperiam aperiri te. Has ex mutat theophrastus, eros omnis vituperatoribus cu sed, te porro affert rationibus eum. Rebum elitr deterruisset duo et, mediocrem conclusionemque mel cu.
+                </p>
+              </b-col>
+            </b-row>
+            <div slot="footer" class="p-0">
+              <b-button-group>
+                <b-button size="sm" variant="light"><span class="fa fa-comment"></span><div class="d-none d-md-inline-block pl-1"> Comments</div></b-button>
+                <b-button size="sm" variant="light"><span class="fa fa-share"></span><div class="d-none d-md-inline-block pl-1"> Share</div></b-button>
+                <b-button size="sm" variant="light"><span class="fa fa-save"></span><div class="d-none d-md-inline-block pl-1"> Save</div></b-button>
+              </b-button-group>
+              <b-dropdown variant="light" class="text-muted" size="sm" no-caret>
+                <template slot="button-content">
+                  <span class="fa fa-ellipsis-h">
+                </template>
+                <b-dropdown-item href="#">Report</b-dropdown-item>
+                <b-dropdown-item href="#">Hide Post</b-dropdown-item>
+              </b-dropdown>
+              <b-container>
+                <b-row class="pb-3">
+                  <b-input-group>
+                    <b-form-input placeholder="Write a Comment.."></b-form-input>
+                    <b-input-group-append>
+                      <b-btn variant="primary">Comment</b-btn>
+                    </b-input-group-append>
+                  </b-input-group>
+                </b-row>
+                <!-- Comment -->
+                <b-row>
+                  <b-col cols="1">
+                    <b-link><b-img  class="mx-auto" thumbnail fluid src="https://picsum.photos/250/250/?image=54" alt="Thumbnail" /></b-link>
+                  </b-col>
+                  <b-col cols="11">
+                    <p>
+                      <b-link> <b>Kyle Aquino</b> </b-link>
+                      Sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
+                      <br>
+                      <b-link class="text-right small" ><i class="fas fa-arrow-up"></i></b-link>
+                      <span class="small"> <b>33</b> </span>
+                      <b-link class="text-right small" ><i class="fas fa-arrow-down"></i></b-link>
+                      <b-link class="text-right small">Reply</b-link> 2h
+                    </p>
+                  </b-col>
+                </b-row>
+                <!-- Comment -->
+                <b-row>
+                  <b-col cols="1">
+                    <b-link><b-img  class="mx-auto" thumbnail fluid src="https://picsum.photos/250/250/?image=54" alt="Thumbnail" /></b-link>
+                  </b-col>
+                  <b-col cols="11">
+                    <p>
+                      <b-link> <b>Kyle Aquino</b> </b-link>
+                      Sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
+                      <br>
+                      <b-link class="text-right small" ><i class="fas fa-arrow-up"></i></b-link>
+                      <span class="small"> <b>33</b> </span>
+                      <b-link class="text-right small" ><i class="fas fa-arrow-down"></i></b-link>
+                      <b-link class="text-right small">Reply</b-link> 2h
+                    </p>
+                  </b-col>
+                </b-row>
+                <!-- Reply -->
+                <b-row class="col-md-11 offset-md-1 col-sm-10 offset-sm-2">
+                  <b-col cols="1">
+                    <b-link><b-img  class="mx-auto" thumbnail fluid src="https://picsum.photos/250/250/?image=54" alt="Thumbnail" /></b-link>
+                  </b-col>
+                  <b-col cols="11">
+                    <p>
+                      <b-link> <b>Kyle Aquino</b> </b-link>
+                      Sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
+                      <br>
+                      <b-link class="text-right small" ><i class="fas fa-arrow-up"></i></b-link>
+                      <span class="small"> <b>33</b> </span>
+                      <b-link class="text-right small" ><i class="fas fa-arrow-down"></i></b-link>
+                      <b-link class="text-right small">Reply</b-link> 2h
+                    </p>
+                  </b-col>
+                </b-row>
+              </b-container>
+            </div>
+          </b-card>
+        </b-container>
+      </div>
+{% endblock %}
+
+{% block customJS %}
+  <script src="{% static 'js/post/index.js' %}"></script>
+{% endblock %}

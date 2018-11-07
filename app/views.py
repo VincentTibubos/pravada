@@ -38,6 +38,9 @@ def help(request):
 def team(request):
     return render(request, 'homepage/pages/team.html')
 
+def getstarted(request):
+    return render(request, 'homepage/pages/get-started.html')
+
 def toppublications(request):
     return render(request, 'homepage/pages/top/top-publications.html')
 
@@ -78,7 +81,7 @@ def searchcategory(request):
 
 # Posts
 def post(request):
-    return render(request, 'post/pages/post.html')
+    return render(request, 'post/index.html')
 
 def writepost(request):
     return render(request, 'post/pages/write-post.html')
@@ -257,7 +260,7 @@ def admin(request):
                     userform = UserForm(request.POST)
                     if profileform.is_valid() and userform.is_valid():
                         profile = profileform.save(commit=False)
-                        user = userform.save()                
+                        user = userform.save()
                         profile.user = user
                         profile.save()
                     else:

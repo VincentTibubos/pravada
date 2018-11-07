@@ -33,8 +33,6 @@ new Vue({
         formdata.append('csrfmiddlewaretoken',csrf);
         formdata.append('username',this.username);
         formdata.append('password',this.password);
-        // formdata.append('password1',this.password);
-        // formdata.append('password2',this.confirmPassword);
         formdata.append('email',this.email);
         formdata.append('first_name',this.fname);
         formdata.append('last_name',this.lname);
@@ -70,26 +68,8 @@ new Vue({
     state () {
       return (this.message == '' ? true : false)
     },
-    // state2 () {
-    //   return this.password.length >= 8 ? true : false
-    // },
-    // invalidUserFeedback () {
-    //   if (this.username.length > 4) {
-    //     return ''
-    //   } else if (this.username.length > 0) {
-    //     return 'Enter at least 4 characters'
-    //   } else {
-    //     return 'Please enter something'
-    //   }
-    // },
-    // validUserFeedback () {
-    //   return this.state === true ? 'Valid Username' : ''
-    // },
     invalidPassFeedback () {
       return this.message;
     }
-    // validPassFeedback () {
-    //   return this.state === true ? 'Your good tog go' : ''
-    // }
   }
 })

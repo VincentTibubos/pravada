@@ -12,6 +12,7 @@ urlpatterns = [
     path('contact/',views.contact, name='contact'),
     path('help/',views.help, name='help'),
     path('team/',views.team, name='team'),
+    path('getstarted/',views.getstarted, name='team'),
 
     # Search View
     path('search/user/',views.searchuser, name='searchuser'),
