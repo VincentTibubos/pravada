@@ -1,5 +1,7 @@
 from django.urls import path
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 
 from . import views
 
@@ -81,6 +83,7 @@ urlpatterns = [
     path('webmaster/database/users/',views.adminusers, name='adminusers'),
 
     # Web Admin Manage
-    path('webmaster/<str:slug_url>/', views.managepost, name='managepost'),
+    path('webmaster/post/<str:slug_url>/', views.managepost, name='managepost'),
+    path('webmaster/page/<str:slug_url>/', views.managepage, name='managepage'),
 
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

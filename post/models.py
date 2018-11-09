@@ -27,9 +27,9 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         if not self.id:
             print(self.author.username+'=========================================')
-            date = datetime.date.today()
-            self.slug = '%s-%s-%i-%i' % (
-                slugify(self.title), slugify(self.author.username), date.month, date.day
+            date = datetime.date.today().strftime('%y-%m-%d')
+            self.slug = '%s-%s' % (
+                slugify(self.title), date
             )
 
         super(Post, self).save(*args, **kwargs)

@@ -1,4 +1,5 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
+
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
@@ -373,7 +374,20 @@ def adminsettings(request):
     return render(request, 'webadmin/pages/settings/index.html')
 
 def managepost(request, slug_url):
-    posts = Post.objects.filter(slug = slug_url)
-    print(slug_url)
-    args = {'posts' : posts}
+    post = get_object_or_404(Post, slug = slug_url)
+    postform = PostForm(instance = post)
+    args = {'postform' : postform, 'post' : post}
     return render(request, 'webadmin/pages/manage/index.html',args)
+
+def managepage(request, slug_url):
+    page = get_object_or_404(Publication, slug = slug_url)
+    pageform = PublicationForm(instance = page)
+    args = {'publicationform' : pageform, 'page' : page}
+    if request.method == 'POST':
+        pageform = PublicationForm(request.POST, request.FILES, instance=page)
+        if pageform.is_valid():
+            pageform.save()
+            args = {'publicationform' : pageform, 'page' : page}
+        else:
+            print("errors : {}".format(pageform.errors.as_data()))
+    return render(request, 'webadmin/pages/manage/publication/index.html',args)
