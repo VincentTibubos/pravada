@@ -79,4 +79,8 @@ urlpatterns = [
     path('webmaster/database/publications/',views.adminpublications, name='adminpublications'),
     path('webmaster/database/roles/',views.adminroles, name='adminroles'),
     path('webmaster/database/users/',views.adminusers, name='adminusers'),
+
+    # Web Admin Manage
+    path('webmaster/<str:slug_url>/', views.managepost, name='managepost'),
+
 ]

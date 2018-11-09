@@ -371,3 +371,9 @@ def adminreports(request):
 
 def adminsettings(request):
     return render(request, 'webadmin/pages/settings/index.html')
+
+def managepost(request, slug_url):
+    posts = Post.objects.filter(slug = slug_url)
+    print(slug_url)
+    args = {'posts' : posts}
+    return render(request, 'webadmin/pages/manage/index.html',args)
