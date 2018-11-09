@@ -1,5 +1,8 @@
 from django.db import models
+from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User as auth_user
+
+import datetime
 
 # User-Related Models
 class Profile(models.Model):
@@ -28,6 +31,10 @@ class Profile(models.Model):
             current_avatar = Profile.objects.get(pk=self.id).avatar
             if current_avatar != self.avatar:
                 current_avatar.delete()
+        if not self.id:
+            date = datetime.date.today()
+            self.slug = slugify(self.user.username)
+
         super(Profile, self).save(*args, **kwargs)
 
     def is_user(self):
@@ -46,6 +53,15 @@ class Publication(models.Model):
     roles = models.ManyToManyField('Role', blank=True)
     pub_followers = models.ManyToManyField(auth_user)
     slug = models.SlugField(max_length=40, unique=True)
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            date = datetime.date.today()
+            self.slug = '%i-%i-%i-%s' % (
+                date.year, date.month, date.day, slugify(self.name)
+            )
+
+        super(Publication, self).save(*args, **kwargs)
 
     def __str__(self):
         return str(self.name)

@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
+
+import datetime
 
 # Post Models
 class Post(models.Model):
@@ -20,6 +23,16 @@ class Post(models.Model):
     tags = models.ManyToManyField('Tag',blank=True)
     upvotes = models.PositiveIntegerField(default=0)
     downvotes = models.PositiveIntegerField(default=0)
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            print(self.author.username+'=========================================')
+            date = datetime.date.today()
+            self.slug = '%s-%s-%i-%i' % (
+                slugify(self.title), slugify(self.author.username), date.month, date.day
+            )
+
+        super(Post, self).save(*args, **kwargs)
 
     def __str__(self):
         return str(self.user.username+': '+self.title)
