@@ -1,0 +1,37 @@
+{% extends "base-no-vue.html" %}
+{% load static %}
+
+{% block title %} Pravada | Webmaster Homepage {% endblock %}
+
+{% block customCSS %}
+    <!-- Custom styles for this template-->
+    <link href="{% static 'vendor/sb-admin/css/sb-admin.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+
+    {% include 'webadmin/pages/base/header.html' %}
+    <div id="wrapper">
+      {% include 'webadmin/pages/base/sidebar.html' %}
+      <div id="content-wrapper">
+        <div class="container-fluid">
+          {% include 'webadmin/pages/dashboard/breadcrumb.html' %}
+          <div class="row">
+            {% include 'webadmin/pages/manage/post/edit-post.html' %}
+          </div>
+        </div>
+        {% include 'webadmin/pages/base/footer.html' %}
+      </div>
+    </div>
+    {% include 'webadmin/pages/base/scroll-to-top.html' %}
+    {% include 'webadmin/pages/base/logout-modal.html' %}
+
+{% endblock %}
+
+{% block customJS %}
+    <!-- SB-Admin JS -->
+    <script src="{% static 'vendor/sb-admin/js/sb-admin.min.js' %}"></script>
+
+    <!-- Page level plugin JavaScript-->
+    <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+{% endblock %}
