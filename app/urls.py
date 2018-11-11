@@ -82,9 +82,15 @@ urlpatterns = [
     path('webmaster/database/roles/',views.adminroles, name='adminroles'),
     path('webmaster/database/users/',views.adminusers, name='adminusers'),
 
-    # Web Admin Manage
+    # Web Admin Dashboard Manage
     path('webmaster/post/<str:slug_url>/', views.managepost, name='managepost'),
     path('webmaster/page/<str:slug_url>/', views.managepage, name='managepage'),
     path('webmaster/user/<str:username>/', views.manageuser, name='manageuser'),
+
+    # Web Admin Database Manage
+    path('webmaster/database/posts/<str:slug_url>/', views.managepost, name='managepost'),
+    path('webmaster/database/pages/<str:slug_url>/', views.managepage, name='managepage'),
+    path('webmaster/database/users/<str:username>/', views.manageuser, name='manageuser'),
+    path('webmaster/database/roles/<str:username>/', views.managerole, name='managerole'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
