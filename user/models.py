@@ -50,11 +50,10 @@ class Publication(models.Model):
     slug = models.SlugField(max_length=40, unique=True)
 
     def save(self, *args, **kwargs):
-        if not self.id:
-            date = datetime.date.today()
-            self.slug = '%i-%i-%i-%s' % (
-                date.year, date.month, date.day, slugify(self.name)
-            )
+        date = datetime.date.today().strftime('%y%m%d')
+        self.slug = '%s-%s' % (
+            slugify(self.name), date
+        )
 
         super(Publication, self).save(*args, **kwargs)
 
