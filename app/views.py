@@ -416,6 +416,13 @@ def managepost(request, slug_url):
     post = get_object_or_404(Post, slug = slug_url)
     postform = PostForm(instance = post)
     args = {'postform' : postform, 'post' : post}
+    if request.method == 'POST':
+        postform = PostForm(request.POST, request.FILES, instance=post)
+        if postform.is_valid():
+            postform.save()
+            args = {'postform' : postform, 'post' : post}
+        else:
+            print("errors : {}".format(postform.errors.as_data()))
     return render(request, 'webadmin/pages/manage/index.html',args)
 
 def managepage(request, slug_url):
@@ -433,8 +440,17 @@ def managepage(request, slug_url):
 
 def manageuser(request, slug_url):
     user = get_object_or_404(Profile, slug = slug_url)
-    
     profileform = ProfileForm(instance = user)
     userform = UserForm(instance = user.user)
-    args = {'profileform' : profileform, 'user' : user, 'userform' : userform}
+    args = {'profileform' : profileform, 'userform' : userform, 'user' : user, }
+    if request.method == 'POST':
+        profileform = ProfileForm(request.POST, request.FILES, instance = user)
+        userform = UserForm(request.POST, instance = user.user)
+        if profileform.is_valid() and userform.is_valid():
+            profileform.save()
+            userform.save()
+            args = {'profileform' : profileform, 'userform' : userform, 'user' : user, }
+        else:
+            print("errors : {}".format(profileform.errors.as_data()))
+            print("errors : {}".format(userform.errors.as_data()))
     return render(request, 'webadmin/pages/manage/user/index.html',args)

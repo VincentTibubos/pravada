@@ -19,7 +19,7 @@ class Post(models.Model):
     publish_date = models.DateTimeField(null=True)
     cover = models.ImageField(blank=True, upload_to='storage/uploads/post/cover/%Y/%m/%d/')
     status = models.CharField(choices=STATUS_CHOICES, max_length=1,default='d')
-    comments = models.ManyToManyField('Comment',blank=True)
+    user_comments = models.ManyToManyField('Comment',blank=True)
     tags = models.ManyToManyField('Tag',blank=True)
     upvotes = models.PositiveIntegerField(default=0)
     downvotes = models.PositiveIntegerField(default=0)
@@ -27,7 +27,7 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         if not self.id:
             print(self.author.username+'=========================================')
-            date = datetime.date.today().strftime('%y-%m-%d')
+            date = datetime.date.today().strftime('%y%m%d')
             self.slug = '%s-%s' % (
                 slugify(self.title), date
             )
@@ -49,7 +49,6 @@ class Post(models.Model):
 class Comment(models.Model):
     text = models.TextField(blank=True)
     comment_by = models.ForeignKey(User, on_delete=models.CASCADE, unique=False, blank=True, null=True)
-    comment_for = models.ForeignKey(Post, on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
     replies = models.ManyToManyField('Reply',blank=True)
 
