@@ -228,7 +228,8 @@ def following(request):
 
 def publications(request):
     profile = Profile.objects.get( user_id = request.user.id)
-    pub = Publication.objects.filter(pub_followers=profile.id)
+    print(profile.roles.all())
+    pub = Publication.objects.filter(roles=profile.id)
     if not request.user.is_authenticated:
         return redirect('/login/')
     return render(request, 'account/pages/profile/publications.html',{'pubs':pub})
@@ -239,14 +240,16 @@ def posts(request):
     return render(request, 'account/pages/profile/posts.html')
 
 def reputation(request):
+    user = Profile.objects.get( user_id = request.user.id)
     if not request.user.is_authenticated:
         return redirect('/login/')
-    return render(request, 'account/pages/profile/reputation.html')
+    return render(request, 'account/pages/profile/reputation.html',{'user':user})
 
 def subscriptions(request):
+    pub = Publication.objects.filter(pub_followers=request.user.id)
     if not request.user.is_authenticated:
         return redirect('/login/')
-    return render(request, 'account/pages/profile/subscriptions.html')
+    return render(request, 'account/pages/profile/subscriptions.html',{'pubs':pub})
 
 # User Settings Routes
 def settings(request):
