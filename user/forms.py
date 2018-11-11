@@ -22,11 +22,12 @@ class RegisterForm(UserCreationForm):
 class RoleForm(forms.ModelForm):
     class Meta:
         model = Role
-        fields = ('user_id','role',)
+        fields = ('user_id','role','publication')
 
         widgets = {
             'user_id' : forms.Select(attrs={'class' : 'form-control'}),
             'role' : forms.Select(attrs={'class' : 'form-control'}),
+            'publication' : forms.SelectMultiple(attrs={'class' : 'form-control'}),
         }
 
 class PublicationForm(forms.ModelForm):
@@ -37,7 +38,6 @@ class PublicationForm(forms.ModelForm):
             'description',
             'cover',
             'categories',
-            'roles'
         )
 
         widgets = {
@@ -45,7 +45,6 @@ class PublicationForm(forms.ModelForm):
             'description': forms.Textarea(attrs={'class' : 'form-control', 'placeholder' : 'Description'}),
             'cover': forms.FileInput(attrs={'class' : 'btn btn-primary'}),
             'categories' : forms.SelectMultiple(attrs={'class' : 'form-control'}),
-            'roles' : forms.SelectMultiple(attrs={'class' : 'form-control'})
         }
 
 class ProfileForm(forms.ModelForm):

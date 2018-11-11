@@ -84,13 +84,24 @@ urlpatterns = [
 
     # Web Admin Dashboard Manage
     path('webmaster/post/<str:slug_url>/', views.managepost, name='managepost'),
-    path('webmaster/page/<str:slug_url>/', views.managepage, name='managepage'),
+    path('webmaster/publication/<str:slug_url>/', views.managepage, name='managepage'),
     path('webmaster/user/<str:username>/', views.manageuser, name='manageuser'),
+
+    # Web Admin Dashboard Delete
+    path('webmaster/post/<str:slug_url>/delete', views.deletepost, name='managepost'),
+    path('webmaster/publication/<str:slug_url>/delete', views.deletepage, name='managepage'),
+    path('webmaster/user/<str:username>/delete', views.deleteuser, name='deleteuser'),
 
     # Web Admin Database Manage
     path('webmaster/database/posts/<str:slug_url>/', views.managepost, name='managepost'),
-    path('webmaster/database/pages/<str:slug_url>/', views.managepage, name='managepage'),
+    path('webmaster/database/publications/<str:slug_url>/', views.managepage, name='managepage'),
     path('webmaster/database/users/<str:username>/', views.manageuser, name='manageuser'),
     path('webmaster/database/roles/<str:username>/', views.managerole, name='managerole'),
+
+    # Web Admin Database Manage
+    path('webmaster/database/posts/<str:slug_url>/delete', views.deletepost, name='deletepost'),
+    path('webmaster/database/publications/<str:slug_url>/delete', views.deletepage, name='deletepage'),
+    path('webmaster/database/users/<str:username>/delete', views.deleteuser, name='deleteuser'),
+    path('webmaster/database/roles/<str:username>/delete', views.deleterole, name='deleterole'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

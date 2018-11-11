@@ -19,6 +19,7 @@
             {% for uroles in roles %}
             <tr>
               <td>{{uroles.user_id}}</td>
+              <td>{{uroles.publication}}</td>
               {% if uroles.role == 'a' %}
                 <td>Administrator</td>
               {% elif uroles.role == 'e' %}
@@ -40,8 +41,8 @@
       </div>
     </div>
     <div class="card-footer">
-      <button type="button" class="btn btn-outline-primary">
-        <i class="fas fa-plus-square"></i> Add Post
+      <button type="button" class="btn btn-outline-primary"   data-toggle="modal" data-target="#roleModal">
+        <i class="fas fa-plus-square"></i> Grant Role
       </button>
     </div>
   </div>
