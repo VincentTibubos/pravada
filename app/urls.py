@@ -85,5 +85,6 @@ urlpatterns = [
     # Web Admin Manage
     path('webmaster/post/<str:slug_url>/', views.managepost, name='managepost'),
     path('webmaster/page/<str:slug_url>/', views.managepage, name='managepage'),
+    path('webmaster/user/<str:slug_url>/', views.manageuser, name='manageuser'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
