@@ -15,7 +15,7 @@ from user.models import Profile, Publication, Role
 
 # Form import
 from post.forms import PostForm
-from user.forms import RoleForm, PublicationForm, UserForm, ProfileForm
+from user.forms import RoleForm, PublicationForm, UserForm, ProfileForm, SearchUserForm, SearchPostForm, SearchPageForm
 
 # Homepage Routes
 def index(request):
@@ -275,7 +275,10 @@ def admin(request):
             profileform = ProfileForm()
             userform = UserForm()
             publicationform = PublicationForm()
-            args = {'profile' : users ,'posts' : posts, 'publications' : publications, 'postform' : postform, 'roleform' : roleform, 'publicationform' : publicationform, 'profileform' : profileform, 'userform' : userform }
+            searchuserform = SearchUserForm()
+            searchpostform = SearchPostForm()
+            searchpageform = SearchPageForm()
+            args = {'profile' : users ,'posts' : posts, 'publications' : publications, 'postform' : postform, 'roleform' : roleform, 'publicationform' : publicationform, 'profileform' : profileform, 'userform' : userform, 'searchuser' : searchuserform, 'searchpost' : searchpostform, 'searchpage' : searchpageform }
             if request.method == "POST":
                 if 'add_post' in request.POST:
                     postform = PostForm(request.POST, request.FILES)
@@ -306,6 +309,36 @@ def admin(request):
                     else:
                         print("errors : {}".format(profileform.errors.as_data()))
                         print("errors : {}".format(userform.errors.as_data()))
+                elif 'search_user' in request.POST:
+                    searchuserform = SearchUserForm(request.POST)
+                    if searchuserform.is_valid():
+                        try:
+                            user = User.objects.get(username = searchuserform.cleaned_data['username'])
+                            return redirect('user/'+searchuserform.cleaned_data['username'])
+                        except User.DoesNotExist:
+                            print('User does not exist')
+                    else:
+                        print("errors : {}".format(searchuserform.errors.as_data()))
+                elif 'search_post' in request.POST:
+                    searchpostform = SearchPostForm(request.POST)
+                    if searchpostform.is_valid():
+                        try:
+                            post = Post.objects.get(slug = searchpostform.cleaned_data['slug'])
+                            return redirect('post/'+searchuserform.cleaned_data['slug'])
+                        except Post.DoesNotExist:
+                            print('Post does not exist')
+                    else:
+                        print("errors : {}".format(searchpostform.errors.as_data()))
+                elif 'search_page' in request.POST:
+                    searchpageform = SearchPageForm(request.POST)
+                    if searchpageform.is_valid():
+                        try:
+                            page = Publication.objects.get(slug = searchpageform.cleaned_data['slug'])
+                            return redirect('page/'+searchpageform.cleaned_data['slug'])
+                        except Publication.DoesNotExist:
+                            print('Page does not exist')
+                    else:
+                        print("errors : {}".format(searchpageform.errors.as_data()))
             return render(request, 'webadmin/index.html',args)
         else:
             return index(request)
@@ -438,18 +471,21 @@ def managepage(request, slug_url):
             print("errors : {}".format(pageform.errors.as_data()))
     return render(request, 'webadmin/pages/manage/publication/index.html',args)
 
-def manageuser(request, slug_url):
-    user = get_object_or_404(Profile, slug = slug_url)
-    profileform = ProfileForm(instance = user)
-    userform = UserForm(instance = user.user)
-    args = {'profileform' : profileform, 'userform' : userform, 'user' : user, }
+def manageuser(request, username):
+    user = get_object_or_404(User, username = username)
+    user2 = Profile.objects.get(user = user.pk)
+    profileform = ProfileForm(instance = user2)
+    userform = UserForm(instance = user)
+    args = {'profileform' : profileform, 'userform' : userform, 'user' : user2, }
     if request.method == 'POST':
-        profileform = ProfileForm(request.POST, request.FILES, instance = user)
-        userform = UserForm(request.POST, instance = user.user)
+        profileform = ProfileForm(request.POST, request.FILES, instance = user2)
+        userform = UserForm(request.POST, instance = user)
         if profileform.is_valid() and userform.is_valid():
             profileform.save()
             userform.save()
-            args = {'profileform' : profileform, 'userform' : userform, 'user' : user, }
+            args = {'profileform' : profileform, 'userform' : userform, 'user' : user2, }
+            print('/webmaster/user/'+user.username)
+            return redirect('/webmaster/user/'+user.username)
         else:
             print("errors : {}".format(profileform.errors.as_data()))
             print("errors : {}".format(userform.errors.as_data()))
