@@ -133,38 +133,76 @@ def login(request):
     elif request.method == "GET":
         return render(request, 'account/pages/login.html')
     elif request.method == "POST":
-        form = LoginForm(request.POST)
-        if form.is_valid():
+        username = request.POST['username']
+        password = request.POST['password']
+        p_error=None
+        u_error=None
+        error="Sorry! Username and Password didn't match, Please try again ! "
+        if len(username) < 5:
+            u_error='Username must have atlest 5 characters'
+        if len(password) < 8:
+            p_error='Password must have atlest 8 characters'
+        if p_error==None and u_error==None:
+            form = LoginForm(request.POST)
+            if form.is_valid():
                 username = form.cleaned_data['username']
                 password = form.cleaned_data['password']
                 user = authenticate(username=username, password=password)
                 if user is not None:
                     auth_login(request,user)
-                    error= ''
-                else:
-                    error = " Sorry! Username and Password didn't match, Please try again ! "
-        return JsonResponse({'error':error})
+                    error= None
+        return JsonResponse({'p_error':p_error,'u_error':u_error,'error':error})
 
 def register(request):
     if request.user.is_authenticated:
         return redirect('/home/')
     elif request.method == 'POST':
         username = request.POST['username']
-        password = request.POST['password']
+        password = request.POST['password1']
+        cpassword = request.POST['password2']
         email = request.POST['email']
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
-        user=User.objects.create_user(username,email,password)
-        user.first_name=first_name
-        user.last_name=last_name
-        user.save()
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            auth_login(request,user)
-            error= ''
+        u_error=None
+        e_error=None
+        l_error=None
+        f_error=None
+        p_error=None
+        cp_error=None
+        error='Sorry! Username or Email already been used'
+        if len(username)<5:
+            u_error='Username must have atleast 5 characters'
+        elif User.objects.filter(username=username).exists():
+            u_error='Username already exist'
+        if len(email)==0:
+            e_error='Email required'
+        elif '@' in email:
+            if(email.find('@')>=(len(email)-1)):
+                e_error='Invalid email'
+            elif User.objects.filter(email=email).exists():
+                e_error='email already exist'
         else:
-            error = " error occured while registering "
-        return JsonResponse({'error':error})
+            e_error="'@' missing in email"
+        if len(last_name)==0:
+            l_error="Last name required"
+        if len(first_name)==0:
+            f_error="First name required"
+        if len(password)<8:
+            p_error="Password must be atleast 8 characters"
+        if len(cpassword)<8:
+            cp_error="Confirm Password must be atleast 8 characters"
+        elif cpassword != password:
+            cp_error="Password mismatch"
+        if u_error == None and e_error == None and f_error == None and l_error == None and p_error == None and cp_error == None:
+            user=User.objects.create_user(username,email,password)
+            user.first_name=first_name
+            user.last_name=last_name
+            user.save()
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                auth_login(request,user) #uncomment
+                error= None
+        return JsonResponse({'error':error,'u_error':u_error,'e_error':e_error,'l_error':l_error,'f_error':f_error,'p_error':p_error,'cp_error':cp_error})
     return render(request, 'account/pages/register.html')
 
 # User Profile Routes

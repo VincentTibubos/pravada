@@ -1,7 +1,8 @@
 new Vue({
   el: '#register',
   delimiters: ['[[', ']]'],
-  data: {
+  data: function(){
+    return {
     email: '',
     username: '',
     fname: '',
@@ -9,54 +10,113 @@ new Vue({
     password: '',
     confirmPassword: '',
     block:true,
-    message: ['','','','','',''],
-    users:[
-      {username: 'Vincent', password: '12345678'},
-      {username: 'Jose', password: 'sample123'},
-      {username: 'Dilaw', password: 'dilawan123'}
-    ]
+    user_msg: null,
+    email_msg: null,
+    l_msg: null,
+    f_msg: null,
+    cp_msg: null,
+    p_msg: null,
+    user_state: null,
+    email_state: null,
+    l_state: null,
+    f_state: null,
+    cp_state: null,
+    p_state: null
+    }
+  },
+  watch:{
+    user_msg: function(){
+      if(this.username=='')
+        this.user_state= null;
+      else
+        this.user_state=( this.pass_msg==null);
+    },
+    email_msg: function(){
+      if(this.email=='')
+        this.email_state= null;
+      else
+        this.email_state=(this.email_msg==null);
+    },
+    l_msg: function(){
+      if(this.lname=='')
+        this.l_state= null;
+      else
+        this.l_state=( this.l_msg==null);
+    },
+    f_msg: function(){
+      if(this.fname=='')
+        this.f_state= null;
+      else
+        this.f_state=( this.f_msg==null);
+    },
+    p_msg: function(){
+      if(this.password=='')
+        this.p_state= null;
+      else
+        this.p_state=( this.p_msg==null);
+    },
+    cp_msg: function(){
+      if(this.confirmPassword=='')
+        this.cp_state= null;
+      else
+        this.cp_state=( this.cp_msg==null);
+    },
   },
   methods:{
     register: function(){
-      if(this.username.length<4){
-        this.message[0]='Username must have atleast 4 characters';
-      }
-      if(this.password.length<8){
-        this.message='Password must have atleast 8 characters';
-      }
-      else if(this.password!=this.confirmPassword){
-        this.message='Password Mismatch';
-      }
-      else{
-        var formdata=new FormData();
-        var csrf=document.getElementsByName('csrfmiddlewaretoken')[0].value;
-        formdata.append('csrfmiddlewaretoken',csrf);
-        formdata.append('username',this.username);
-        formdata.append('password',this.password);
-        formdata.append('email',this.email);
-        formdata.append('first_name',this.fname);
-        formdata.append('last_name',this.lname);
-        axios.defaults.xsrfHeaderName='X-CSRFToken';
-        axios.defaults.xsrfCookieName='XCSRF-TOKEN';
-        axios({
-          method:'POST',
-          url: '/register/',
-          data:formdata,
-          headers:{
-            'X-CSRFToken': csrf
+      var formdata=new FormData();
+      var csrf=document.getElementsByName('csrfmiddlewaretoken')[0].value;
+      formdata.append('csrfmiddlewaretoken',csrf);
+      formdata.append('username',this.username);
+      // formdata.append('password',this.password);
+      formdata.append('password1',this.password);
+      formdata.append('password2',this.confirmPassword);
+      formdata.append('email',this.email);
+      formdata.append('first_name',this.fname);
+      formdata.append('last_name',this.lname);
+      axios.defaults.xsrfHeaderName='X-CSRFToken';
+      axios.defaults.xsrfCookieName='XCSRF-TOKEN';
+      axios({
+        method:'POST',
+        url: '/register/',
+        data:formdata,
+        headers:{
+          'X-CSRFToken': csrf
+        }
+      })
+      .then((res)=>{
+        var error=res.data.error;
+        var user=res.data.u_error;
+        var email=res.data.e_error;
+        var lname=res.data.l_error;
+        var fname=res.data.f_error;
+        var pass=res.data.p_error;
+        var cpass=res.data.cp_error;
+        if(!pass&&!user&&!fname&&!lname&&!email&&!cpass){
+          if(error){
+            this.cp_msg=error;
+            this.user_msg='';
+            this.email_msg='';
+            this.l_msg="";
+            this.f_msg='';
+            this.p_msg='';
           }
-        })
-        .then(function( res){
-          if(res.data.error==''){
-            window.location='/profile'
+          else{
+            console.log('registered ',res.data);
+            window.location='/profile';
           }
-        })
-        .catch(function( error){
-        });
-        this.message="Invalid username or password";
-        this.password='';
-        this.confirmPassword='';
-      }
+        }
+        else{
+          this.cp_msg=cpass;
+          this.user_msg=user;
+          this.email_msg=email;
+          this.l_msg=lname;
+          this.f_msg=fname;
+          this.p_msg=pass;
+        }
+      })
+      .catch(function( error){
+      });
     },
     check: function(){
       return this.users.filter( (user)=> {
@@ -65,11 +125,29 @@ new Vue({
     }
   },
   computed: {
-    state () {
-      return (this.message == '' ? true : false)
-    },
-    invalidPassFeedback () {
-      return this.message;
-    }
+    // state () {
+    //   return (this.message == '' ? true : false)
+    // },
+    // state2 () {
+    //   return this.password.length >= 8 ? true : false
+    // },
+    // invalidUserFeedback () {
+    //   if (this.username.length > 4) {
+    //     return ''
+    //   } else if (this.username.length > 0) {
+    //     return 'Enter at least 4 characters'
+    //   } else {
+    //     return 'Please enter something'
+    //   }
+    // },
+    // validUserFeedback () {
+    //   return this.state === true ? 'Valid Username' : ''
+    // },
+    // invalidPassFeedback () {
+    //   return this.message;
+    // }
+    // validPassFeedback () {
+    //   return this.state === true ? 'Your good tog go' : ''
+    // }
   }
 })
