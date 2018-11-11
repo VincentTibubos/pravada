@@ -21,17 +21,17 @@
           <tbody id="post-tbl">
             {%for users in profile%}
             <tr>
-              <td>{{users.first_name}} {{users.last_name}}</td>
-              <td>{{users.username}}</td>
-              <td>{{users.date_joined}}</td>
-              <td>{{users.email}}</td>
-              {% if users.is_superuser %}
+              <td>{{users.user.first_name}} {{users.user.last_name}}</td>
+              <td>{{users.user.username}}</td>
+              <td>{{users.user.date_joined}}</td>
+              <td>{{users.user.email}}</td>
+              {% if users.user_type == 'w' %}
                 <td>Webmaster</td>
               {% else %}
                 <td>User</td>
               {% endif %}
               <td>
-                <a class="btn btn-sm btn-primary" href="#"> Manage User</a>
+                <a class="btn btn-sm btn-primary" href="user/{{user.slug}}"> Manage User</a>
               </td>
             </tr>
             {%endfor%}

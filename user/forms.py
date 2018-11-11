@@ -36,14 +36,16 @@ class PublicationForm(forms.ModelForm):
             'name',
             'description',
             'cover',
-            'categories'
+            'categories',
+            'roles'
         )
 
         widgets = {
             'name': forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Name'}),
             'description': forms.Textarea(attrs={'class' : 'form-control', 'placeholder' : 'Description'}),
             'cover': forms.FileInput(attrs={'class' : 'btn btn-primary'}),
-            'categories' : forms.SelectMultiple(attrs={'class' : 'form-control'})
+            'categories' : forms.SelectMultiple(attrs={'class' : 'form-control'}),
+            'roles' : forms.SelectMultiple(attrs={'class' : 'form-control'})
         }
 
 class ProfileForm(forms.ModelForm):
