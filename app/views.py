@@ -336,7 +336,7 @@ def admindatabase(request):
             else:
                 print("errors : {}".format(profileform.errors.as_data()))
                 print("errors : {}".format(userform.errors.as_data()))
-    return render(request, 'webadmin/pages/database/index.html', args)
+    return render(request, 'webadmin/pages/database/index.html',args)
 
 # Web Admin Posts Routes
 def adminposts(request):
@@ -392,3 +392,11 @@ def managepage(request, slug_url):
         else:
             print("errors : {}".format(pageform.errors.as_data()))
     return render(request, 'webadmin/pages/manage/publication/index.html',args)
+
+def manageuser(request, slug_url):
+    user = get_object_or_404(Profile, slug = slug_url)
+    
+    profileform = ProfileForm(instance = user)
+    userform = UserForm(instance = user.user)
+    args = {'profileform' : profileform, 'user' : user, 'userform' : userform}
+    return render(request, 'webadmin/pages/manage/user/index.html',args)
