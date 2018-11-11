@@ -227,9 +227,10 @@ def following(request):
     return render(request, 'account/pages/profile/following.html',{'follow':follow})
 
 def publications(request):
-    profile = Profile.objects.get( user_id = request.user.id)
-    print(profile.roles.all())
-    pub = Publication.objects.filter(roles=profile.id)
+    roles=Role.objects.filter(user_id=request.user.id)
+    print(roles)
+    pub = Publication.objects.filter(roles=request.user.id)
+    # print(pub)
     if not request.user.is_authenticated:
         return redirect('/login/')
     return render(request, 'account/pages/profile/publications.html',{'pubs':pub})
