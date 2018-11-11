@@ -228,7 +228,8 @@ def activitylog(request):
 def admin(request):
     if request.user.is_authenticated:
         if request.user.is_staff:
-            users = User.objects.all().order_by('date_joined').reverse()[:5]
+            # users = User.objects.all().order_by('date_joined').reverse()[:5]
+            users = Profile.objects.select_related('user').order_by('auth_user.date_joined').reverse()[:5]
             posts = Post.objects.all().order_by('created').reverse()[:5]
             publications = Publication.objects.all().order_by('created').reverse()[:5]
             postform = PostForm()
@@ -236,7 +237,7 @@ def admin(request):
             profileform = ProfileForm()
             userform = UserForm()
             publicationform = PublicationForm()
-            args = {'profile' : users ,'posts' : posts, 'publications' : publications, 'postform' : postform, 'roleform' : roleform, 'publicationform' :publicationform, 'profileform' : profileform, 'userform' : userform }
+            args = {'profile' : users ,'posts' : posts, 'publications' : publications, 'postform' : postform, 'roleform' : roleform, 'publicationform' : publicationform, 'profileform' : profileform, 'userform' : userform }
             if request.method == "POST":
                 if 'add_post' in request.POST:
                     postform = PostForm(request.POST, request.FILES)
@@ -357,7 +358,7 @@ def adminroles(request):
 
 # Web Admin Users Routes
 def adminusers(request):
-    users = User.objects.all()
+    users = Profile.objects.select_related('user').order_by('auth_user.date_joined').reverse()[:5]
     args = {'profile' : users}
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
