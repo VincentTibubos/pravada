@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_filters',
-    # 'tinymce',
+    'ckeditor_uploader',
     'app',
     'post',
     'user'
