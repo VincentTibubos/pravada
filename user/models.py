@@ -19,7 +19,7 @@ class Profile(models.Model):
     city = models.CharField(max_length=100, default='', blank=True)
     country = models.CharField(max_length=100, default='', blank=True)
     reputation = models.IntegerField(default=1)
-    user_followers = models.ManyToManyField('Profile',blank=True)
+    user_followers = models.ManyToManyField('Profile', related_name='follows',blank=True)
     subscriptions = models.ManyToManyField('Publication',blank=True)
 
     def __str__(self):
