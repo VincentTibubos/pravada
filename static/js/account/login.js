@@ -12,20 +12,6 @@ new Vue({
     pass_state: null
     }
   },
-  watch:{
-    // user_msg: function(){
-    //   if(this.username=='')
-    //     this.user_state= null;
-    //   else
-    //     this.user_state=( this.pass_msg==null);
-    // },
-    // pass_msg: function(){
-    //   if(this.password=='')
-    //     this.pass_state=null;
-    //   else
-    //     this.pass_state=(this.pass_msg==null);
-    // }
-  },
   methods:{
     login: function(){
       var formdata=new FormData();
@@ -47,19 +33,18 @@ new Vue({
         var pass=res.data.p_error;
         var user=res.data.u_error;
         var error=res.data.error;
+        this.user_state=user!=null?true:false
+        this.pass_state=pass!=null?true:false
         if(!pass&&!user){
           if(error){
             this.pass_msg=error;
             this.user_msg='';
           }
           else{
-            window.location='/profile';
+            window.location='/profile/';
           }
         }
-        else{
-          this.user_msg=user;
-          this.pass_msg=pass;
-        }
+        console.log(data);
       })
       .catch(function( error){
       });

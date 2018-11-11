@@ -24,44 +24,6 @@ new Vue({
     p_state: null
     }
   },
-  watch:{
-    user_msg: function(){
-      if(this.username=='')
-        this.user_state= null;
-      else
-        this.user_state=( this.pass_msg==null);
-    },
-    email_msg: function(){
-      if(this.email=='')
-        this.email_state= null;
-      else
-        this.email_state=(this.email_msg==null);
-    },
-    l_msg: function(){
-      if(this.lname=='')
-        this.l_state= null;
-      else
-        this.l_state=( this.l_msg==null);
-    },
-    f_msg: function(){
-      if(this.fname=='')
-        this.f_state= null;
-      else
-        this.f_state=( this.f_msg==null);
-    },
-    p_msg: function(){
-      if(this.password=='')
-        this.p_state= null;
-      else
-        this.p_state=( this.p_msg==null);
-    },
-    cp_msg: function(){
-      if(this.confirmPassword=='')
-        this.cp_state= null;
-      else
-        this.cp_state=( this.cp_msg==null);
-    },
-  },
   methods:{
     register: function(){
       var formdata=new FormData();
@@ -92,6 +54,12 @@ new Vue({
         var fname=res.data.f_error;
         var pass=res.data.p_error;
         var cpass=res.data.cp_error;
+        this.user_state=user==null?true:false;
+        this.email_state=email==null?true:false;
+        this.l_state=lname==null?true:false;
+        this.f_state=fname==null?true:false;
+        this.cp_state=cpass==null?true:false;
+        this.p_state=pass==null?true:false;
         if(!pass&&!user&&!fname&&!lname&&!email&&!cpass){
           if(error){
             this.cp_msg=error;
@@ -103,7 +71,7 @@ new Vue({
           }
           else{
             console.log('registered ',res.data);
-            window.location='/profile';
+            window.location='/profile/';
           }
         }
         else{
