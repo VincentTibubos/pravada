@@ -36,11 +36,11 @@
                     {% csrf_token %}
                     <b-form-group>
                       <!-- Username Text Field -->
-                      <b-form-input class="my-1" :state="user_msg==null" v-model.trim="username"
+                      <b-form-input class="my-1" :state="user_state" v-model.trim="username"
                                     placeholder="Username"></b-form-input>
                       <b-form-invalid-feedback>[[user_msg]]</b-form-invalid-feedback>
                       <!-- Password Text Field -->
-                      <b-form-input class="my-1" :state="pass_msg==null" v-model.trim="password"
+                      <b-form-input class="my-1" :state="pass_state" v-model.trim="password"
                                     placeholder="Password" type="password"></b-form-input>
                       <b-form-invalid-feedback>[[pass_msg]]</b-form-invalid-feedback>
                     </b-form-group>

@@ -12,8 +12,6 @@ new Vue({
     pass_state: null
     }
   },
-  watch:{
-  },
   methods:{
     login: function(){
       var formdata=new FormData();
@@ -35,6 +33,8 @@ new Vue({
         var pass=res.data.p_error;
         var user=res.data.u_error;
         var error=res.data.error;
+        this.user_state=user!=null?true:false
+        this.pass_state=pass!=null?true:false
         if(!pass&&!user){
           if(error){
             this.pass_msg=error;
@@ -43,10 +43,6 @@ new Vue({
           else{
             window.location='/profile';
           }
-        }
-        else{
-          this.user_msg=user;
-          this.pass_msg=pass;
         }
         console.log(data);
       })
