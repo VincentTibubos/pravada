@@ -212,19 +212,26 @@ def profile(request):
     return render(request, 'account/pages/profile/index.html')
 
 def followers(request):
+    user = Profile.objects.get( user_id = request.user.id)
+    follow = Profile.objects.filter(user_followers=user.id)
+    # print(profile)
     if not request.user.is_authenticated:
         return redirect('/login/')
-    return render(request, 'account/pages/profile/followers.html')
+    return render(request, 'account/pages/profile/followers.html',{'follow':follow})
 
 def following(request):
+    user = Profile.objects.get( user_id = request.user.id)
+    follow = user.user_followers.all()
     if not request.user.is_authenticated:
         return redirect('/login/')
-    return render(request, 'account/pages/profile/following.html')
+    return render(request, 'account/pages/profile/following.html',{'follow':follow})
 
 def publications(request):
+    profile = Profile.objects.get( user_id = request.user.id)
+    pub = Publication.objects.filter(pub_followers=profile.id)
     if not request.user.is_authenticated:
         return redirect('/login/')
-    return render(request, 'account/pages/profile/publications.html')
+    return render(request, 'account/pages/profile/publications.html',{'pubs':pub})
 
 def posts(request):
     if not request.user.is_authenticated:
