@@ -51,7 +51,7 @@ class PublicationForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('user_type','birth_date','city','country','phone')
+        fields = ('user_type','birth_date','city','country','phone','avatar')
 
         widgets = {
             'user_type' : forms.Select(attrs={'class' : 'form-control'}),
@@ -59,6 +59,7 @@ class ProfileForm(forms.ModelForm):
             'city' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'city'}),
             'country' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Country'}),
             'phone' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Phone'}),
+            'avatar' : forms.FileInput(attrs={'class' : 'btn btn-primary'}),
         }
 
 class UserForm(UserCreationForm):
@@ -74,3 +75,12 @@ class UserForm(UserCreationForm):
             'email' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Email'}),
             'username' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Username'}),
         }
+
+class SearchUserForm(forms.Form):
+    username = forms.CharField(label='Username',widget=forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Username'}))
+
+class SearchPageForm(forms.Form):
+    slug = forms.CharField(label='slug',widget=forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Slug'}))
+
+class SearchPostForm(forms.Form):
+    slug = forms.CharField(label='slug',widget=forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Slug'}))
