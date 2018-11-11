@@ -218,19 +218,27 @@ def profile(request):
     return render(request, 'account/pages/profile/index.html')
 
 def followers(request):
+    user = Profile.objects.get( user_id = request.user.id)
+    follow = Profile.objects.filter(user_followers=user.id)
+    # print(profile)
     if not request.user.is_authenticated:
         return redirect('/login/')
-    return render(request, 'account/pages/profile/followers.html')
+    return render(request, 'account/pages/profile/followers.html',{'follow':follow})
 
 def following(request):
+    user = Profile.objects.get( user_id = request.user.id)
+    follow = user.user_followers.all()
     if not request.user.is_authenticated:
         return redirect('/login/')
-    return render(request, 'account/pages/profile/following.html')
+    return render(request, 'account/pages/profile/following.html',{'follow':follow})
 
 def publications(request):
+    profile = Profile.objects.get( user_id = request.user.id)
+    print(profile.roles.all())
+    pub = Publication.objects.filter(roles=profile.id)
     if not request.user.is_authenticated:
         return redirect('/login/')
-    return render(request, 'account/pages/profile/publications.html')
+    return render(request, 'account/pages/profile/publications.html',{'pubs':pub})
 
 def posts(request):
     if not request.user.is_authenticated:
@@ -238,14 +246,16 @@ def posts(request):
     return render(request, 'account/pages/profile/posts.html')
 
 def reputation(request):
+    user = Profile.objects.get( user_id = request.user.id)
     if not request.user.is_authenticated:
         return redirect('/login/')
-    return render(request, 'account/pages/profile/reputation.html')
+    return render(request, 'account/pages/profile/reputation.html',{'user':user})
 
 def subscriptions(request):
+    pub = Publication.objects.filter(pub_followers=request.user.id)
     if not request.user.is_authenticated:
         return redirect('/login/')
-    return render(request, 'account/pages/profile/subscriptions.html')
+    return render(request, 'account/pages/profile/subscriptions.html',{'pubs':pub})
 
 # User Settings Routes
 def settings(request):
@@ -272,10 +282,13 @@ def activitylog(request):
 def admin(request):
     if request.user.is_authenticated:
         if request.user.is_staff:
-            # users = User.objects.all().order_by('date_joined').reverse()[:5]
+
+            # Data
             users = Profile.objects.select_related('user').order_by('auth_user.date_joined').reverse()[:5]
             posts = Post.objects.all().order_by('created').reverse()[:5]
             publications = Publication.objects.all().order_by('created').reverse()[:5]
+
+            # Forms
             postform = PostForm()
             roleform = RoleForm()
             profileform = ProfileForm()
@@ -284,7 +297,14 @@ def admin(request):
             searchuserform = SearchUserForm()
             searchpostform = SearchPostForm()
             searchpageform = SearchPageForm()
-            args = {'profile' : users ,'posts' : posts, 'publications' : publications, 'postform' : postform, 'roleform' : roleform, 'publicationform' : publicationform, 'profileform' : profileform, 'userform' : userform, 'searchuser' : searchuserform, 'searchpost' : searchpostform, 'searchpage' : searchpageform }
+
+            # Counter
+            rolecount = Role.objects.count()
+            usercount = Profile.objects.count()
+            pagecount = Publication.objects.count()
+            postcount = Post.objects.count()
+
+            args = {'profile' : users ,'posts' : posts, 'publications' : publications, 'postform' : postform, 'roleform' : roleform, 'publicationform' : publicationform, 'profileform' : profileform, 'userform' : userform, 'searchuser' : searchuserform, 'searchpost' : searchpostform, 'searchpage' : searchpageform, 'rolec' : rolecount, 'userc' : usercount, 'pagec' : pagecount, 'postc' : postcount,}
             if request.method == "POST":
                 if 'add_post' in request.POST:
                     postform = PostForm(request.POST, request.FILES)
@@ -341,6 +361,36 @@ def admin(request):
                         try:
                             page = Publication.objects.get(slug = searchpageform.cleaned_data['slug'])
                             return redirect('page/'+searchpageform.cleaned_data['slug'])
+                        except Publication.DoesNotExist:
+                            print('Page does not exist')
+                    else:
+                        print("errors : {}".format(searchpageform.errors.as_data()))
+                elif 'dsearch_user' in request.POST:
+                    searchuserform = SearchUserForm(request.POST)
+                    if searchuserform.is_valid():
+                        try:
+                            user = User.objects.get(username = searchuserform.cleaned_data['username'])
+                            user.delete()
+                        except User.DoesNotExist:
+                            print('User does not exist')
+                    else:
+                        print("errors : {}".format(searchuserform.errors.as_data()))
+                elif 'dsearch_post' in request.POST:
+                    searchpostform = SearchPostForm(request.POST)
+                    if searchpostform.is_valid():
+                        try:
+                            post = Post.objects.get(slug = searchpostform.cleaned_data['slug'])
+                            post.delete()
+                        except Post.DoesNotExist:
+                            print('Post does not exist')
+                    else:
+                        print("errors : {}".format(searchpostform.errors.as_data()))
+                elif 'dsearch_page' in request.POST:
+                    searchpageform = SearchPageForm(request.POST)
+                    if searchpageform.is_valid():
+                        try:
+                            page = Publication.objects.get(slug = searchpageform.cleaned_data['slug'])
+                            page.delete()
                         except Publication.DoesNotExist:
                             print('Page does not exist')
                     else:
@@ -435,7 +485,7 @@ def adminroles(request):
 
 # Web Admin Users Routes
 def adminusers(request):
-    users = Profile.objects.select_related('user').order_by('auth_user.date_joined').reverse()[:5]
+    users = Profile.objects.select_related('user')
     args = {'profile' : users}
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -460,6 +510,7 @@ def managepost(request, slug_url):
         if postform.is_valid():
             postform.save()
             args = {'postform' : postform, 'post' : post}
+            return redirect('/webmaster/post/'+post.slug)
         else:
             print("errors : {}".format(postform.errors.as_data()))
     return render(request, 'webadmin/pages/manage/index.html',args)
@@ -473,6 +524,7 @@ def managepage(request, slug_url):
         if pageform.is_valid():
             pageform.save()
             args = {'publicationform' : pageform, 'page' : page}
+            return redirect('/webmaster/page/'+page.slug)
         else:
             print("errors : {}".format(pageform.errors.as_data()))
     return render(request, 'webadmin/pages/manage/publication/index.html',args)
@@ -490,9 +542,21 @@ def manageuser(request, username):
             profileform.save()
             userform.save()
             args = {'profileform' : profileform, 'userform' : userform, 'user' : user2, }
-            print('/webmaster/user/'+user.username)
-            return redirect('/webmaster/user/'+user.username)
+            return redirect('/webmaster/post/'+user.username)
         else:
             print("errors : {}".format(profileform.errors.as_data()))
             print("errors : {}".format(userform.errors.as_data()))
     return render(request, 'webadmin/pages/manage/user/index.html',args)
+
+def managerole(request, username):
+    user = get_object_or_404(User, username = username)
+    role = Role.objects.get(user_id_id = user.id)
+    roleform = RoleForm(instance = role)
+    args = {'roleform' : roleform}
+    if request.method == 'POST':
+        roleform = RoleForm(request.POST,instance = role)
+        if roleform.is_valid():
+            roleform.save()
+        else:
+            print("errors : {}".format(roleform.errors.as_data()))
+    return render(request, 'webadmin/pages/manage/role/index.html',args)

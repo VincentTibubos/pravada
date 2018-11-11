@@ -25,12 +25,10 @@ class Post(models.Model):
     downvotes = models.PositiveIntegerField(default=0)
 
     def save(self, *args, **kwargs):
-        if not self.id:
-            print(self.author.username+'=========================================')
-            date = datetime.date.today().strftime('%y%m%d')
-            self.slug = '%s-%s' % (
-                slugify(self.title), date
-            )
+        date = datetime.date.today().strftime('%y%m%d')
+        self.slug = '%s-%s' % (
+            slugify(self.title), date
+        )
 
         super(Post, self).save(*args, **kwargs)
 

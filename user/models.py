@@ -19,7 +19,7 @@ class Profile(models.Model):
     city = models.CharField(max_length=100, default='', blank=True)
     country = models.CharField(max_length=100, default='', blank=True)
     reputation = models.IntegerField(default=1)
-    user_followers = models.ManyToManyField('Profile',blank=True)
+    user_followers = models.ManyToManyField('Profile', related_name='follows',blank=True)
     subscriptions = models.ManyToManyField('Publication',blank=True)
 
     def __str__(self):
@@ -50,11 +50,10 @@ class Publication(models.Model):
     slug = models.SlugField(max_length=40, unique=True)
 
     def save(self, *args, **kwargs):
-        if not self.id:
-            date = datetime.date.today()
-            self.slug = '%i-%i-%i-%s' % (
-                date.year, date.month, date.day, slugify(self.name)
-            )
+        date = datetime.date.today().strftime('%y%m%d')
+        self.slug = '%s-%s' % (
+            slugify(self.name), date
+        )
 
         super(Publication, self).save(*args, **kwargs)
 
