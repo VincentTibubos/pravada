@@ -47,17 +47,17 @@
             {% for profiles in profile %}
             <tr>
               <td>{{profiles.id}}</td>
-              <td>{{profiles.first_name }} {{profiles.last_name}}</td>
-              <td>{{profiles.username}}</td>
-              <td>{{profiles.email}}</td>
-              <td>{{profiles.date_joined}}</td>
-              {% if profiles.is_superuser %}
+              <td>{{profiles.user.first_name }} {{profiles.user.last_name}}</td>
+              <td>{{profiles.user.username}}</td>
+              <td>{{profiles.user.email}}</td>
+              <td>{{profiles.user.date_joined}}</td>
+              {% if profiles.user_type == 'w' %}
                 <td>Webmaster</td>
               {% else %}
                 <td>User</td>
               {% endif %}
               <td>
-                <a class="btn btn-primary" href="{{profiles.slug}}"> Manage User</a>
+                <a class="btn btn-primary" href="user/{{profiles.slug}}"> Manage User</a>
               </td>
               {% endfor %}
             </tr>
