@@ -41,7 +41,7 @@ new Vue({
             this.user_msg='';
           }
           else{
-            window.location='/profile';
+            window.location='/profile/';
           }
         }
         console.log(data);

@@ -71,7 +71,7 @@ new Vue({
           }
           else{
             console.log('registered ',res.data);
-            window.location='/profile';
+            window.location='/profile/';
           }
         }
         else{
