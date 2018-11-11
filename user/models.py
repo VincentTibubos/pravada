@@ -21,7 +21,6 @@ class Profile(models.Model):
     reputation = models.IntegerField(default=1)
     user_followers = models.ManyToManyField('Profile',blank=True)
     subscriptions = models.ManyToManyField('Publication',blank=True)
-    slug = models.SlugField(max_length=40, unique=True)
 
     def __str__(self):
         return str(self.user.username)
@@ -31,10 +30,6 @@ class Profile(models.Model):
             current_avatar = Profile.objects.get(pk=self.id).avatar
             if current_avatar != self.avatar:
                 current_avatar.delete()
-        if not self.id:
-            date = datetime.date.today()
-            self.slug = slugify(self.user.username)
-
         super(Profile, self).save(*args, **kwargs)
 
     def is_user(self):

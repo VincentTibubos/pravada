@@ -38,7 +38,12 @@
             {% csrf_token %}
             <div class="form-row">
               <div class="form-group col-12">
-              <img src = "{{post.cover.url}}" alt="image" width="240">
+                {% if post.cover %}
+                  <img src = "{{post.cover.url}}" alt="image" width="1020">
+                {% else %}
+                  <img src = "https://via.placeholder.com/468x60r" alt="image" width="1020">
+                {% endif %}
+
               </div>
             </div>
             <div class="form-row">
