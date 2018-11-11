@@ -314,6 +314,7 @@ def admin(request):
                         print("errors : {}".format(postform.errors.as_data()))
                 elif 'add_role' in request.POST:
                     roleform = RoleForm(request.POST)
+                    print(roleform)
                     if roleform.is_valid():
                         roleform.save()
                     else:
@@ -468,32 +469,61 @@ def admindatabase(request):
 # Web Admin Posts Routes
 def adminposts(request):
     posts = Post.objects.all()
-    args = {'posts' : posts}
+    postform = PostForm()
+    args = {'posts' : posts, 'postform' : postform}
+    if request.method == "POST":
+        postform = PostForm(request.POST, request.FILES)
+        if postform.is_valid():
+            postform.save()
+        else:
+            print("errors : {}".format(postform.errors.as_data()))
     return render(request, 'webadmin/pages/database/posts/index.html',args)
 
 # Web Admin Publications Routes
 def adminpublications(request):
     publications = Publication.objects.all()
-    args ={'publications' : publications}
+    publicationform = PublicationForm()
+    args ={'publications' : publications, 'publicationform' :publicationform}
+    if request.method == "POST":
+        publicationform = PublicationForm(request.POST, request.FILES)
+        if publicationform.is_valid():
+            publicationform.save()
+        else:
+            print("errors : {}".format(publicationform.errors.as_data()))
     return render(request, 'webadmin/pages/database/publications/index.html', args)
 
 # Web Admin Roles Routes
 def adminroles(request):
     roles = Role.objects.all()
-    args = {'roles' : roles}
+    roleform = RoleForm()
+    print(Role.objects.all())
+    args = {'roles' : roles, 'roleform' : roleform}
+    if request.method == "POST":
+        roleform = RoleForm(request.POST)
+        if roleform.is_valid():
+            roleform.save()
+        else:
+            print("errors : {}".format(roleform.errors.as_data()))
     return render(request, 'webadmin/pages/database/roles/index.html', args)
 
 # Web Admin Users Routes
 def adminusers(request):
     users = Profile.objects.select_related('user')
-    args = {'profile' : users}
+    profileform = ProfileForm()
+    userform = UserForm()
+    args = {'profile' : users, 'profileform' : profileform, 'userform' : userform}
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return render(request, 'webadmin/pages/database/users/index.html',args)
-    else:
-        return render(request, 'webadmin/pages/database/users/index.html',args)
+        profileform = ProfileForm(request.POST)
+        userform = UserForm(request.POST)
+        if profileform.is_valid() and userform.is_valid():
+            profile = profileform.save(commit=False)
+            user = userform.save()
+            profile.user = user
+            profile.save()
+        else:
+            print("errors : {}".format(profileform.errors.as_data()))
+            print("errors : {}".format(userform.errors.as_data()))
+    return render(request, 'webadmin/pages/database/users/index.html',args)
 
 def adminreports(request):
     return render(request, 'webadmin/pages/reports/index.html')
@@ -542,7 +572,7 @@ def manageuser(request, username):
             profileform.save()
             userform.save()
             args = {'profileform' : profileform, 'userform' : userform, 'user' : user2, }
-            return redirect('/webmaster/post/'+user.username)
+            return redirect('/webmaster/user/'+user.username)
         else:
             print("errors : {}".format(profileform.errors.as_data()))
             print("errors : {}".format(userform.errors.as_data()))
@@ -557,6 +587,28 @@ def managerole(request, username):
         roleform = RoleForm(request.POST,instance = role)
         if roleform.is_valid():
             roleform.save()
+            return redirect('/webmaster/database/roles/'+str(roleform.cleaned_data['user_id']))
         else:
             print("errors : {}".format(roleform.errors.as_data()))
     return render(request, 'webadmin/pages/manage/role/index.html',args)
+
+def deleteuser(request, username):
+    user = get_object_or_404(User, username = username)
+    user.delete()
+    return redirect('/webmaster/')
+
+def deleterole(request, username):
+    user = get_object_or_404(User, username = username)
+    role = Role.objects.get(user_id_id = user.id)
+    role.delete()
+    return redirect('/webmaster/')
+
+def deletepost(request, slug_url):
+    post = get_object_or_404(Post, slug = slug_url)
+    post.delete()
+    return redirect('/webmaster/')
+
+def deletepage(request, slug_url):
+    page = get_object_or_404(Publication, slug = slug_url)
+    page.delete()
+    return redirect('/webmaster/')

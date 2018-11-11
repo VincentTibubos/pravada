@@ -45,7 +45,6 @@ class Publication(models.Model):
     cover = models.ImageField(blank=True, upload_to='storage/uploads/publication/covers/%Y/%m/%d/')
     created = models.DateTimeField(auto_now_add=True)
     categories = models.ManyToManyField('Category', blank=True)
-    roles = models.ManyToManyField('Role', blank=True)
     pub_followers = models.ManyToManyField(auth_user)
     slug = models.SlugField(max_length=40, unique=True)
 
@@ -81,6 +80,7 @@ class Role(models.Model):
         ('c', 'Contributor'),
     )
     user_id = models.ForeignKey(auth_user, on_delete=models.SET_NULL, null=True)
+    publication = models.ManyToManyField('Publication', blank=True)
     role = models.CharField(max_length=1, choices=ROLE_TYPES, default='s')
 
     def __str__(self):
