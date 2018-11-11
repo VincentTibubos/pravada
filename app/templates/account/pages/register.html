@@ -10,7 +10,7 @@
 {% block body %}
       <div id="register">
         <!--/Navigation  -->
-        <b-navbar toggleable="md" type="dark" variant="info">
+        <b-navbar toggleable="md" type="light" variant="light">
           <b-navbar-brand href="/">
             <img src="/static/img/logo.png" style="height: 40px; width: 40px;" class="navbar-logo" alt="PVD">
             | Pravada
@@ -32,14 +32,20 @@
                 </b-row>
                 {% csrf_token %}
                 <!-- <b-form-group :invalid-feedback="invalidPassFeedback" :state="state" @submit.prevent='register'> -->
-                  <b-form-group :state="state" @submit.prevent='register'>
-                  <b-form-input class="mb-1" :state="state" v-model.trim="username" placeholder="Username"></b-form-input>
-                  <b-form-input class="mb-1" :state="state" v-model.trim="fname" placeholder="First name"></b-form-input>
-                  <b-form-input class="mb-1" :state="state" v-model.trim="lname" placeholder="Last name"></b-form-input>
-                  <b-form-input class="mb-1" :state="state" v-model.trim="email" type="email" placeholder="Email"></b-form-input>
-                  <b-form-input class="mb-1" :state="state" v-model.trim="password" placeholder="Password" type="password"></b-form-input>
-                  <b-form-input class="mb-1" :state="state" v-model.trim="confirmPassword" placeholder="Confirm Password" type="password"></b-form-input>
-                </b-form-group>
+                  <b-form-group>
+                    <b-form-input class="mb-1" :state="user_msg==null" v-model.trim="username" placeholder="Username"></b-form-input>
+                      <b-form-invalid-feedback>[[user_msg]]</b-form-invalid-feedback>
+                    <b-form-input class="mb-1" :state="f_msg==null" v-model.trim="fname" placeholder="First name"></b-form-input>
+                      <b-form-invalid-feedback>[[f_msg]]</b-form-invalid-feedback>
+                    <b-form-input class="mb-1" :state="l_msg==null" v-model.trim="lname" placeholder="Last name"></b-form-input>
+                      <b-form-invalid-feedback>[[l_msg]]</b-form-invalid-feedback>
+                    <b-form-input class="mb-1" :state="email_msg==null" v-model.trim="email" type="email" placeholder="Email"></b-form-input>
+                      <b-form-invalid-feedback>[[email_msg]]</b-form-invalid-feedback>
+                    <b-form-input class="mb-1" :state="p_msg==null" v-model.trim="password" placeholder="Password" type="password"></b-form-input>
+                      <b-form-invalid-feedback>[[p_msg]]</b-form-invalid-feedback>
+                    <b-form-input required class="mb-1" :state="cp_msg==null" v-model.trim="confirmPassword" placeholder="Confirm Password" type="password"></b-form-input>
+                      <b-form-invalid-feedback>[[cp_msg]]</b-form-invalid-feedback>
+                  </b-form-group>
                 <b-button type="submit" variant="custom" block="block" v-on:click.prevent='register'>Register</b-button>
               </form>
             </b-col>

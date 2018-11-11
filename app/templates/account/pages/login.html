@@ -10,7 +10,7 @@
 {% block body %}
       <div id="login">
         <!--/Navigation  -->
-        <b-navbar toggleable="md" type="dark" variant="info">
+        <b-navbar toggleable="md" type="light" variant="light">
           <b-navbar-brand href="/">
             <img src="/static/img/logo.png" style="height: 40px; width:40px;" class="navbar-logo" alt="PVD">
             | Pravada
@@ -34,13 +34,15 @@
                     </b-row>
                     <!-- Login Form -->
                     {% csrf_token %}
-                    <b-form-group :invalid-feedback="invalidPassFeedback" :state="state">
+                    <b-form-group>
                       <!-- Username Text Field -->
-                      <b-form-input class="my-1" :state="state" v-model.trim="username"
+                      <b-form-input class="my-1" :state="user_msg==null" v-model.trim="username"
                                     placeholder="Username"></b-form-input>
+                      <b-form-invalid-feedback>[[user_msg]]</b-form-invalid-feedback>
                       <!-- Password Text Field -->
-                      <b-form-input class="my-1" :state="state" v-model.trim="password"
+                      <b-form-input class="my-1" :state="pass_msg==null" v-model.trim="password"
                                     placeholder="Password" type="password"></b-form-input>
+                      <b-form-invalid-feedback>[[pass_msg]]</b-form-invalid-feedback>
                     </b-form-group>
 
                     <b-button type="submit" variant="custom" block="block"

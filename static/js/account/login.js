@@ -13,18 +13,6 @@ new Vue({
     }
   },
   watch:{
-    // user_msg: function(){
-    //   if(this.username=='')
-    //     this.user_state= null;
-    //   else
-    //     this.user_state=( this.pass_msg==null);
-    // },
-    // pass_msg: function(){
-    //   if(this.password=='')
-    //     this.pass_state=null;
-    //   else
-    //     this.pass_state=(this.pass_msg==null);
-    // }
   },
   methods:{
     login: function(){
@@ -60,6 +48,7 @@ new Vue({
           this.user_msg=user;
           this.pass_msg=pass;
         }
+        console.log(data);
       })
       .catch(function( error){
       });
