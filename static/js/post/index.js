@@ -2,6 +2,21 @@ new Vue({
   el: '#post',
   delimiters: ['[[', ']]'],
   data: {
+    form: {
+        title: '',
+        author: '',
+        summary: '',
+        text:'',
+        cover:'',
+        imageData:'',
+        status:'',
+        tags: '',
+    },
+    foods: [
+        { text: 'Select One', value: null },
+        'Carrots', 'Beans', 'Tomatoes', 'Corn'
+      ],
+    show: true,
     hello: 'Hello World',
     slide: 0,
     sliding: null,
@@ -43,11 +58,30 @@ new Vue({
     ]
   },
   methods: {
+    previewImage(event){
+      var input = event.target;
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = (e) => {
+              this.form.imageData = e.target.result;
+          }
+          reader.readAsDataURL(input.files[0]);
+      }
+    },
     onSlideStart (slide) {
      this.sliding = true
     },
     onSlideEnd (slide) {
       this.sliding = false
     }
-  }
+  },
+  mounted:function(){
+    ClassicEditor.create( document.querySelector( '#editor' ) )
+    				.then( editor => {
+    					console.log( editor );
+    				} )
+    				.catch( error => {
+    					console.error( error );
+    				} );
+  },
 })

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Pravada | Write Post {% endblock %}
+
+{% block customCSS %}
+{% endblock %}
+
+{% block body %}
+      <div id="post">
+        {% include 'base/header-user.html' %}
+        <b-container class="pt-3">
+          <b-card :img-src="form.imageData" img-alt="" img-top class="mb-2">
+            <b-form v-if="show">
+              <b-form-group>
+                <b-form-file v-model="form.cover" placeholder="Choose a post cover..." @change="previewImage"></b-form-file>
+              </b-form-group>
+              <b-form-group>
+                <b-form-input id="title" type="text" v-model="form.title" placeholder="Enter Post Title" required></b-form-input>
+              </b-form-group>
+              <b-form-group>
+                <b-form-input id="summary" type="text" v-model="form.summary" placeholder="Enter Summary" required></b-form-input>
+              </b-form-group>
+              <b-form-group>
+                <b-form-textarea id="editor" v-model="form.text"></b-form-textarea>
+              </b-form-group>
+              <b-form-group>
+                <b-form-input id="tags" type="text" v-model="form.tags" required placeholder="Enter Tags"></b-form-input>
+              </b-form-group>
+              <b-button type="submit" variant="primary">Publish</b-button>
+              <b-button type="submit" variant="primary">Save As Draft</b-button>
+              <b-button type="reset" variant="danger">Reset</b-button>
+            </b-form>
+          </b-card>
+        </b-container>
+      </div>
+{% endblock %}
+
+{% block customJS %}
+  <script src="{% static 'js/post/index.js' %}"></script>
+{% endblock %}
