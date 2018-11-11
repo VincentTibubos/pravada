@@ -61,6 +61,8 @@ urlpatterns = [
     path('publication/',views.publication, name='publication'),
     path('publication/posts/',views.publicationposts, name='publicationposts'),
     path('publication/staff/',views.publicationstaff, name='publicationstaff'),
+    path('publication/reputation/',views.publicationreputation, name='publicationstaff'),
+    path('publication/subscribers/',views.publicationsubscribers, name='publicationstaff'),
 
     # Publication Admin Views
     path('publication/dashboard/',views.dashboard, name='dashboard'),

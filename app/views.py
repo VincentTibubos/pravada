@@ -98,10 +98,16 @@ def dashboard(request):
     return render(request, 'publication/pages/dashboard/index.html')
 
 def publicationposts(request):
-    return render(request, 'publication/pages/posts.html')
+    return render(request, 'publication/pages/publication/posts.html')
 
 def publicationstaff(request):
-    return render(request, 'publication/pages/staff.html')
+    return render(request, 'publication/pages/publication/staff.html')
+
+def publicationreputation(request):
+    return render(request, 'publication/pages/publication/reputation.html')
+
+def publicationsubscribers(request):
+    return render(request, 'publication/pages/publication/subscribers.html')
 
 def publicationsettings(request):
     return render(request, 'publication/pages/settings/index.html')

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %} Pravada | Publication {% endblock %}
+{% block title %} Pravada | Publication Reputation {% endblock %}
 
 {% block customCSS %}
 {% endblock %}
@@ -12,15 +12,10 @@
         <b-container class="p-5">
           <b-row>
             <b-col cols="3">
-              {% include 'publication/components/card/profile.html' %}
-              {% include 'publication/components/card/statistics.html' %}
-              {% include 'publication/components/card/staff.html' %}
+              {% include 'publication/components/list/statistics-nav.html' %}
               {% include 'base/footer.html' %}
             </b-col>
             <b-col cols="9">
-              {% include 'publication/components/card/cover.html' %}
-              {% include 'homepage/components/tags.html' %}
-              {% include 'post/components/card/post-card.html' %}
             </b-col>
 
           </b-row>
