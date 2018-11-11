@@ -1,0 +1,37 @@
+{% load static %}
+
+  <b-row>
+{% for f in follow %}
+
+    <!-- Left Side Components -->
+<b-col md="6" sm=12>
+
+    <b-card img-src="https://picsum.photos/600/300/?image=25"
+            img-alt="Image"
+            img-top
+            tag="article"
+            class="mb-2">
+
+        <b-row>
+          <b-col cols="4">
+            <b-img style="margin: -50px 5px 0 8px;" fluid alt="Responsive image"
+                   rounded blank width="75" height="75" blank-color="#777" alt="img" />
+          </b-col>
+          <b-col cols="8">
+            <div style="margin: -15px 0px 0px 0px;">
+              <h5 class="card-title"><b>{{f.user.first_name }}{{ f.user.last_name}}</b></h5>
+              <h6 class="card-subtitle mb-2 text-muted">@{{f.user.username}}</h6>
+            </div>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elint, sunt deserunt mollit anim id est laborum.</p>
+          </b-col>
+        </b-row>
+    </b-card>
+
+</b-col>
+
+{% endfor %}
+</b-row>
