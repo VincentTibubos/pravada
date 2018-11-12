@@ -315,8 +315,7 @@ def admin(request):
                         print("errors : {}".format(postform.errors.as_data()))
                 elif 'add_role' in request.POST:
                     roleform = RoleForm(request.POST)
-                    print(roleform)
-                    if roleform.is_valid():
+                    if roleform.is_valid():                        
                         roleform.save()
                     else:
                         print("errors : {}".format(roleform.errors.as_data()))
@@ -497,7 +496,6 @@ def adminpublications(request):
 def adminroles(request):
     roles = Role.objects.all()
     roleform = RoleForm()
-    print(Role.objects.all())
     args = {'roles' : roles, 'roleform' : roleform}
     if request.method == "POST":
         roleform = RoleForm(request.POST)
@@ -579,9 +577,8 @@ def manageuser(request, username):
             print("errors : {}".format(userform.errors.as_data()))
     return render(request, 'webadmin/pages/manage/user/index.html',args)
 
-def managerole(request, username):
-    user = get_object_or_404(User, username = username)
-    role = Role.objects.get(user_id_id = user.id)
+def managerole(request, pk):
+    role = get_object_or_404(Role, pk = pk)
     roleform = RoleForm(instance = role)
     args = {'roleform' : roleform}
     if request.method == 'POST':
@@ -598,9 +595,8 @@ def deleteuser(request, username):
     user.delete()
     return redirect('/webmaster/')
 
-def deleterole(request, username):
-    user = get_object_or_404(User, username = username)
-    role = Role.objects.get(user_id_id = user.id)
+def deleterole(request, pk):
+    role = get_object_or_404(Role, pk = pk)
     role.delete()
     return redirect('/webmaster/')
 
