@@ -1,0 +1,51 @@
+{% load static %}
+
+        <b-card tag="article" header="Profile"
+                class="mb-2">
+
+            <b-row>
+              <b-col cols="8">
+                <div style="margin:0px 0px 0px 0px;">
+                  <div role="group">
+                    <label for="inputFirstName">First Name:</label>
+                    <b-form-input id="inputFirstName" v-model.trim="firstName" type="text" :state="firstNameState" aria-describedby="inputLiveHelp inputLiveFeedback" placeholder="Enter your first name"></b-form-input>
+                    <b-form-invalid-feedback id="inputLiveFeedback">
+                      Enter at least 5 letters
+                    </b-form-invalid-feedback>
+                  </div>
+                  <div role="group">
+                    <label for="inputLastName">Last Name:</label>
+                    <b-form-input id="inputLastName" v-model.trim="lastName" type="text" :state="lastNameState" aria-describedby="inputLiveHelp inputLiveFeedback" placeholder="Enter your last name"></b-form-input>
+                    <b-form-invalid-feedback id="inputLiveFeedback">
+                      Enter at least 5 letters
+                    </b-form-invalid-feedback>
+                  </div>
+                  <div role="group">
+                    <label for="inputEmail">Email:</label>
+                    <b-form-input id="inputEmail" v-model.trim="email" type="email" :state="emailState" aria-describedby="inputLiveHelp inputLiveFeedback" placeholder="Enter your email"></b-form-input>
+                    <b-form-invalid-feedback id="inputLiveFeedback">
+                      Enter valid email address
+                    </b-form-invalid-feedback>
+                  </div>
+                  <div role="group">
+                    <label for="inputBio">Bio:</label>
+                    <b-form-textarea id="inputBio" v-model.trim="bio" :rows="3" :max-rows="6" :state="bioState" aria-describedby="inputLiveHelp inputLiveFeedback" placeholder="Enter your bio."></b-form-textarea>
+                    <b-form-invalid-feedback id="inputLiveFeedback">
+                      Enter at least 20 letters
+                    </b-form-invalid-feedback>
+                  </div>
+                  <b-button class="mt-4" variant="primary" size="lg" block>Update Profile
+                  </b-button>
+                </div>
+              </b-col>
+              <b-col cols="4">
+                <div>
+                <b-img fluid alt="Responsive image" :src="imageSrc"
+                         rounded :blank="imageSrc==''" class="w-100" blank-color="#777" alt="img" />
+                </div>
+                <div class="">
+                    <b-form-file v-model="file" @change="previewImage" :state="Boolean(file)" placeholder="Choose a file..."></b-form-file>
+                </div>
+              </b-col>
+            </b-row>
+        </b-card>
