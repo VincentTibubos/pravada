@@ -13,6 +13,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=120, null=True, blank=True)
     text = models.TextField(max_length=500, null=True, blank=True)
+    summary = models.TextField(max_length=100, null=True, blank=True)
     slug = models.SlugField(max_length=40, unique=True)
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)

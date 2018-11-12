@@ -11,6 +11,7 @@
           <thead>
             <tr>
               <th>Author</th>
+              <th>Publications</th>
               <th>Role</th>
               <th>Action</th>
             </tr>
@@ -18,21 +19,22 @@
           <tbody id="post-tbl">
             {% for uroles in roles %}
             <tr>
-              <td>{{uroles.user_id}}</td>
-              <td>{{uroles.publication}}</td>
-              {% if uroles.role == 'a' %}
-                <td>Administrator</td>
-              {% elif uroles.role == 'e' %}
-                <td>Editor</td>
-              {% elif uroles.role == 'm' %}
-                <td>Moderator</td>
-              {% elif uroles.role == 's' %}
-                <td>Staff</td>
-              {% elif uroles.role == 'c' %}
-                <td>Contributor</td>
-              {% endif %}
+            <td>{{uroles.user_id}}</td>
+            <td>{{ uroles.publication }}           
+              </td>
+            {% if uroles.role == 'a' %}
+            <td>Administrator</td>
+            {% elif uroles.role == 'e'%}
+            <td>Editor</td>
+            {% elif uroles.role == 'm'%}
+            <td>Moderator</td>
+            {% elif uroles.role == 's'%}
+            <td>Staff</td>
+            {% elif uroles.role == 'c'%}
+            <td>Contributor</td>
+            {% endif%}
               <td>
-                <a class="btn btn-sm btn-primary" href="{{uroles.user_id}}"> Manage Post</a>
+                <a class="btn btn-sm btn-primary" href="{{uroles.pk}}"> Manage Role</a>
               </td>
             </tr>
             {% endfor %}
