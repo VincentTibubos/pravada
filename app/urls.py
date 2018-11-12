@@ -43,7 +43,8 @@ urlpatterns = [
 
     # Account Profile Views
     path('profile/',views.profile, name='profile'),
-    path('profile/settings/',views.settings, name='settings'),
+    path('settings/profile/',views.settings, name='settings'),
+    path('getuserdata',views.getuserdata, name='getuserdata'),
     path('profile/posts/',views.posts, name='posts'),
     path('profile/publications/',views.publications, name='publications'),
     path('profile/activitylog/',views.activitylog, name='activitylog'),

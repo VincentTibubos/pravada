@@ -263,6 +263,9 @@ def settings(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
     return render(request, 'account/pages/settings/index.html')
+    # User Settings Routes
+def getuserdata(request):
+    return JsonResponse({'first_name':request.user.first_name,'last_name':request.user.last_name,'email':request.user.email})
 
 def publicationsettings(request):
     if not request.user.is_authenticated:
