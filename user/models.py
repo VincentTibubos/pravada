@@ -45,7 +45,7 @@ class Publication(models.Model):
     cover = models.ImageField(blank=True, upload_to='storage/uploads/publication/covers/%Y/%m/%d/')
     created = models.DateTimeField(auto_now_add=True)
     categories = models.ManyToManyField('Category', blank=True)
-    pub_followers = models.ManyToManyField(auth_user)
+    roles = models.ManyToManyField(auth_user, through='Role', symmetrical=False)
     slug = models.SlugField(max_length=40, unique=True)
 
     def save(self, *args, **kwargs):
@@ -78,10 +78,15 @@ class Role(models.Model):
         ('m', 'Moderator'),
         ('s', 'Staff'),
         ('c', 'Contributor'),
+        ('f', 'Follower'),
     )
-    user_id = models.ForeignKey(auth_user, on_delete=models.SET_NULL, null=True)
-    publication = models.ManyToManyField('Publication', blank=True)
+    user_id = models.ForeignKey(auth_user, on_delete=models.CASCADE, null=True)
+    publication = models.ForeignKey('Publication', blank=True, on_delete=models.CASCADE)
     role = models.CharField(max_length=1, choices=ROLE_TYPES, default='s')
+
+    def save(self, *args, **kwargs):
+        print(self)
+        super(Role, self).save(*args, **kwargs)
 
     def __str__(self):
         return str(self.user_id)

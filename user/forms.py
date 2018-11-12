@@ -27,7 +27,7 @@ class RoleForm(forms.ModelForm):
         widgets = {
             'user_id' : forms.Select(attrs={'class' : 'form-control'}),
             'role' : forms.Select(attrs={'class' : 'form-control'}),
-            'publication' : forms.SelectMultiple(attrs={'class' : 'form-control'}),
+            'publication' : forms.Select(attrs={'class' : 'form-control'}),
         }
 
 class PublicationForm(forms.ModelForm):
