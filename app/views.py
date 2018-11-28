@@ -262,7 +262,31 @@ def subscriptions(request):
 def settings(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
-    return render(request, 'account/pages/settings/index.html')
+    return render(request, 'account/pages/settings/index.html',{'header':'Profile'})
+def settings_account(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/settings/account.html',{'header':'Account'})
+def settings_notifications(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/settings/notifications.html',{'header':'Notifications'})
+def settings_activity_log(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/settings/settings-list.html',{'header':'Activity Log'})
+def settings_posts(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/settings/settings-list.html',{'header':'Posts'})
+def settings_publications(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/settings/settings-list.html',{'header':'Publications'})
+def settings_blocked_users(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/settings/settings-list.html',{'header':'Blocked Users'})
     # User Settings Routes
 def getuserdata(request):
     return JsonResponse({'first_name':request.user.first_name,'last_name':request.user.last_name,'email':request.user.email})
@@ -318,7 +342,7 @@ def admin(request):
                         print("errors : {}".format(postform.errors.as_data()))
                 elif 'add_role' in request.POST:
                     roleform = RoleForm(request.POST)
-                    if roleform.is_valid():                        
+                    if roleform.is_valid():
                         roleform.save()
                     else:
                         print("errors : {}".format(roleform.errors.as_data()))
