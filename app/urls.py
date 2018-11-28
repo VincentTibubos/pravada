@@ -55,6 +55,7 @@ urlpatterns = [
     # Account Profile Settings
     path('settings/profile/',views.settings, name='settings'),
     path('settings/account/',views.settings_account, name='settings_account'),
+    path('settings/account/delete_account/',views.delete_account, name='delete_account'),
     path('settings/notifications/',views.settings_notifications, name='settings_notifications'),
     path('settings/activity-log/',views.settings_activity_log, name='settings_activity_log'),
     path('settings/publications/',views.settings_publications, name='settings_publications'),

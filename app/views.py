@@ -212,6 +212,14 @@ def register(request):
     return render(request, 'account/pages/register.html')
 
 # User Profile Routes
+def delete_account(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    u=User.objects.get(id=request.user.id)
+    u.delete()
+    auth_logout(request)
+    return redirect('/login/')
+
 def profile(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
