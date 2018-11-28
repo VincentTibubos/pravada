@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Pravada | Settings {% endblock %}
+
+{% block customCSS %}
+{% endblock %}
+
+{% block body %}
+      <div id="profile">
+        {% include 'base/header-user.html' %}
+
+        <!-- Main -->
+        <b-container class="p-5">
+          <b-row>
+            <!-- Left Side Components -->
+            <b-col lg="3" class="pb-3">
+              {% include 'account/components/list/user-settings-list.html' %}
+            </b-col>
+            <b-col lg="9">
+              {% include 'account/components/card/settings-notifications.html' %}
+            </b-col>
+            <!-- Right Side Components -->
+            <b-col lg="9">
+            </b-col>
+          </b-row>
+        </b-container>
+      </div>
+{% endblock %}
+
+{% block customJS %}
+  <script src="{% static 'js/account/settings/profile.js' %}"></script>
+{% endblock %}
