@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
-
+from pprint import pprint
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
@@ -226,20 +226,30 @@ def followers(request):
     return render(request, 'account/pages/profile/followers.html',{'follow':follow})
 
 def following(request):
-    user = Profile.objects.get( user_id = request.user.id)
-    follow = user.user_followers.all()
+    follow = request.user.profile.user_followers.all()
     if not request.user.is_authenticated:
         return redirect('/login/')
     return render(request, 'account/pages/profile/following.html',{'follow':follow})
 
 def publications(request):
     roles=Role.objects.filter(user_id=request.user.id)
-    print(roles)
     pub = Publication.objects.filter(roles=request.user.id)
     # print(pub)
     if not request.user.is_authenticated:
         return redirect('/login/')
     return render(request, 'account/pages/profile/publications.html',{'pubs':pub})
+
+def subscriptions(request):
+    # pub = Publication.objects.filter(pub_followers=request.user.id)
+    # pub = Publication.objects.all()
+    user=User.objects.get(id=request.user.id)
+    # pprint(Publication.objects.get(id=1).publications.all())# get all subscribers
+    # pprint(user.profile.follows.all())# get all subscribers
+    pub=user.profile.subscriptions.all()
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    # return render(request, 'account/pages/profile/subscriptions.html')
+    return render(request, 'account/pages/profile/subscriptions.html',{'pubs':pub})
 
 def posts(request):
     if not request.user.is_authenticated:
@@ -251,12 +261,6 @@ def reputation(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
     return render(request, 'account/pages/profile/reputation.html',{'user':user})
-
-def subscriptions(request):
-    pub = Publication.objects.filter(pub_followers=request.user.id)
-    if not request.user.is_authenticated:
-        return redirect('/login/')
-    return render(request, 'account/pages/profile/subscriptions.html',{'pubs':pub})
 
 # User Settings Routes
 def settings(request):

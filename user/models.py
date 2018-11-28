@@ -20,7 +20,7 @@ class Profile(models.Model):
     country = models.CharField(max_length=100, default='', blank=True)
     reputation = models.IntegerField(default=1)
     user_followers = models.ManyToManyField('Profile', related_name='follows',blank=True)
-    subscriptions = models.ManyToManyField('Publication',blank=True)
+    subscriptions = models.ManyToManyField('Publication',blank=True,related_name='subcribers')
 
     def __str__(self):
         return str(self.user.username)
