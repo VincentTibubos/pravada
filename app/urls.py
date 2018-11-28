@@ -43,7 +43,6 @@ urlpatterns = [
 
     # Account Profile Views
     path('profile/',views.profile, name='profile'),
-    path('settings/profile/',views.settings, name='settings'),
     path('getuserdata',views.getuserdata, name='getuserdata'),
     path('profile/posts/',views.posts, name='posts'),
     path('profile/publications/',views.publications, name='publications'),
@@ -52,6 +51,15 @@ urlpatterns = [
     path('profile/following/',views.following, name='following'),
     path('profile/subscriptions/',views.subscriptions, name='subscriptions'),
     path('profile/reputation/',views.reputation, name='reputation'),
+
+    # Account Profile Settings
+    path('settings/profile/',views.settings, name='settings'),
+    path('settings/account/',views.settings_account, name='settings_account'),
+    path('settings/notifications/',views.settings_notifications, name='settings_notifications'),
+    path('settings/activity-log/',views.settings_activity_log, name='settings_activity_log'),
+    path('settings/publications/',views.settings_publications, name='settings_publications'),
+    path('settings/posts/',views.settings_posts, name='settings_posts'),
+    path('settings/blocked-users/',views.settings_blocked_users, name='settings_blocked_users'),
 
     # Post Views
     path('post/',views.post, name='post'),
