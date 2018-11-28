@@ -2,13 +2,13 @@
 
 <b-card no-body header="<b>User Settings</b>">
    <b-list-group flush>
-     <b-list-group-item href="/settings/profile/">Profile</b-list-group-item>
-     <b-list-group-item href="/settings/account/">Account</b-list-group-item>
-     <b-list-group-item href="/settings/notifications/">Notifications</b-list-group-item>
-     <b-list-group-item href="/settings/activity-log/">Activity Log</b-list-group-item>
-     <b-list-group-item href="/settings/posts/">Posts</b-list-group-item>
-     <b-list-group-item href="/settings/publications/">Publications</b-list-group-item>
-     <b-list-group-item href="/settings/blocked-users/">Blocked Users</b-list-group-item>
+     <b-list-group-item {%if header == 'Profile'%}active{%endif%} href="/settings/profile/">Profile</b-list-group-item>
+     <b-list-group-item {%if header == 'Account'%}active{%endif%} href="/settings/account/">Account</b-list-group-item>
+     <b-list-group-item {%if header == 'Notifications'%}active{%endif%} href="/settings/notifications/">Notifications</b-list-group-item>
+     <b-list-group-item {%if header == 'Activity Log'%}active{%endif%} href="/settings/activity-log/">Activity Log</b-list-group-item>
+     <b-list-group-item {%if header == 'Posts'%}active{%endif%} href="/settings/posts/">Posts</b-list-group-item>
+     <b-list-group-item {%if header == 'Publications'%}active{%endif%} href="/settings/publications/">Publications</b-list-group-item>
+     <b-list-group-item {%if header == 'Blocked Users'%}active{%endif%} href="/settings/blocked-users/">Blocked Users</b-list-group-item>
    </b-list-group>
  </b-card>
 </b-card-group>
