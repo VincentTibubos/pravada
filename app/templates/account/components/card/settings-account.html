@@ -1,0 +1,57 @@
+{% load static %}
+
+        <b-card tag="article" header="Profile"class="mb-2">
+
+            <b-row>
+              <b-col cols="12">
+                <h2>Change Password</h2>
+                <div style="margin:0px 0px 0px 0px;">
+                  <div role="group">
+                    <label for="inputFirstName">Old Password:</label>
+                    <b-form-input id="inputFirstName" v-model.trim="firstName" type="text" :state="firstNameState" aria-describedby="inputLiveHelp inputLiveFeedback" placeholder="Enter your first name"></b-form-input>
+                    <b-form-invalid-feedback id="inputLiveFeedback">
+                      Enter at least 5 letters
+                    </b-form-invalid-feedback>
+                  </div>
+                  <div role="group">
+                    <label for="inputLastName">New Password:</label>
+                    <b-form-input id="inputLastName" v-model.trim="lastName" type="text" :state="lastNameState" aria-describedby="inputLiveHelp inputLiveFeedback" placeholder="Enter your last name"></b-form-input>
+                    <b-form-invalid-feedback id="inputLiveFeedback">
+                      Enter at least 5 letters
+                    </b-form-invalid-feedback>
+                  </div>
+                  <div role="group">
+                    <label for="inputEmail">Confirm Password:</label>
+                    <b-form-input id="inputEmail" v-model.trim="email" type="email" :state="emailState" aria-describedby="inputLiveHelp inputLiveFeedback" placeholder="Enter your email"></b-form-input>
+                    <b-form-invalid-feedback id="inputLiveFeedback">
+                      Enter valid email address
+                    </b-form-invalid-feedback>
+                  </div>
+                  <b-button class="mt-4" variant="secondary" size="lg">Change Password
+                  </b-button>
+                </div>
+              </b-col>
+
+              <b-col cols="12" class="mt-5">
+                <h2>Change Username</h2>
+                <div style="margin:0px 0px 0px 0px;">
+                  <div role="group">
+                    <label for="inputFirstName">Username:</label>
+                    <b-form-input id="inputFirstName" v-model.trim="firstName" type="text" :state="firstNameState" aria-describedby="inputLiveHelp inputLiveFeedback" placeholder="Enter your first name"></b-form-input>
+                    <b-form-invalid-feedback id="inputLiveFeedback">
+                      Enter at least 5 letters
+                    </b-form-invalid-feedback>
+                  </div>
+                  <b-button class="mt-4" variant="secondary" size="lg">Change Username
+                  </b-button>
+                </div>
+              </b-col>
+              <b-col cols="12" class="mt-5">
+                <h2 class="text-danger">Delete Account</h2>
+                <div style="margin:0px 0px 0px 0px;">
+                  <b-button class="mt-4" href="/settings/account/delete_account/" variant="danger" size="lg">Delete Account
+                  </b-button>
+                </div>
+              </b-col>
+            </b-row>
+        </b-card>

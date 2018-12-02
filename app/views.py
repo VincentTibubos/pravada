@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
-
+from pprint import pprint
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
@@ -212,6 +212,14 @@ def register(request):
     return render(request, 'account/pages/register.html')
 
 # User Profile Routes
+def delete_account(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    u=User.objects.get(id=request.user.id)
+    u.delete()
+    auth_logout(request)
+    return redirect('/login/')
+
 def profile(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
@@ -226,8 +234,7 @@ def followers(request):
     return render(request, 'account/pages/profile/followers.html',{'follow':follow})
 
 def following(request):
-    user = Profile.objects.get( user_id = request.user.id)
-    follow = user.user_followers.all()
+    follow = request.user.profile.user_followers.all()
     if not request.user.is_authenticated:
         return redirect('/login/')
     return render(request, 'account/pages/profile/following.html',{'follow':follow})
@@ -238,6 +245,18 @@ def publications(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
     return render(request, 'account/pages/profile/publications.html',{'pubs':pub})
+
+def subscriptions(request):
+    # pub = Publication.objects.filter(pub_followers=request.user.id)
+    # pub = Publication.objects.all()
+    user=User.objects.get(id=request.user.id)
+    # pprint(Publication.objects.get(id=1).publications.all())# get all subscribers
+    # pprint(user.profile.follows.all())# get all subscribers
+    pub=user.profile.subscriptions.all()
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    # return render(request, 'account/pages/profile/subscriptions.html')
+    return render(request, 'account/pages/profile/subscriptions.html',{'pubs':pub})
 
 def posts(request):
     if not request.user.is_authenticated:
@@ -250,17 +269,35 @@ def reputation(request):
         return redirect('/login/')
     return render(request, 'account/pages/profile/reputation.html',{'user':user})
 
-def subscriptions(request):
-    pub = Publication.objects.filter(pub_followers=request.user.id)
-    if not request.user.is_authenticated:
-        return redirect('/login/')
-    return render(request, 'account/pages/profile/subscriptions.html',{'pubs':pub})
-
 # User Settings Routes
 def settings(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
-    return render(request, 'account/pages/settings/index.html')
+    return render(request, 'account/pages/settings/index.html',{'header':'Profile'})
+def settings_account(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/settings/account.html',{'header':'Account'})
+def settings_notifications(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/settings/notifications.html',{'header':'Notifications'})
+def settings_activity_log(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/settings/settings-list.html',{'header':'Activity Log'})
+def settings_posts(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/settings/settings-list.html',{'header':'Posts'})
+def settings_publications(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/settings/settings-list.html',{'header':'Publications'})
+def settings_blocked_users(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'account/pages/settings/settings-list.html',{'header':'Blocked Users'})
     # User Settings Routes
 def getuserdata(request):
     return JsonResponse({'first_name':request.user.first_name,'last_name':request.user.last_name,'email':request.user.email})
