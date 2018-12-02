@@ -15,7 +15,7 @@ from user.models import Profile, Publication, Role
 
 # Form import
 from post.forms import PostForm
-from user.forms import RoleForm, PublicationForm, UserForm, ProfileForm, SearchUserForm, SearchPostForm, SearchPageForm
+from user.forms import RoleForm, PublicationForm, UserForm, ProfileForm, SearchUserForm, SearchPostForm, SearchPageForm, UserEditForm, RoleEditForm
 
 # Homepage Routes
 def index(request):
@@ -234,9 +234,7 @@ def following(request):
 
 def publications(request):
     roles=Role.objects.filter(user_id=request.user.id)
-    print(roles)
     pub = Publication.objects.filter(roles=request.user.id)
-    # print(pub)
     if not request.user.is_authenticated:
         return redirect('/login/')
     return render(request, 'account/pages/profile/publications.html',{'pubs':pub})
@@ -318,8 +316,13 @@ def admin(request):
                         print("errors : {}".format(postform.errors.as_data()))
                 elif 'add_role' in request.POST:
                     roleform = RoleForm(request.POST)
-                    if roleform.is_valid():                        
-                        roleform.save()
+                    if roleform.is_valid():
+                        data  = roleform.cleaned_data['user_id']
+                        data2 = roleform.cleaned_data['publication']
+                        if Role.objects.check_role(data,data2):
+                            print("User already has role in this publication")
+                        else:
+                            roleform.save()
                     else:
                         print("errors : {}".format(roleform.errors.as_data()))
                 elif 'add_publication' in request.POST:
@@ -447,7 +450,12 @@ def admindatabase(request):
         elif 'add_role' in request.POST:
             roleform = RoleForm(request.POST)
             if roleform.is_valid():
-                roleform.save()
+                data  = roleform.cleaned_data['user_id']
+                data2 = roleform.cleaned_data['publication']
+                if Role.objects.check_role(data,data2):
+                    print("User already has role in this publication")
+                else:
+                    roleform.save()
             else:
                 print("errors : {}".format(roleform.errors.as_data()))
         elif 'add_publication' in request.POST:
@@ -503,7 +511,12 @@ def adminroles(request):
     if request.method == "POST":
         roleform = RoleForm(request.POST)
         if roleform.is_valid():
-            roleform.save()
+            data  = roleform.cleaned_data['user_id']
+            data2 = roleform.cleaned_data['publication']
+            if Role.objects.check_role(data,data2):
+                print("User already has role in this publication")
+            else:
+                roleform.save()
         else:
             print("errors : {}".format(roleform.errors.as_data()))
     return render(request, 'webadmin/pages/database/roles/index.html', args)
@@ -545,7 +558,7 @@ def managepost(request, slug_url):
             return redirect('/webmaster/post/'+post.slug)
         else:
             print("errors : {}".format(postform.errors.as_data()))
-    return render(request, 'webadmin/pages/manage/index.html',args)
+    return render(request, 'webadmin/pages/manage/post/index.html',args)
 
 def managepage(request, slug_url):
     page = get_object_or_404(Publication, slug = slug_url)
@@ -565,11 +578,11 @@ def manageuser(request, username):
     user = get_object_or_404(User, username = username)
     user2 = Profile.objects.get(user = user.pk)
     profileform = ProfileForm(instance = user2)
-    userform = UserForm(instance = user)
-    args = {'profileform' : profileform, 'userform' : userform, 'user' : user2, }
+    userform = UserEditForm(instance = user)
+    args = {'profileform' : profileform, 'userform' : userform, 'user' : user2, 'data' : user}
     if request.method == 'POST':
         profileform = ProfileForm(request.POST, request.FILES, instance = user2)
-        userform = UserForm(request.POST, instance = user)
+        userform = UserEditForm(request.POST, instance = user)
         if profileform.is_valid() and userform.is_valid():
             profileform.save()
             userform.save()
@@ -582,13 +595,14 @@ def manageuser(request, username):
 
 def managerole(request, pk):
     role = get_object_or_404(Role, pk = pk)
-    roleform = RoleForm(instance = role)
-    args = {'roleform' : roleform}
+    print(role.id)
+    roleform = RoleEditForm(instance = role)
+    args = {'roleform' : roleform, 'data' : role}
     if request.method == 'POST':
-        roleform = RoleForm(request.POST,instance = role)
+        roleform = RoleEditForm(request.POST,instance = role)
         if roleform.is_valid():
             roleform.save()
-            return redirect('/webmaster/database/roles/'+str(roleform.cleaned_data['user_id']))
+            return redirect('/webmaster/database/roles/'+str(role.id))
         else:
             print("errors : {}".format(roleform.errors.as_data()))
     return render(request, 'webadmin/pages/manage/role/index.html',args)
@@ -596,19 +610,19 @@ def managerole(request, pk):
 def deleteuser(request, username):
     user = get_object_or_404(User, username = username)
     user.delete()
-    return redirect('/webmaster/')
+    return redirect('/webmaster/database/users')
 
 def deleterole(request, pk):
     role = get_object_or_404(Role, pk = pk)
     role.delete()
-    return redirect('/webmaster/')
+    return redirect('/webmaster/database/roles/')
 
 def deletepost(request, slug_url):
     post = get_object_or_404(Post, slug = slug_url)
     post.delete()
-    return redirect('/webmaster/')
+    return redirect('/webmaster/database/posts/')
 
 def deletepage(request, slug_url):
     page = get_object_or_404(Publication, slug = slug_url)
     page.delete()
-    return redirect('/webmaster/')
+    return redirect('/webmaster/database/publications/')

@@ -1,6 +1,6 @@
 from django import forms
 from datetime import date
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 
 from .models import Role, Publication
@@ -73,6 +73,27 @@ class UserForm(UserCreationForm):
             'last_name' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Last Name'}),
             'email' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Email'}),
             'username' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Username'}),
+        }
+
+class UserEditForm(UserChangeForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email', 'username',)
+
+        widgets = {
+            'first_name' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'First Name'}),
+            'last_name' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Last Name'}),
+            'email' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Email'}),
+            'username' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Username'}),
+        }
+
+class RoleEditForm(forms.ModelForm):
+    class Meta:
+        model = Role
+        fields = ('role',)
+
+        widgets = {
+            'role' : forms.Select(attrs={'class' : 'form-control'}),
         }
 
 class SearchUserForm(forms.Form):

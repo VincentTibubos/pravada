@@ -20,7 +20,7 @@
             {% for uroles in roles %}
             <tr>
             <td>{{uroles.user_id}}</td>
-            <td>{{ uroles.publication }}           
+            <td>{{ uroles.publication }}
               </td>
             {% if uroles.role == 'a' %}
             <td>Administrator</td>
@@ -32,6 +32,8 @@
             <td>Staff</td>
             {% elif uroles.role == 'c'%}
             <td>Contributor</td>
+            {% elif uroles.role == 'f'%}
+            <td>Follower</td>
             {% endif%}
               <td>
                 <a class="btn btn-sm btn-primary" href="{{uroles.pk}}"> Manage Role</a>
