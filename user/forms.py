@@ -1,6 +1,6 @@
 from django import forms
 from datetime import date
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 
 from .models import Role, Publication
@@ -67,6 +67,18 @@ class UserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email', 'username', 'password1', 'password2')
+
+        widgets = {
+            'first_name' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'First Name'}),
+            'last_name' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Last Name'}),
+            'email' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Email'}),
+            'username' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Username'}),
+        }
+
+class UserEditForm(UserChangeForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email', 'username',)
 
         widgets = {
             'first_name' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'First Name'}),

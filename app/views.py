@@ -15,7 +15,7 @@ from user.models import Profile, Publication, Role
 
 # Form import
 from post.forms import PostForm
-from user.forms import RoleForm, PublicationForm, UserForm, ProfileForm, SearchUserForm, SearchPostForm, SearchPageForm
+from user.forms import RoleForm, PublicationForm, UserForm, ProfileForm, SearchUserForm, SearchPostForm, SearchPageForm, UserEditForm
 
 # Homepage Routes
 def index(request):
@@ -318,7 +318,7 @@ def admin(request):
                         print("errors : {}".format(postform.errors.as_data()))
                 elif 'add_role' in request.POST:
                     roleform = RoleForm(request.POST)
-                    if roleform.is_valid():                        
+                    if roleform.is_valid():
                         roleform.save()
                     else:
                         print("errors : {}".format(roleform.errors.as_data()))
@@ -565,11 +565,11 @@ def manageuser(request, username):
     user = get_object_or_404(User, username = username)
     user2 = Profile.objects.get(user = user.pk)
     profileform = ProfileForm(instance = user2)
-    userform = UserForm(instance = user)
+    userform = UserEditForm(instance = user)
     args = {'profileform' : profileform, 'userform' : userform, 'user' : user2, }
     if request.method == 'POST':
         profileform = ProfileForm(request.POST, request.FILES, instance = user2)
-        userform = UserForm(request.POST, instance = user)
+        userform = UserEditForm(request.POST, instance = user)
         if profileform.is_valid() and userform.is_valid():
             profileform.save()
             userform.save()

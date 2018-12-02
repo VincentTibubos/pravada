@@ -24,7 +24,7 @@
       <div class="table-responsive">
         <table class="table table-hover text-center">
           <div class="form-row">
-            <div class="form-group col-12">
+            <div class="form-group col-12 text-center">
               {% if user.avatar %}
               <img src = "{{user.avatar.url}}" alt="{{user.avatar}}" width="240">
               {% else %}
@@ -71,14 +71,6 @@
               </div>
               <div class="form-group col-8">
                 {{profileform.phone}}
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-6">
-                {{userform.password1}}
-              </div>
-              <div class="form-group col-6">
-                {{userform.password2}}
               </div>
             </div>
             <button type="submit" class="btn btn-outline-primary" name="add_user">
