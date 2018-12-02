@@ -234,9 +234,7 @@ def following(request):
 
 def publications(request):
     roles=Role.objects.filter(user_id=request.user.id)
-    print(roles)
     pub = Publication.objects.filter(roles=request.user.id)
-    # print(pub)
     if not request.user.is_authenticated:
         return redirect('/login/')
     return render(request, 'account/pages/profile/publications.html',{'pubs':pub})
@@ -319,7 +317,12 @@ def admin(request):
                 elif 'add_role' in request.POST:
                     roleform = RoleForm(request.POST)
                     if roleform.is_valid():
-                        roleform.save()
+                        data  = roleform.cleaned_data['user_id']
+                        data2 = roleform.cleaned_data['publication']
+                        if Role.objects.check_role(data,data2):
+                            print("User already has role in this publication")
+                        else:
+                            roleform.save()
                     else:
                         print("errors : {}".format(roleform.errors.as_data()))
                 elif 'add_publication' in request.POST:
@@ -447,7 +450,12 @@ def admindatabase(request):
         elif 'add_role' in request.POST:
             roleform = RoleForm(request.POST)
             if roleform.is_valid():
-                roleform.save()
+                data  = roleform.cleaned_data['user_id']
+                data2 = roleform.cleaned_data['publication']
+                if Role.objects.check_role(data,data2):
+                    print("User already has role in this publication")
+                else:
+                    roleform.save()
             else:
                 print("errors : {}".format(roleform.errors.as_data()))
         elif 'add_publication' in request.POST:
@@ -503,7 +511,12 @@ def adminroles(request):
     if request.method == "POST":
         roleform = RoleForm(request.POST)
         if roleform.is_valid():
-            roleform.save()
+            data  = roleform.cleaned_data['user_id']
+            data2 = roleform.cleaned_data['publication']
+            if Role.objects.check_role(data,data2):
+                print("User already has role in this publication")
+            else:
+                roleform.save()
         else:
             print("errors : {}".format(roleform.errors.as_data()))
     return render(request, 'webadmin/pages/database/roles/index.html', args)

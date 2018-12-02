@@ -5,6 +5,18 @@ from django.contrib.auth.models import User as auth_user
 import datetime
 
 # User-Related Models
+
+class RoleManager(models.Manager):
+    def check_role(self, data,data2):
+        print("Went under check_roles")
+        print(data,data2)
+        try:
+            Role.objects.get(user_id_id=data, publication_id=data2)
+            return True
+        except Role.DoesNotExist:
+            return False
+
+
 class Profile(models.Model):
     USER_TYPES = (
         ('u', 'User'),
@@ -83,6 +95,7 @@ class Role(models.Model):
     user_id = models.ForeignKey(auth_user, on_delete=models.CASCADE, null=True)
     publication = models.ForeignKey('Publication', blank=True, on_delete=models.CASCADE)
     role = models.CharField(max_length=1, choices=ROLE_TYPES, default='s')
+    objects = RoleManager()
 
     def save(self, *args, **kwargs):
         print(self)
