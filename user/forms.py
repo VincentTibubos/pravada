@@ -87,6 +87,15 @@ class UserEditForm(UserChangeForm):
             'username' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Username'}),
         }
 
+class RoleEditForm(forms.ModelForm):
+    class Meta:
+        model = Role
+        fields = ('role',)
+
+        widgets = {
+            'role' : forms.Select(attrs={'class' : 'form-control'}),
+        }
+
 class SearchUserForm(forms.Form):
     username = forms.CharField(label='Username',widget=forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Username'}))
 
