@@ -267,7 +267,8 @@ def reputation(request):
     user = Profile.objects.get( user_id = request.user.id)
     if not request.user.is_authenticated:
         return redirect('/login/')
-    return render(request, 'account/pages/profile/reputation.html',{'user':user})
+    users=User.objects.all()
+    return render(request, 'account/pages/profile/reputation.html',{'user':user,'users':users})
 
 # User Settings Routes
 def settings(request):
