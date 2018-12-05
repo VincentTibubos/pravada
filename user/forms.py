@@ -1,6 +1,6 @@
 from django import forms
 from datetime import date
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
 
 from .models import Role, Publication
@@ -9,7 +9,10 @@ from user.models import Category, Profile
 class LoginForm(forms.Form):
     username = forms.CharField(label='username',)
     password = forms.CharField(label='password', widget=forms.PasswordInput())
-
+class PasswordChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(label="Old Password",widget=forms.PasswordInput(attrs={'class' : 'form-control','placeholder':'Old Password'}))
+    new_password1 = forms.CharField(label="New Password",widget=forms.PasswordInput(attrs={'class' : 'form-control','placeholder':'New Password'}))
+    new_password2 = forms.CharField(label="Confirm Password",widget=forms.PasswordInput(attrs={'class' : 'form-control','placeholder':'Confirm Password'}))
 class RegisterForm(UserCreationForm):
     first_name=forms.CharField(max_length=30,)
     last_name=forms.CharField(max_length=30)

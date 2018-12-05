@@ -2,13 +2,13 @@ from django.shortcuts import render,redirect,get_object_or_404
 from pprint import pprint
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate
-from django.contrib.auth import login as auth_login
+from django.contrib.auth import login as auth_login, update_session_auth_hash
 from django.contrib.auth import logout as auth_logout
-from user.forms import LoginForm,RegisterForm
+from user.forms import LoginForm,RegisterForm,PasswordChangeForm
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from . import views
-
+from django.contrib import messages
 # Model import
 from post.models import Post
 from user.models import Profile, Publication, Role
@@ -292,7 +292,18 @@ def settings(request):
 def settings_account(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
-    return render(request, 'account/pages/settings/account.html',{'header':'Account'})
+    elif request.method=='POST':
+        if 'pass_change' in request.POST:
+            pass_form=PasswordChangeForm(request.user,request.POST)
+            if pass_form.is_valid():
+                pass_form.save()
+                messages.success(request, 'Password Successfully change.')
+                update_session_auth_hash(request, pass_form.user)
+        elif 'user_change' in request.POST:
+            form=PasswordChangeForm(request,request.POST)
+    else:
+        pass_form = PasswordChangeForm(request.user)
+    return render(request, 'account/pages/settings/account.html',{'header':'Account','pass_form':pass_form})
 def settings_notifications(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
