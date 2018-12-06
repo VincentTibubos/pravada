@@ -1,0 +1,52 @@
+{% load static %}
+
+<div>
+  <b-container class="jumbotron pb-3" >
+    <b-row>
+      <b-col cols="9">
+        <b-row>
+          <b-col class="d-flex align-items-start mt-3 "  cols="2">
+            <b-img class=" " src="https://picsum.photos/125/125/?image=58" rounded fluid alt="left image"/>
+          </b-col>
+          <b-col class="my-auto" cols="10">
+            <h1 class="display-3">{{user.username}}</h1>
+            <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+            <b-button-group class="shadow-sm bg-white rounded">
+              {% if is_user_follower %}
+              <b-button variant="light" href="/follow/{{user.username}}" class="text-left">
+                <small>Follow</small>
+              </b-button>
+              {% else %}
+              <b-button variant="danger" href="/follow/{{user.username}}" class="text-left">
+                <small>Unfollow</small>
+              </b-button>
+              {% endif %}
+              <b-button variant="light" href="/profile/subscriptions/" class="text-left">
+                <small>Block</small>
+              </b-button>
+            </b-button-group>
+          </b-col>
+        </b-row>
+      </b-col>
+      <b-col cols="3">
+        <b-card no-body>
+            <b-card-header class="d-flex justify-content-between">
+              <div>
+                <span class='fa fa-user'><span> User Profile
+              </div>
+              <div>
+                <b-button size="sm" variant="outline-primary" href="/profile/settings/">
+                  <i class="fas fa-user-edit"></i>
+                </b-button>
+              </div>
+            </b-card-header>
+            <b-card-body>
+              <p><span class="fa fa-birthday-cake"></span> August 23, 1998</p>
+              <p><span class="fa fa-map-marker-alt"></span> Floridablanca, Pampanga</p>
+              <p><span class="fa fa-user"></span> Developer</p>
+            </b-card-body>
+        </b-card>
+      </b-col>
+    </b-row>
+  </b-container>
+</div>

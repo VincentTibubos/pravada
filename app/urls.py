@@ -42,6 +42,8 @@ urlpatterns = [
     path('register/',views.register, name='register'),
 
     # Account Profile Views
+    path('follow/<str:username>/', views.follow, name='follow'),
+    path('account/<str:username>/', views.account, name='account'),
     path('profile/',views.profile, name='profile'),
     path('getuserdata',views.getuserdata, name='getuserdata'),
     path('profile/posts/',views.posts, name='posts'),

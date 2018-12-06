@@ -212,6 +212,21 @@ def register(request):
     return render(request, 'account/pages/register.html')
 
 # User Profile Routes
+def follow(request,username):
+    # pprint(Publication.objects.get(id=1).publications.all())# get all subscribers
+    # pprint(user.profile.follows.all())# get all subscribers
+    user=User.objects.get(username=username)
+    if request.user.profile.follows.filter(user=user).count()>0:
+        request.user.profile.follows.remove(user.profile)
+    else:
+        request.user.profile.follows.add(user.profile)
+    return redirect('/account/'+username)
+def account(request,username):
+    user = User.objects.get(username = username)
+    is_user_follower = not request.user.profile.follows.filter(user=user).count()>0
+    if username == request.user.username:
+        return redirect('/profile/')
+    return render(request, 'account/pages/account/index.html',{'user':user,'is_user_follower':is_user_follower})
 def delete_account(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
@@ -226,15 +241,14 @@ def profile(request):
     return render(request, 'account/pages/profile/index.html')
 
 def followers(request):
-    user = Profile.objects.get( user_id = request.user.id)
-    follow = Profile.objects.filter(user_followers=user.id)
+    follow = request.user.profile.user_followers.all()
     # print(profile)
     if not request.user.is_authenticated:
         return redirect('/login/')
     return render(request, 'account/pages/profile/followers.html',{'follow':follow})
 
 def following(request):
-    follow = request.user.profile.user_followers.all()
+    follow = request.user.profile.follows.all()
     if not request.user.is_authenticated:
         return redirect('/login/')
     return render(request, 'account/pages/profile/following.html',{'follow':follow})
@@ -267,7 +281,8 @@ def reputation(request):
     user = Profile.objects.get( user_id = request.user.id)
     if not request.user.is_authenticated:
         return redirect('/login/')
-    return render(request, 'account/pages/profile/reputation.html',{'user':user})
+    users=User.objects.all()
+    return render(request, 'account/pages/profile/reputation.html',{'user':user,'users':users})
 
 # User Settings Routes
 def settings(request):
