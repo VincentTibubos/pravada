@@ -9,6 +9,17 @@ from user.models import Category, Profile
 class LoginForm(forms.Form):
     username = forms.CharField(label='username',)
     password = forms.CharField(label='password', widget=forms.PasswordInput())
+class UsernameChangeForm(forms.ModelForm):
+    username = forms.CharField(label="Username",widget=forms.TextInput(attrs={'class' : 'form-control','placeholder':'Old Password'}))
+
+    class Meta:
+        model = User
+        fields = (
+            # 'username'
+        )
+        widgets = {
+            # 'username': forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Username'})
+        }
 class PasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(label="Old Password",widget=forms.PasswordInput(attrs={'class' : 'form-control','placeholder':'Old Password'}))
     new_password1 = forms.CharField(label="New Password",widget=forms.PasswordInput(attrs={'class' : 'form-control','placeholder':'New Password'}))

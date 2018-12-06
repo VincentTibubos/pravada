@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login, update_session_auth_hash
 from django.contrib.auth import logout as auth_logout
-from user.forms import LoginForm,RegisterForm,PasswordChangeForm
+from user.forms import LoginForm,RegisterForm,PasswordChangeForm,UsernameChangeForm
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from . import views
@@ -300,10 +300,15 @@ def settings_account(request):
                 messages.success(request, 'Password Successfully change.')
                 update_session_auth_hash(request, pass_form.user)
         elif 'user_change' in request.POST:
-            form=PasswordChangeForm(request,request.POST)
+            user_form=UsernameChangeForm(request,request.POST)
+            if user_form.is_valid():
+                user_form.save()
+                messages.success(request, 'Username Successfully change.')
+                update_session_auth_hash(request, user_form.user)
     else:
         pass_form = PasswordChangeForm(request.user)
-    return render(request, 'account/pages/settings/account.html',{'header':'Account','pass_form':pass_form})
+        user_form=UsernameChangeForm(request.user)
+    return render(request, 'account/pages/settings/account.html',{'header':'Account','pass_form':pass_form,'user_form':user_form})
 def settings_notifications(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
