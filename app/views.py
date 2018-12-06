@@ -242,7 +242,8 @@ def profile(request):
 
 def followers(request):
     follow = request.user.profile.user_followers.all()
-    # print(profile)
+    # print(profile)'password2']
+    email = request.POST['email']
     if not request.user.is_authenticated:
         return redirect('/login/')
     return render(request, 'account/pages/profile/followers.html',{'follow':follow})
