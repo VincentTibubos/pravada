@@ -54,25 +54,14 @@ new Vue({
         var fname=res.data.f_error;
         var pass=res.data.p_error;
         var cpass=res.data.cp_error;
-        this.user_state=user==null?true:false;
-        this.email_state=email==null?true:false;
-        this.l_state=lname==null?true:false;
-        this.f_state=fname==null?true:false;
-        this.cp_state=cpass==null?true:false;
-        this.p_state=pass==null?true:false;
+        this.user_state=user==''?true:false;
+        this.email_state=email==''?true:false;
+        this.l_state=lname==''?true:false;
+        this.f_state=fname==''?true:false;
+        this.cp_state=cpass==''?true:false;
+        this.p_state=pass==''?true:false;
         if(!pass&&!user&&!fname&&!lname&&!email&&!cpass){
-          if(error){
-            this.cp_msg=error;
-            this.user_msg='';
-            this.email_msg='';
-            this.l_msg="";
-            this.f_msg='';
-            this.p_msg='';
-          }
-          else{
-            console.log('registered ',res.data);
             window.location='/profile/';
-          }
         }
         else{
           this.cp_msg=cpass;

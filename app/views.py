@@ -163,47 +163,68 @@ def register(request):
     if request.user.is_authenticated:
         return redirect('/home/')
     elif request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password1']
-        cpassword = request.POST['password2']
-        email = request.POST['email']
-        first_name = request.POST['first_name']
-        last_name = request.POST['last_name']
-        u_error=None
-        e_error=None
-        l_error=None
-        f_error=None
-        p_error=None
-        cp_error=None
+        reg_form=RegisterForm(request.POST)
+        # print(reg_form.errors)
+        # l_error=reg_form['email'].errors.as_text
+        # print(reg_form['username'].errors.as_text)
+        # print(reg_form['password1'].errors.as_text)
+        # print(reg_form['password2'].errors.as_text)
+
+        u_error=reg_form['username'].errors.as_text()
+        e_error=reg_form['email'].errors.as_text()
+        l_error=reg_form['last_name'].errors.as_text()
+        f_error=reg_form['first_name'].errors.as_text()
+        p_error=reg_form['password1'].errors.as_text()
+        cp_error=reg_form['password2'].errors.as_text()
+
+        # l_error=reg_form['email'].errors.as_text
+        # username = request.POST['username']
+        # password = request.POST['password1']
+        # cpassword = request.POST['password2']
+        # email = request.POST['email']
+        # first_name = request.POST['first_name']
+        # last_name = request.POST['last_name']
+        # u_error=None
+        # e_error=None
+        # l_error=None
+        # f_error=None
+        # p_error=None
+        # cp_error=None
         error='Sorry! Username or Email already been used'
-        if len(username)<5:
-            u_error='Username must have atleast 5 characters'
-        elif User.objects.filter(username=username).exists():
-            u_error='Username already exist'
-        if len(email)==0:
-            e_error='Email required'
-        elif '@' in email:
-            if(email.find('@')>=(len(email)-1)):
-                e_error='Invalid email'
-            elif User.objects.filter(email=email).exists():
-                e_error='email already exist'
-        else:
-            e_error="'@' missing in email"
-        if len(last_name)==0:
-            l_error="Last name required"
-        if len(first_name)==0:
-            f_error="First name required"
-        if len(password)<8:
-            p_error="Password must be atleast 8 characters"
-        if len(cpassword)<8:
-            cp_error="Confirm Password must be atleast 8 characters"
-        elif cpassword != password:
-            cp_error="Password mismatch"
-        if u_error == None and e_error == None and f_error == None and l_error == None and p_error == None and cp_error == None:
-            user=User.objects.create_user(username,email,password)
-            user.first_name=first_name
-            user.last_name=last_name
+        # if len(username)<5:
+        #     u_error='Username must have atleast 5 characters'
+        # elif User.objects.filter(username=username).exists():
+        #     u_error='Username already exist'
+        # if len(email)==0:
+        #     e_error='Email required'
+        # elif '@' in email:
+        #     if(email.find('@')>=(len(email)-1)):
+        #         e_error='Invalid email'
+        #     elif User.objects.filter(email=email).exists():
+        #         e_error='email already exist'
+        # else:
+        #     e_error="'@' missing in email"
+        # if len(last_name)==0:
+        #     l_error="Last name required"
+        # if len(first_name)==0:
+        #     f_error="First name required"
+        # if len(password)<8:
+        #     p_error="Password must be atleast 8 characters"
+        # if len(cpassword)<8:
+        #     cp_error="Confirm Password must be atleast 8 characters"
+        # elif cpassword != password:
+        #     cp_error="Password mismatch"
+        # if u_error == None and e_error == None and f_error == None and l_error == None and p_error == None and cp_error == None:
+        if reg_form.is_valid():
+            user=reg_form.save()
+            username = reg_form.cleaned_data.get('username')
+            password = reg_form.cleaned_data.get('password1')
+            # user=User.objects.create_user(username,email,password)
+            # user.first_name=first_name
+            # user.last_name=last_name
             user.save()
+            p=Profile(user=user)
+            p.save()
             user = authenticate(username=username, password=password)
             if user is not None:
                 auth_login(request,user) #uncomment
@@ -299,16 +320,25 @@ def settings_account(request):
                 pass_form.save()
                 messages.success(request, 'Password Successfully change.')
                 update_session_auth_hash(request, pass_form.user)
+            # print(pass_form)
         elif 'user_change' in request.POST:
             user_form=UsernameChangeForm(request,request.POST)
-            if user_form.is_valid():
-                user_form.save()
-                messages.success(request, 'Username Successfully change.')
-                update_session_auth_hash(request, user_form.user)
+            # if user_form.is_valid():
+            #     user_form.save()
+            #     messages.success(request, 'Username Successfully change.')
+            #     update_session_auth_hash(request, user_form.user)
     else:
-        pass_form = PasswordChangeForm(request.user)
-        user_form=UsernameChangeForm(request.user)
-    return render(request, 'account/pages/settings/account.html',{'header':'Account','pass_form':pass_form,'user_form':user_form})
+        pass_form = PasswordChangeForm(request.user,initial={'old_password':'wew','new_password1' : '1234wew','new_password2' : '2wew'})
+        print(pass_form)
+
+
+        # Assign render_value to True
+        pass_form.fields['old_password'].widget.render_value = True
+        pass_form.fields['new_password1'].widget.render_value = True
+        pass_form.fields['new_password2'].widget.render_value = True
+        # pass_form['old_password'].value="we"
+        # user_form=UsernameChangeForm(request.user)
+    return render(request, 'account/pages/settings/account.html',{'header':'Account','pass_form':pass_form})
 def settings_notifications(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
