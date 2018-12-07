@@ -8,9 +8,9 @@
     </div>
     {% endfor %}
 {% endif %}
-{{user_form}}
         <b-card tag="article" header="Profile"class="mb-2">
 <!-- <form>{{pass_form}}</form> -->
+<!-- {{pass_form.old_password.errors.as_tex}} -->
             <b-row>
               <b-col cols="12">
                 <h2>Change Password</h2>
@@ -22,16 +22,14 @@
                   {% endfor %}
                 </div>
                 {% endif %}
-                <!-- for hidden in pass_form.hidden_fields
-                   hidden
-                endfor -->
+                {%for hidden in pass_form.hidden_fields%}
+                 {{hidden}}
+                {%endfor%}
                 {% for field in pass_form.visible_fields %}
                   {{ field.label_tag }}
                   {{ field }}
                   <div class="text-danger help-text mb-2">
-                    {% for err in field.errors %}
-                      {{ err }}
-                    {% endfor %}
+                    {{field.errors.as_text}}
                   </div>
                 {% endfor %}
                 <ul><li>Your password can't be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can't be a commonly used password.</li><li>Your password can't be entirely numeric.</li></ul>
