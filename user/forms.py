@@ -1,14 +1,14 @@
 from django import forms
 from datetime import date
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm, AuthenticationForm
 from django.contrib.auth.models import User
 
 from .models import Role, Publication
 from user.models import Category, Profile
 
-class LoginForm(forms.Form):
-    username = forms.CharField(label='username',)
-    password = forms.CharField(label='password', widget=forms.PasswordInput())
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(max_length=30)
+    password = forms.CharField(widget=forms.PasswordInput())
 class UsernameChangeForm(forms.ModelForm):
     username = forms.CharField(label="Username",widget=forms.TextInput(attrs={'class' : 'form-control','placeholder':'Old Password'}))
 
@@ -25,10 +25,9 @@ class PasswordChangeForm(PasswordChangeForm):
     new_password1 = forms.CharField(label="New Password",widget=forms.PasswordInput(attrs={'class' : 'form-control','placeholder':'New Password'}))
     new_password2 = forms.CharField(label="Confirm Password",widget=forms.PasswordInput(attrs={'class' : 'form-control','placeholder':'Confirm Password'}))
 class RegisterForm(UserCreationForm):
-    first_name=forms.CharField(max_length=30,)
+    first_name=forms.CharField(max_length=30)
     last_name=forms.CharField(max_length=30)
     email=forms.CharField(max_length=254)
-
     class Meta:
         model = User
         fields=('username','first_name','last_name','email','password1','password2')

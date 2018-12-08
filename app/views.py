@@ -136,39 +136,26 @@ def logout(request):
 def login(request):
     if request.user.is_authenticated:
         return redirect('/home/')
-    elif request.method == "GET":
-        return render(request, 'account/pages/login.html')
     elif request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-        p_error=None
-        u_error=None
+        log_form=LoginForm(data=request.POST)
+        u_error=log_form['username'].errors.as_text()
+        p_error=log_form['password'].errors.as_text()
         error="Sorry! Username and Password didn't match, Please try again ! "
-        if len(username) < 5:
-            u_error='Username must have atlest 5 characters'
-        if len(password) < 8:
-            p_error='Password must have atlest 8 characters'
-        if p_error==None and u_error==None:
-            form = LoginForm(request.POST)
-            if form.is_valid():
-                username = form.cleaned_data['username']
-                password = form.cleaned_data['password']
-                user = authenticate(username=username, password=password)
-                if user is not None:
-                    auth_login(request,user)
-                    error= None
+        if log_form.is_valid():
+            username = log_form.cleaned_data['username']
+            password = log_form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                auth_login(request,user)
+                error= ''
         return JsonResponse({'p_error':p_error,'u_error':u_error,'error':error})
+    return render(request, 'account/pages/login.html')
 
 def register(request):
     if request.user.is_authenticated:
         return redirect('/home/')
     elif request.method == 'POST':
         reg_form=RegisterForm(request.POST)
-        # print(reg_form.errors)
-        # l_error=reg_form['email'].errors.as_text
-        # print(reg_form['username'].errors.as_text)
-        # print(reg_form['password1'].errors.as_text)
-        # print(reg_form['password2'].errors.as_text)
 
         u_error=reg_form['username'].errors.as_text()
         e_error=reg_form['email'].errors.as_text()
@@ -177,51 +164,12 @@ def register(request):
         p_error=reg_form['password1'].errors.as_text()
         cp_error=reg_form['password2'].errors.as_text()
 
-        # l_error=reg_form['email'].errors.as_text
-        # username = request.POST['username']
-        # password = request.POST['password1']
-        # cpassword = request.POST['password2']
-        # email = request.POST['email']
-        # first_name = request.POST['first_name']
-        # last_name = request.POST['last_name']
-        # u_error=None
-        # e_error=None
-        # l_error=None
-        # f_error=None
-        # p_error=None
-        # cp_error=None
         error='Sorry! Username or Email already been used'
-        # if len(username)<5:
-        #     u_error='Username must have atleast 5 characters'
-        # elif User.objects.filter(username=username).exists():
-        #     u_error='Username already exist'
-        # if len(email)==0:
-        #     e_error='Email required'
-        # elif '@' in email:
-        #     if(email.find('@')>=(len(email)-1)):
-        #         e_error='Invalid email'
-        #     elif User.objects.filter(email=email).exists():
-        #         e_error='email already exist'
-        # else:
-        #     e_error="'@' missing in email"
-        # if len(last_name)==0:
-        #     l_error="Last name required"
-        # if len(first_name)==0:
-        #     f_error="First name required"
-        # if len(password)<8:
-        #     p_error="Password must be atleast 8 characters"
-        # if len(cpassword)<8:
-        #     cp_error="Confirm Password must be atleast 8 characters"
-        # elif cpassword != password:
-        #     cp_error="Password mismatch"
-        # if u_error == None and e_error == None and f_error == None and l_error == None and p_error == None and cp_error == None:
+
         if reg_form.is_valid():
             user=reg_form.save()
             username = reg_form.cleaned_data.get('username')
             password = reg_form.cleaned_data.get('password1')
-            # user=User.objects.create_user(username,email,password)
-            # user.first_name=first_name
-            # user.last_name=last_name
             user.save()
             p=Profile(user=user)
             p.save()

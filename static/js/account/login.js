@@ -33,16 +33,10 @@ new Vue({
         var pass=res.data.p_error;
         var user=res.data.u_error;
         var error=res.data.error;
-        this.user_state=user!=null?true:false
-        this.pass_state=pass!=null?true:false
+        this.user_state=user!=''?true:false
+        this.pass_state=pass!=''?true:false
         if(!pass&&!user){
-          if(error){
-            this.pass_msg=error;
-            this.user_msg='';
-          }
-          else{
-            window.location='/profile/';
-          }
+          window.location='/profile/';
         }
         console.log(data);
       })
