@@ -261,7 +261,11 @@ def settings(request):
 def settings_account(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
-    elif request.method=='POST':
+    else:
+        user_form=UsernameChangeForm(initial={'username':request.user.username,},instance=request.user)
+        pass_form=PasswordChangeForm(request.user)
+        user_form.fields['username'].widget.render_value = True
+    if request.method=='POST':
         if 'pass_change' in request.POST:
             pass_form=PasswordChangeForm(request.user,request.POST)
             if pass_form.is_valid():
@@ -270,23 +274,14 @@ def settings_account(request):
                 update_session_auth_hash(request, pass_form.user)
             # print(pass_form)
         elif 'user_change' in request.POST:
-            user_form=UsernameChangeForm(request,request.POST)
-            # if user_form.is_valid():
-            #     user_form.save()
-            #     messages.success(request, 'Username Successfully change.')
-            #     update_session_auth_hash(request, user_form.user)
-    else:
-        pass_form = PasswordChangeForm(request.user,initial={'old_password':'wew','new_password1' : '1234wew','new_password2' : '2wew'})
-        print(pass_form)
-
-
-        # Assign render_value to True
-        pass_form.fields['old_password'].widget.render_value = True
-        pass_form.fields['new_password1'].widget.render_value = True
-        pass_form.fields['new_password2'].widget.render_value = True
-        # pass_form['old_password'].value="we"
-        # user_form=UsernameChangeForm(request.user)
-    return render(request, 'account/pages/settings/account.html',{'header':'Account','pass_form':pass_form})
+            user_form=UsernameChangeForm(request.POST,instance=request.user)
+            if user_form.is_valid():
+                user=request.user
+                user.username=user_form.cleaned_data.get('username')
+                user.save()
+                messages.success(request, 'Username Successfully change.')
+                update_session_auth_hash(request, user)
+    return render(request, 'account/pages/settings/account.html',{'header':'Account','user_form':user_form,'pass_form':pass_form})
 def settings_notifications(request):
     if not request.user.is_authenticated:
         return redirect('/login/')

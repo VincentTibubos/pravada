@@ -40,17 +40,27 @@
 
               <b-col cols="12" class="mt-5">
                 <h2>Change Username</h2>
-                <div style="margin:0px 0px 0px 0px;">
-                  <div role="group">
-                    <label for="inputFirstName">Username:</label>
-                    <b-form-input id="inputFirstName" v-model.trim="firstName" type="text" :state="firstNameState" aria-describedby="inputLiveHelp inputLiveFeedback" placeholder="Enter your first name"></b-form-input>
-                    <b-form-invalid-feedback id="inputLiveFeedback">
-                      Enter at least 5 letters
-                    </b-form-invalid-feedback>
+                <form method="POST">
+                  {% if user_form.non_field_errors %}
+                  <div class="invalid-feedback">
+                    {% for err in user_form.non_field_errors %}
+                      {{ err }}
+                    {% endfor %}
                   </div>
-                  <b-button class="mt-4" variant="secondary" size="lg">Change Username
-                  </b-button>
-                </div>
+                  {% endif %}
+                  {%for hidden in user_form.hidden_fields%}
+                   {{hidden}}
+                  {%endfor%}
+                  {% for field in user_form.visible_fields %}
+                    {{ field.label_tag }}
+                    {{ field }}
+                    <div class="text-danger help-text mb-2">
+                      {{field.errors.as_text}}
+                    </div>
+                  {% endfor %}
+                  {%csrf_token%}
+                  <b-button type="submit" name="user_change" variant="secondary" size="lg">Change Password</b-button>
+                </form>
               </b-col>
               <b-col cols="12" class="mt-5">
                 <h2 class="text-danger">Delete Account</h2>

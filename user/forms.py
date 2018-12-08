@@ -10,16 +10,17 @@ class LoginForm(AuthenticationForm):
     username = forms.CharField(max_length=30)
     password = forms.CharField(widget=forms.PasswordInput())
 class UsernameChangeForm(forms.ModelForm):
-    username = forms.CharField(label="Username",widget=forms.TextInput(attrs={'class' : 'form-control','placeholder':'Old Password'}))
-
+    username = forms.CharField(label="Username",widget=forms.TextInput(attrs={'class' : 'form-control','placeholder':'Username'}))
     class Meta:
         model = User
-        fields = (
-            # 'username'
-        )
-        widgets = {
-            # 'username': forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Username'})
-        }
+        fields = ('username',)
+        def clean_username(self):
+            username=self.cleaned_data.get('username')
+            if username == self.instance.username:
+                raise forms.ValidationError(self.error_messages["Username needs a different value"],code='username need to be change',)
+            elif User.objects.filter(username=username).count()>0:
+                raise forms.ValidationError(self.error_messages['A user with that username already exists'],code='username exists',)
+            return username
 class PasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(label="Old Password",widget=forms.PasswordInput(attrs={'class' : 'form-control','placeholder':'Old Password'}))
     new_password1 = forms.CharField(label="New Password",widget=forms.PasswordInput(attrs={'class' : 'form-control','placeholder':'New Password'}))
