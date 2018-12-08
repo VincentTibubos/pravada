@@ -140,14 +140,13 @@ def login(request):
         log_form=LoginForm(data=request.POST)
         u_error=log_form['username'].errors.as_text()
         p_error=log_form['password'].errors.as_text()
-        error="Sorry! Username and Password didn't match, Please try again ! "
+        error=log_form.non_field_errors().as_text()
         if log_form.is_valid():
             username = log_form.cleaned_data['username']
             password = log_form.cleaned_data['password']
             user = authenticate(username=username, password=password)
             if user is not None:
                 auth_login(request,user)
-                error= ''
         return JsonResponse({'p_error':p_error,'u_error':u_error,'error':error})
     return render(request, 'account/pages/login.html')
 

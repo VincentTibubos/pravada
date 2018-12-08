@@ -30,13 +30,19 @@ new Vue({
         }
       })
       .then(( res)=>{
-        var pass=res.data.p_error;
-        var user=res.data.u_error;
+        this.pass_msg=res.data.p_error;
+        this.user_msg=res.data.u_error;
         var error=res.data.error;
-        this.user_state=user!=''?true:false
-        this.pass_state=pass!=''?true:false
-        if(!pass&&!user){
-          window.location='/profile/';
+        this.user_state=this.user_msg==''?true:false
+        this.pass_state=this.pass_msg==''?true:false
+        if(!this.pass_msg&&!this.user_msg){
+          if(error!=''){
+            this.pass_state=this.user_state=false;
+            this.pass_msg=error;
+          }
+          else{
+            window.location='/profile/';
+          }
         }
         console.log(data);
       })
